@@ -94,47 +94,47 @@ recorder_is_recording (ScreenServer *ss)
 
 static void avi_format_call_back (ScreenServer *ss, int i)
 {
-	ss->priv->mux = gst_element_factory_make (video_formats[i].type, "muxer");
-	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
+    ss->priv->mux = gst_element_factory_make (video_formats[i].type, "muxer");
+    gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
 }
 static void vp8enc_format_call_back (ScreenServer *ss,int i)
 {
-	ss->priv->videnc = gst_element_factory_make ("vp8enc", "video_encoder");
-	g_object_set (ss->priv->videnc, "cpu-used", 2, NULL);
-	g_object_set (ss->priv->videnc, "end-usage", 0, NULL);
-	g_object_set (ss->priv->videnc, "target-bitrate", 800000000, NULL);
-	g_object_set (ss->priv->videnc, "static-threshold", 1000, NULL);
-	g_object_set (ss->priv->videnc, "token-partitions", 2, NULL);
-	g_object_set (ss->priv->videnc, "max-quantizer", 30, NULL);
-	g_object_set (ss->priv->videnc, "threads", ss->priv->cpu_count -1, NULL);
-	ss->priv->mux = gst_element_factory_make ("webmmux", "muxer");
-	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
-	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
+    ss->priv->videnc = gst_element_factory_make ("vp8enc", "video_encoder");
+    g_object_set (ss->priv->videnc, "cpu-used", 2, NULL);
+    g_object_set (ss->priv->videnc, "end-usage", 0, NULL);
+    g_object_set (ss->priv->videnc, "target-bitrate", 800000000, NULL);
+    g_object_set (ss->priv->videnc, "static-threshold", 1000, NULL);
+    g_object_set (ss->priv->videnc, "token-partitions", 2, NULL);
+    g_object_set (ss->priv->videnc, "max-quantizer", 30, NULL);
+    g_object_set (ss->priv->videnc, "threads", ss->priv->cpu_count -1, NULL);
+    ss->priv->mux = gst_element_factory_make ("webmmux", "muxer");
+    gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
+    gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
 }
 static void get_full_screen_info (ScreenServer *ss)
 {
-	GdkDisplay  *display;
-	GdkMonitor  *monitor;
-	int          num;
-	GdkRectangle rect;
+    GdkDisplay  *display;
+    GdkMonitor  *monitor;
+    int          num;
+    GdkRectangle rect;
 
-	ss->priv->win_hash = g_hash_table_new (NULL, NULL);
-	ss->priv->cpu_count = get_nprocs_conf ();
-	
-	display = gdk_display_get_default ();
+    ss->priv->win_hash = g_hash_table_new (NULL, NULL);
+    ss->priv->cpu_count = get_nprocs_conf ();
+
+    display = gdk_display_get_default ();
     num = gdk_display_get_n_monitors (display);
-	monitor = gdk_display_get_monitor (display, num-1);
+    monitor = gdk_display_get_monitor (display, num-1);
     
-	gdk_monitor_get_geometry (monitor, &rect);
-	g_hash_table_insert (ss->priv->win_hash, "x", GINT_TO_POINTER(rect.x));
-	g_hash_table_insert (ss->priv->win_hash, "y", GINT_TO_POINTER(rect.y));
-	g_hash_table_insert (ss->priv->win_hash, "width", GINT_TO_POINTER(rect.width));
-	g_hash_table_insert (ss->priv->win_hash, "height", GINT_TO_POINTER(rect.height));
+    gdk_monitor_get_geometry (monitor, &rect);
+    g_hash_table_insert (ss->priv->win_hash, "x", GINT_TO_POINTER(rect.x));
+    g_hash_table_insert (ss->priv->win_hash, "y", GINT_TO_POINTER(rect.y));
+    g_hash_table_insert (ss->priv->win_hash, "width", GINT_TO_POINTER(rect.width));
+    g_hash_table_insert (ss->priv->win_hash, "height", GINT_TO_POINTER(rect.height));
 
 }
 static void cb_message (GstBus *bus, GstMessage *msg, gpointer data)
 {
-	ScreenServer *ss = SCREEN_SERVER (data);
+    ScreenServer *ss = SCREEN_SERVER (data);
 
   switch (GST_MESSAGE_TYPE (msg))
   {
@@ -173,27 +173,27 @@ static void cb_message (GstBus *bus, GstMessage *msg, gpointer data)
 
 static void screen_server_init (ScreenServer *ss)
 {
-	GstBus *bus;
-	ss->priv = screen_server_get_instance_private (ss);    
-	
-	get_full_screen_info (ss);
+    GstBus *bus;
+    ss->priv = screen_server_get_instance_private (ss);    
+
+    get_full_screen_info (ss);
 
     ss->priv->state = RECORDER_STATE_CLOSED;
-	ss->priv->pipeline = gst_pipeline_new ("screen-pipeline");
-	ss->priv->videosrc = gst_element_factory_make("ximagesrc", "video_src");
-	ss->priv->filter = gst_element_factory_make("capsfilter", "vid_filter");
-	ss->priv->videoconvert = gst_element_factory_make("videoconvert", "videoconvert");
+    ss->priv->pipeline = gst_pipeline_new ("screen-pipeline");
+    ss->priv->videosrc = gst_element_factory_make("ximagesrc", "video_src");
+    ss->priv->filter = gst_element_factory_make("capsfilter", "vid_filter");
+    ss->priv->videoconvert = gst_element_factory_make("videoconvert", "videoconvert");
     ss->priv->videorate =    gst_element_factory_make("videorate", "video_rate");
-	ss->priv->in_queue = gst_element_factory_make("queue", "queue_v1");
+    ss->priv->in_queue = gst_element_factory_make("queue", "queue_v1");
     ss->priv->out_queue = gst_element_factory_make("queue", "queue_v2");
-	ss->priv->sink = gst_element_factory_make("filesink", "sink");
+    ss->priv->sink = gst_element_factory_make("filesink", "sink");
     ss->priv->file_queue = gst_element_factory_make("queue", "queue_file");
-	gst_bin_add_many (GST_BIN (ss->priv->pipeline),
-			          ss->priv->videosrc,
-					  ss->priv->filter,
+    gst_bin_add_many (GST_BIN (ss->priv->pipeline),
+                      ss->priv->videosrc,
+                      ss->priv->filter,
                       ss->priv->videoconvert,
-					  ss->priv->videorate,
-					  ss->priv->in_queue,
+                      ss->priv->videorate,
+                      ss->priv->in_queue,
                       ss->priv->out_queue,
                       ss->priv->sink,
                       ss->priv->file_queue,
@@ -206,12 +206,12 @@ static void screen_server_init (ScreenServer *ss)
 }
 static void screen_server_finalize (GObject *object)
 {
-	ScreenServer *ss;
+    ScreenServer *ss;
 
-	ss = SCREEN_SERVER (object);
+    ss = SCREEN_SERVER (object);
     g_hash_table_destroy (ss->priv->win_hash);
-	if (ss->priv->file_name != NULL)
-		g_free (ss->priv->file_name);
+    if (ss->priv->file_name != NULL)
+        g_free (ss->priv->file_name);
     if (ss->priv->pipeline != NULL)
     {
         gst_object_unref(ss->priv->pipeline); 
@@ -265,15 +265,15 @@ static void screen_server_class_init (ScreenServerClass *klass)
                                       "daemon-version");
 }
 ScreenServer *screen_server_new(void)
-{   
+{
     ScreenServer *ss = NULL;
-    
+
     ss = g_object_new (SCREEN_TYPE_SERVER, NULL);
-    
+
     return ss;
 }
 gboolean register_screen_server (ScreenServer *ss, GError **error)
-{   
+{
     ss->priv->connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, error);
     if (ss->priv->connection == NULL)
     {
@@ -290,58 +290,63 @@ gboolean register_screen_server (ScreenServer *ss, GError **error)
 
     return TRUE;
 }
-static void setup_video_sources (ScreenServer *ss, int startx, int starty, int endx, int endy, int framerate, const char *video_format)
+static void setup_video_sources (ScreenServer *ss,
+                                 int           startx,
+                                 int           starty,
+                                 int           endx,
+                                 int           endy,
+                                 int           framerate,
+                                 const char   *video_format)
 {
-	g_autofree char *text = NULL;
-	GstCaps    *video_caps;
-	int i = 0;
-	
-	g_object_set (ss->priv->videosrc, "startx", startx, NULL);
+    g_autofree char *text = NULL;
+    GstCaps    *video_caps;
+    int i = 0;
+
+    g_object_set (ss->priv->videosrc, "startx", startx, NULL);
     g_object_set (ss->priv->videosrc, "starty", starty, NULL);
     g_object_set (ss->priv->videosrc, "endx", endx, NULL);
     g_object_set (ss->priv->videosrc, "endy", endy, NULL);
     g_object_set (ss->priv->videosrc, "use-damage", FALSE, NULL);
 
-	text = g_strdup_printf ("video/x-raw, framerate=%d/1", framerate);
-	video_caps = gst_caps_from_string (text);
-	g_object_set (ss->priv->filter, "caps", video_caps, NULL);
+    text = g_strdup_printf ("video/x-raw, framerate=%d/1", framerate);
+    video_caps = gst_caps_from_string (text);
+    g_object_set (ss->priv->filter, "caps", video_caps, NULL);
 
     if (gst_bin_get_by_name (GST_BIN (ss->priv->pipeline), "video_encoder") != NULL)
-    {   
+    {
         gst_bin_remove (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
-    }    
+    }
     if (gst_bin_get_by_name (GST_BIN (ss->priv->pipeline), "muxer") != NULL)
-    {   
+    {
         gst_bin_remove (GST_BIN (ss->priv->pipeline), ss->priv->mux);
-    }    
-	while (i < 5)
-	{
-		if (g_strcmp0 (video_format, video_formats[i].format) == 0)
-		{
-			g_print ("video_format = %s\r\n",video_format);
-			video_formats[i].func (ss, i);
-		}
-		i++;
-	}
-	if (i == 5)
-	{
-		video_formats[0].func;
-	}
+    }
+    while (i < 5)
+    {
+        if (g_strcmp0 (video_format, video_formats[i].format) == 0)
+        {
+            video_formats[i].func (ss, i);
+        }
+        i++;
+    }
+    if (i == 5)
+    {
+        video_formats[0].func;
+    }
 }
 
 static void setup_links (ScreenServer *ss, gboolean is_raw)
 {
-	gst_element_link (ss->priv->videosrc, ss->priv->in_queue);
-	gst_element_link (ss->priv->in_queue, ss->priv->videorate);
+    gst_element_link (ss->priv->videosrc, ss->priv->in_queue);
+    gst_element_link (ss->priv->in_queue, ss->priv->videorate);
     gst_element_link (ss->priv->videorate, ss->priv->filter);
     gst_element_link (ss->priv->filter, ss->priv->videoconvert);
-	if (is_raw)
-		gst_element_link (ss->priv->videoconvert, ss->priv->out_queue);
-	else
-	{
-		gst_element_link (ss->priv->videoconvert, ss->priv->videnc);
-		gst_element_link (ss->priv->videnc,ss->priv-> out_queue);
-	}
+    if (is_raw)
+        gst_element_link (ss->priv->videoconvert, ss->priv->out_queue);
+    else
+    {
+        gst_element_link (ss->priv->videoconvert, ss->priv->videnc);
+        gst_element_link (ss->priv->videnc,ss->priv-> out_queue);
+    }
     gst_element_link (ss->priv->out_queue, ss->priv->mux);
     gst_element_link (ss->priv->mux, ss->priv->file_queue);
     gst_element_link (ss->priv->file_queue, ss->priv->sink);
@@ -349,90 +354,88 @@ static void setup_links (ScreenServer *ss, gboolean is_raw)
 
 static gboolean screencast_area (Screen      *object,
                                  GDBusMth    *invocation,
-								 GVariant    *area,
-								 const gchar *file_name,
-								 gint         framerate,
-								 gboolean     draw_cursor,
-								 const gchar *video_format)
+                                 GVariant    *area,
+                                 const gchar *file_name,
+                                 gint         framerate,
+                                 gboolean     draw_cursor,
+                                 const gchar *video_format)
 {
-	int startx = 0, starty = 0, endx = 0, endy = 0;
-	gboolean is_raw = FALSE;
+    int startx = 0, starty = 0, endx = 0, endy = 0;
+    gboolean is_raw = FALSE;
 
-	ScreenServer *ss = SCREEN_SERVER (object);
-    
+    ScreenServer *ss = SCREEN_SERVER (object);
+
     g_return_val_if_fail (ss->priv->state != RECORDER_STATE_RECORDING, FALSE); 
     ss->priv->state = RECORDER_STATE_RECORDING;
-	ss->priv->file_name = g_strdup (file_name);
-	
-    g_variant_lookup (area, "x", "n", &startx);
-	g_variant_lookup (area, "y", "n", &starty);
-	g_variant_lookup (area, "width", "n", &endx);
-	g_variant_lookup (area, "height", "n", &endy);
-    
-    g_print ("x= %d y = %d width = %d height = %d\r\n",startx,starty,endx,endy);    
-	if (g_strcmp0 (video_format, "RAW (AVI)") == 0)
-		is_raw = TRUE;
+    ss->priv->file_name = g_strdup (file_name);
 
-	setup_video_sources (ss, startx, starty, endx, endy, framerate, video_format);
+    g_variant_lookup (area, "x", "n", &startx);
+    g_variant_lookup (area, "y", "n", &starty);
+    g_variant_lookup (area, "width", "n", &endx);
+    g_variant_lookup (area, "height", "n", &endy);
+
+    if (g_strcmp0 (video_format, "RAW (AVI)") == 0)
+        is_raw = TRUE;
+
+    setup_video_sources (ss, startx, starty, endx, endy, framerate, video_format);
     g_object_set (ss->priv->videosrc, "show-pointer", draw_cursor, NULL);
     g_object_set (ss->priv->sink, "location", file_name, NULL);
-	//setup_audio_sources ();	
-	setup_links (ss, is_raw);
-	gst_element_set_state (ss->priv->pipeline, GST_STATE_PLAYING);
-	screen_complete_screencast_area (object,invocation,TRUE);
-    
+    setup_links (ss, is_raw);
+    gst_element_set_state (ss->priv->pipeline, GST_STATE_PLAYING);
+    screen_complete_screencast_area (object,invocation,TRUE);
+
     return TRUE;
 }
 
 static gboolean screencast_xid  (Screen      *object,
                                  GDBusMth    *invocation,
                                  guint        xid,
-								 const gchar *file_name,
-								 gint         framerate,
-								 gboolean     draw_cursor,
-								 const gchar *video_format)
+                                 const gchar *file_name,
+                                 gint         framerate,
+                                 gboolean     draw_cursor,
+                                 const gchar *video_format)
 {
 
 }
 static gboolean screencast_full (Screen      *object,
-		                         GDBusMth    *invocation,
-								 const gchar *file_name,
-								 gint         framerate,
-								 gboolean     draw_cursor,
-								 const gchar *video_format)
+                                 GDBusMth    *invocation,
+                                 const gchar *file_name,
+                                 gint         framerate,
+                                 gboolean     draw_cursor,
+                                 const gchar *video_format)
 {
-	int startx, starty, width, height, endx, endy;
-	gboolean is_raw = FALSE;
-	ScreenServer *ss = SCREEN_SERVER (object);
-    
+    int startx, starty, width, height, endx, endy;
+    gboolean is_raw = FALSE;
+    ScreenServer *ss = SCREEN_SERVER (object);
+
     g_return_val_if_fail (ss->priv->state != RECORDER_STATE_RECORDING, FALSE); 
     ss->priv->state = RECORDER_STATE_RECORDING;
-	ss->priv->file_name = g_strdup (file_name);
+    ss->priv->file_name = g_strdup (file_name);
 
-	startx = GPOINTER_TO_INT(g_hash_table_lookup (ss->priv->win_hash, "x"));
-	starty = GPOINTER_TO_INT(g_hash_table_lookup (ss->priv->win_hash, "y"));
-	width = GPOINTER_TO_INT(g_hash_table_lookup (ss->priv->win_hash, "width"));
-	height = GPOINTER_TO_INT(g_hash_table_lookup (ss->priv->win_hash, "height"));
+    startx = GPOINTER_TO_INT(g_hash_table_lookup (ss->priv->win_hash, "x"));
+    starty = GPOINTER_TO_INT(g_hash_table_lookup (ss->priv->win_hash, "y"));
+    width = GPOINTER_TO_INT(g_hash_table_lookup (ss->priv->win_hash, "width"));
+    height = GPOINTER_TO_INT(g_hash_table_lookup (ss->priv->win_hash, "height"));
     endx = startx + width - 1;
     endy = starty + height - 1;
 
-	setup_video_sources (ss, startx, starty, endx, endy, framerate,video_format);
+    setup_video_sources (ss, startx, starty, endx, endy, framerate,video_format);
     g_object_set (ss->priv->videosrc, "show-pointer", draw_cursor, NULL);
     g_object_set (ss->priv->sink, "location", file_name, NULL);
-	if (g_strcmp0 (video_format, "RAW (AVI)") == 0)
-		is_raw = TRUE;
-	setup_links (ss, is_raw);
-	gst_element_set_state (ss->priv->pipeline, GST_STATE_PLAYING);
-	screen_complete_screencast_full (object,invocation,TRUE);
-    
+    if (g_strcmp0 (video_format, "RAW (AVI)") == 0)
+        is_raw = TRUE;
+    setup_links (ss, is_raw);
+    gst_element_set_state (ss->priv->pipeline, GST_STATE_PLAYING);
+    screen_complete_screencast_full (object,invocation,TRUE);
+
     return TRUE;
 }
 static gboolean screencast_pause (Screen   *object,
-		                          GDBusMth *invocation)
+                                  GDBusMth *invocation)
 {
-	ScreenServer *ss = SCREEN_SERVER (object);
+    ScreenServer *ss = SCREEN_SERVER (object);
     g_return_val_if_fail (ss->priv->state != RECORDER_STATE_CLOSED, FALSE);
-	
+
     gst_element_set_state (ss->priv->pipeline, GST_STATE_PAUSED);
     ss->priv->state = RECORDER_STATE_PAUSE;
     screen_complete_screencast_pause (object, invocation, TRUE); 
@@ -440,11 +443,11 @@ static gboolean screencast_pause (Screen   *object,
 
 }
 static gboolean screencast_unpause (Screen   *object,
-		                            GDBusMth *invocation)
+                                    GDBusMth *invocation)
 {
-	ScreenServer *ss = SCREEN_SERVER (object);
+    ScreenServer *ss = SCREEN_SERVER (object);
     g_return_val_if_fail (ss->priv->state == RECORDER_STATE_PAUSE, FALSE);
-	
+
     ss->priv->state = RECORDER_STATE_RECORDING;
     gst_element_set_state (ss->priv->pipeline, GST_STATE_PLAYING);
     screen_complete_screencast_unpause (object, invocation, TRUE); 
@@ -452,14 +455,14 @@ static gboolean screencast_unpause (Screen   *object,
 
 }
 static gboolean screencast_stop (Screen   *object,
-		                         GDBusMth *invocation)
+                                 GDBusMth *invocation)
 {
-	ScreenServer *ss = SCREEN_SERVER (object);
+    ScreenServer *ss = SCREEN_SERVER (object);
     g_return_val_if_fail (ss->priv->state != RECORDER_STATE_CLOSED, FALSE);
-    
+
     ss->priv->state = RECORDER_STATE_CLOSED;
     gst_element_send_event(ss->priv->pipeline, gst_event_new_eos());
-    
+
     screen_complete_screencast_stop (object, invocation, TRUE); 
     return TRUE;
 }

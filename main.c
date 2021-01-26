@@ -33,29 +33,29 @@
 #define LUNAR_CALENDAR_LOCALEDIR "/usr/share/locale"
 
 static gboolean signal_quit (gpointer data)
-{   
-	exit (0);
+{
+    exit (0);
     return FALSE;
 }
 
 static void acquired_call_back (GDBusConnection *Connection,
                                 const gchar     *name,
                                 gpointer         data)
-{   
+{
     ScreenServer *ss;
     GError       *error = NULL;
-    
+
     ss = screen_server_new();
     if (ss == NULL)
     {
         g_warning ("Failed to initialize video source");
-		exit (0);
-	}
+        exit (0);
+    }
     
     if(register_screen_server (ss, &error) < 0)
     {
         g_warning ("register video source interface failed %s", error->message);
-		exit (0);
+        exit (0);
     }
 }
 
@@ -64,7 +64,7 @@ static void name_lost_call_back (GDBusConnection *connection,
                                  gpointer         data)
 {
     g_warning("dbus name lost call back !!!!");
-	exit (0);
+    exit (0);
 }
 
 int
@@ -74,9 +74,9 @@ main (int argc, char **argv)
 
     bindtextdomain (GETTEXT_PACKAGE,LUNAR_CALENDAR_LOCALEDIR);
     textdomain (GETTEXT_PACKAGE);
-	gtk_init (&argc, &argv);
-	gst_init (&argc, &argv);
-	id = g_bus_own_name (G_BUS_TYPE_SESSION,
+    gtk_init (&argc, &argv);
+    gst_init (&argc, &argv);
+    id = g_bus_own_name (G_BUS_TYPE_SESSION,
                          NAME_TO_CLAIM,
                          G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT,
                          acquired_call_back,
@@ -89,7 +89,7 @@ main (int argc, char **argv)
     g_unix_signal_add (SIGINT,  signal_quit, NULL);
     g_unix_signal_add (SIGTERM, signal_quit, NULL);
 
-	gtk_main ();
+    gtk_main ();
 
     return 0;
 }

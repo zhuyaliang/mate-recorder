@@ -22,6 +22,8 @@
 
 #include <gtk/gtk.h>
 
+#include "screen-server.h"
+
 #define SCREEN_TYPE_WINDOW         (screen_window_get_type ())
 #define SCREEN_WINDOW(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), SCREEN_TYPE_WINDOW, ScreenWindow))
 #define SCREEN_WINDOW_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), SCREEN_TYPE_WINDOW, ScreenWindowClass))
@@ -49,7 +51,7 @@ typedef enum
 }MsgType;
 GType         screen_window_get_type         (void) G_GNUC_CONST;
 
-GtkWidget    *screen_window_new              (void);
+GtkWidget    *screen_window_new              (ScreenServer *ss);
 
 void          destroy_screen_window          (ScreenWindow *screenwin);
 

@@ -47,6 +47,7 @@ struct _ScreenWindowPrivate
 {
     GDBusProxy   *proxy;
     AppIndicator *indicator;
+    ScreenServer *ss;
     NotifyNotification *notify;
 
     GtkWidget  *style;
@@ -389,7 +390,6 @@ start_screencast_done (GObject      *source_object,
 {
     g_autoptr(GError) error = NULL;
     GVariant    *result;
-    ScreenWindow *screenwin = SCREEN_WINDOW (data);
 
     result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
 
@@ -777,7 +777,7 @@ screen_window_init (ScreenWindow *screenwin)
 }
 
 GtkWidget *
-screen_window_new (void)
+screen_window_new (ScreenServer *ss)
 {
     ScreenWindow *screenwin;
 
@@ -789,6 +789,7 @@ screen_window_new (void)
     {
         return NULL;
     }
+    screenwin->priv->ss = ss;
     return GTK_WIDGET (screenwin);
 }
 

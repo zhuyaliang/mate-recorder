@@ -29,8 +29,6 @@
 #include "screen-stop.h"
 #include "screen-save.h"
 #include "screen-count.h"
-#include "screen-count.h"
-#include "screen-server.h"
 #include "config.h"
 
 #define  GDBUD_ERROR _("Error connecting gnome gdbus screencast interface. Please check whether Gnome shell is installed and running")
@@ -135,7 +133,7 @@ static void acquired_call_back (GDBusConnection *Connection,
         g_warning ("register video source interface failed %s", error->message);
         exit (0);
     }
-    window = screen_window_new ();
+    window = screen_window_new (ss);
     if (window == NULL)
     {
        screen_message_dialog (_("Init GDbus"), GDBUD_ERROR, ERROR);

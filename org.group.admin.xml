@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+    <interface name="org.admin.screen">
+   
+    <method name="ScreencastFull">
+      <arg name="file_name" direction="in" type="s">
+       <doc:doc><doc:summary>Save the name of the file on the screen</doc:summary></doc:doc>
+      </arg>
+      <arg name="framerate" direction="in" type="i">
+      </arg>
+      <arg name="draw_cursor" direction="in" type="b">
+      </arg>
+      <arg name="video_format" direction="in" type="s">
+      </arg>
+       <arg name="success" direction="out" type="b">
+      </arg>
+    </method>
+
+    <method name="ScreencastArea">
+      <arg name="area" direction="in" type="a{sn}">
+      </arg>
+      <arg name="file_name" direction="in" type="s">
+       <doc:doc><doc:summary>Save the name of the file on the screen</doc:summary></doc:doc>
+      </arg>
+      <arg name="framerate" direction="in" type="i">
+      </arg>
+      <arg name="draw_cursor" direction="in" type="b">
+      </arg>
+      <arg name="video_format" direction="in" type="s">
+      </arg>
+       <arg name="success" direction="out" type="b">
+      </arg>
+    </method>
+
+    <method name="ScreencastXid">
+      <arg name="xid" direction="in" type="u">
+      </arg>
+      <arg name="file_name" direction="in" type="s">
+       <doc:doc><doc:summary>Save the name of the file on the screen</doc:summary></doc:doc>
+      </arg>
+      <arg name="framerate" direction="in" type="i">
+      </arg>
+      <arg name="draw_cursor" direction="in" type="b">
+      </arg>
+      <arg name="video_format" direction="in" type="s">
+      </arg>
+       <arg name="success" direction="out" type="b">
+      </arg>
+    </method>
+    <method name="ScreencastPause">
+       <arg name="success" direction="out" type="b">
+      </arg>
+    </method>
+           
+    <method name="ScreencastUnpause">
+       <arg name="success" direction="out" type="b">
+      </arg>
+    </method>
+    
+    <method name="ScreencastStop">
+       <arg name="success" direction="out" type="b">
+      </arg>
+    </method>
+
+    <property name="DaemonVersion" type="s" access="read">
+    </property>
+
+  </interface>
+</node>

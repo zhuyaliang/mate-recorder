@@ -1,0 +1,318 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
+CC	Makefile	/^CC = gcc  $/;"	m
+CFLAGS	Makefile	/^CFLAGS = `pkg-config --cflags --libs gtk+-3.0 gstreamer-1.0 check`$/;"	m
+ChangedProperty	tt.c	/^} ChangedProperty;$/;"	t	typeref:struct:__anon7c9e9f3e0608	file:
+DaemonVersion	org.group.admin.xml	/^    <property name="DaemonVersion" type="s" access="read">$/;"	p	interface:org.admin.screen
+EXEC	Makefile	/^EXEC = style$/;"	m
+GDBusMth	screen-server.c	/^typedef GDBusMethodInvocation GDBusMth;$/;"	t	typeref:typename:GDBusMethodInvocation	file:
+GETTEXT_PACKAGE	main.c	/^#define GETTEXT_PACKAGE /;"	d	file:
+G_DEFINE_INTERFACE	tt.c	/^G_DEFINE_INTERFACE (Screen, screen, G_TYPE_OBJECT)$/;"	f	file:
+G_DEFINE_TYPE_WITH_CODE	tt.c	/^G_DEFINE_TYPE_WITH_CODE (ScreenProxy, screen_proxy, G_TYPE_DBUS_PROXY,$/;"	f	file:
+G_DEFINE_TYPE_WITH_CODE	tt.c	/^G_DEFINE_TYPE_WITH_CODE (ScreenSkeleton, screen_skeleton, G_TYPE_DBUS_INTERFACE_SKELETON,$/;"	f	file:
+IS_SCREEN	tt.h	/^#define IS_SCREEN(/;"	d
+IS_SCREEN_PROXY	tt.h	/^#define IS_SCREEN_PROXY(/;"	d
+IS_SCREEN_PROXY_CLASS	tt.h	/^#define IS_SCREEN_PROXY_CLASS(/;"	d
+IS_SCREEN_SKELETON	tt.h	/^#define IS_SCREEN_SKELETON(/;"	d
+IS_SCREEN_SKELETON_CLASS	tt.h	/^#define IS_SCREEN_SKELETON_CLASS(/;"	d
+LUNAR_CALENDAR_LOCALEDIR	main.c	/^#define LUNAR_CALENDAR_LOCALEDIR /;"	d	file:
+MAINC	Makefile	/^MAINC = main.c screen-server.c tt.c$/;"	m
+NAME_TO_CLAIM	main.c	/^#define NAME_TO_CLAIM /;"	d	file:
+PROP_0	screen-server.c	/^    PROP_0,$/;"	e	enum:__anoneb2ee1fa0103	file:
+PROP_MANAGE_VERSION	screen-server.c	/^    PROP_MANAGE_VERSION$/;"	e	enum:__anoneb2ee1fa0103	file:
+SCREEN	tt.h	/^#define SCREEN(/;"	d
+SCREEN_GET_IFACE	tt.h	/^#define SCREEN_GET_IFACE(/;"	d
+SCREEN_IS_SERVER	screen-server.h	/^#define SCREEN_IS_SERVER(/;"	d
+SCREEN_IS_SERVER_CLASS	screen-server.h	/^#define SCREEN_IS_SERVER_CLASS(/;"	d
+SCREEN_PROXY	tt.h	/^#define SCREEN_PROXY(/;"	d
+SCREEN_PROXY_CLASS	tt.h	/^#define SCREEN_PROXY_CLASS(/;"	d
+SCREEN_PROXY_GET_CLASS	tt.h	/^#define SCREEN_PROXY_GET_CLASS(/;"	d
+SCREEN_SERVER	screen-server.h	/^#define SCREEN_SERVER(/;"	d
+SCREEN_SERVER_CLASS	screen-server.h	/^#define SCREEN_SERVER_CLASS(/;"	d
+SCREEN_SERVER_GET_CLASS	screen-server.h	/^#define SCREEN_SERVER_GET_CLASS(/;"	d
+SCREEN_SKELETON	tt.h	/^#define SCREEN_SKELETON(/;"	d
+SCREEN_SKELETON_CLASS	tt.h	/^#define SCREEN_SKELETON_CLASS(/;"	d
+SCREEN_SKELETON_GET_CLASS	tt.h	/^#define SCREEN_SKELETON_GET_CLASS(/;"	d
+SCREEN_TYPE_SERVER	screen-server.h	/^#define SCREEN_TYPE_SERVER /;"	d
+Screen	tt.h	/^typedef struct _Screen Screen;$/;"	t	typeref:struct:_Screen
+ScreenIface	tt.h	/^typedef struct _ScreenIface ScreenIface;$/;"	t	typeref:struct:_ScreenIface
+ScreenInterface	tt.c	/^typedef ScreenIface ScreenInterface;$/;"	t	typeref:typename:ScreenIface	file:
+ScreenProxy	tt.h	/^typedef struct _ScreenProxy ScreenProxy;$/;"	t	typeref:struct:_ScreenProxy
+ScreenProxyClass	tt.h	/^typedef struct _ScreenProxyClass ScreenProxyClass;$/;"	t	typeref:struct:_ScreenProxyClass
+ScreenProxyPrivate	tt.h	/^typedef struct _ScreenProxyPrivate ScreenProxyPrivate;$/;"	t	typeref:struct:_ScreenProxyPrivate
+ScreenServer	screen-server.h	/^typedef struct _ScreenServer        ScreenServer;$/;"	t	typeref:struct:_ScreenServer
+ScreenServerClass	screen-server.h	/^typedef struct _ScreenServerClass   ScreenServerClass;$/;"	t	typeref:struct:_ScreenServerClass
+ScreenServerPrivate	screen-server.h	/^typedef struct _ScreenServerPrivate ScreenServerPrivate;$/;"	t	typeref:struct:_ScreenServerPrivate
+ScreenSkeleton	tt.h	/^typedef struct _ScreenSkeleton ScreenSkeleton;$/;"	t	typeref:struct:_ScreenSkeleton
+ScreenSkeletonClass	tt.h	/^typedef struct _ScreenSkeletonClass ScreenSkeletonClass;$/;"	t	typeref:struct:_ScreenSkeletonClass
+ScreenSkeletonPrivate	tt.h	/^typedef struct _ScreenSkeletonPrivate ScreenSkeletonPrivate;$/;"	t	typeref:struct:_ScreenSkeletonPrivate
+ScreencastArea	org.group.admin.xml	/^    <method name="ScreencastArea">$/;"	m	interface:org.admin.screen
+ScreencastFull	org.group.admin.xml	/^    <method name="ScreencastFull">$/;"	m	interface:org.admin.screen
+ScreencastPause	org.group.admin.xml	/^    <method name="ScreencastPause">$/;"	m	interface:org.admin.screen
+ScreencastStop	org.group.admin.xml	/^    <method name="ScreencastStop">$/;"	m	interface:org.admin.screen
+ScreencastTest	org.group.admin.xml	/^    <method name="ScreencastTest">$/;"	m	interface:org.admin.screen
+ScreencastUnpause	org.group.admin.xml	/^    <method name="ScreencastUnpause">$/;"	m	interface:org.admin.screen
+ScreencastXid	org.group.admin.xml	/^    <method name="ScreencastXid">$/;"	m	interface:org.admin.screen
+TYPE_SCREEN	tt.h	/^#define TYPE_SCREEN /;"	d
+TYPE_SCREEN_PROXY	tt.h	/^#define TYPE_SCREEN_PROXY /;"	d
+TYPE_SCREEN_SKELETON	tt.h	/^#define TYPE_SCREEN_SKELETON /;"	d
+VERSION	screen-server.c	/^#define VERSION /;"	d	file:
+_ExtendedGDBusArgInfo	tt.c	/^} _ExtendedGDBusArgInfo;$/;"	t	typeref:struct:__anon7c9e9f3e0108	file:
+_ExtendedGDBusInterfaceInfo	tt.c	/^} _ExtendedGDBusInterfaceInfo;$/;"	t	typeref:struct:__anon7c9e9f3e0508	file:
+_ExtendedGDBusMethodInfo	tt.c	/^} _ExtendedGDBusMethodInfo;$/;"	t	typeref:struct:__anon7c9e9f3e0208	file:
+_ExtendedGDBusPropertyInfo	tt.c	/^} _ExtendedGDBusPropertyInfo;$/;"	t	typeref:struct:__anon7c9e9f3e0408	file:
+_ExtendedGDBusSignalInfo	tt.c	/^} _ExtendedGDBusSignalInfo;$/;"	t	typeref:struct:__anon7c9e9f3e0308	file:
+_ScreenIface	tt.h	/^struct _ScreenIface$/;"	s
+_ScreenProxy	tt.h	/^struct _ScreenProxy$/;"	s
+_ScreenProxyClass	tt.h	/^struct _ScreenProxyClass$/;"	s
+_ScreenProxyPrivate	tt.c	/^struct _ScreenProxyPrivate$/;"	s	file:
+_ScreenServer	screen-server.h	/^struct _ScreenServer {$/;"	s
+_ScreenServerClass	screen-server.h	/^struct _ScreenServerClass {$/;"	s
+_ScreenServerPrivate	screen-server.c	/^struct _ScreenServerPrivate$/;"	s	file:
+_ScreenSkeleton	tt.h	/^struct _ScreenSkeleton$/;"	s
+_ScreenSkeletonClass	tt.h	/^struct _ScreenSkeletonClass$/;"	s
+_ScreenSkeletonPrivate	tt.c	/^struct _ScreenSkeletonPrivate$/;"	s	file:
+__SCREEN_SERVER__	screen-server.h	/^#define __SCREEN_SERVER__$/;"	d
+__TT_H__	tt.h	/^#define __TT_H__$/;"	d
+__anon7c9e9f3e0108	tt.c	/^{$/;"	s	file:
+__anon7c9e9f3e0208	tt.c	/^{$/;"	s	file:
+__anon7c9e9f3e0308	tt.c	/^{$/;"	s	file:
+__anon7c9e9f3e0408	tt.c	/^{$/;"	s	file:
+__anon7c9e9f3e0508	tt.c	/^{$/;"	s	file:
+__anon7c9e9f3e0608	tt.c	/^{$/;"	s	file:
+__anoneb2ee1fa0103	screen-server.c	/^{$/;"	g	file:
+_changed_property_free	tt.c	/^_changed_property_free (ChangedProperty *data)$/;"	f	typeref:typename:void	file:
+_g_strv_equal0	tt.c	/^_g_strv_equal0 (gchar **a, gchar **b)$/;"	f	typeref:typename:gboolean	file:
+_g_value_equal	tt.c	/^_g_value_equal (const GValue *a, const GValue *b)$/;"	f	typeref:typename:G_GNUC_UNUSED gboolean	file:
+_g_variant_equal0	tt.c	/^_g_variant_equal0 (GVariant *a, GVariant *b)$/;"	f	typeref:typename:gboolean	file:
+_screen_emit_changed	tt.c	/^_screen_emit_changed (gpointer user_data)$/;"	f	typeref:typename:gboolean	file:
+_screen_interface_info	tt.c	/^static const _ExtendedGDBusInterfaceInfo _screen_interface_info =$/;"	v	typeref:typename:const _ExtendedGDBusInterfaceInfo	file:
+_screen_method_info_pointers	tt.c	/^static const GDBusMethodInfo * const _screen_method_info_pointers[] =$/;"	v	typeref:typename:const GDBusMethodInfo * const[]	file:
+_screen_method_info_screencast_area	tt.c	/^static const _ExtendedGDBusMethodInfo _screen_method_info_screencast_area =$/;"	v	typeref:typename:const _ExtendedGDBusMethodInfo	file:
+_screen_method_info_screencast_area_IN_ARG_area	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_area_IN_ARG_area =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_area_IN_ARG_draw_cursor	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_area_IN_ARG_draw_cursor =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_area_IN_ARG_file_name	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_area_IN_ARG_file_name =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_area_IN_ARG_framerate	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_area_IN_ARG_framerate =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_area_IN_ARG_pointers	tt.c	/^static const GDBusArgInfo * const _screen_method_info_screencast_area_IN_ARG_pointers[] =$/;"	v	typeref:typename:const GDBusArgInfo * const[]	file:
+_screen_method_info_screencast_area_IN_ARG_video_format	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_area_IN_ARG_video_format =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_area_OUT_ARG_pointers	tt.c	/^static const GDBusArgInfo * const _screen_method_info_screencast_area_OUT_ARG_pointers[] =$/;"	v	typeref:typename:const GDBusArgInfo * const[]	file:
+_screen_method_info_screencast_area_OUT_ARG_success	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_area_OUT_ARG_success =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_full	tt.c	/^static const _ExtendedGDBusMethodInfo _screen_method_info_screencast_full =$/;"	v	typeref:typename:const _ExtendedGDBusMethodInfo	file:
+_screen_method_info_screencast_full_IN_ARG_draw_cursor	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_full_IN_ARG_draw_cursor =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_full_IN_ARG_file_name	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_full_IN_ARG_file_name =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_full_IN_ARG_framerate	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_full_IN_ARG_framerate =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_full_IN_ARG_pointers	tt.c	/^static const GDBusArgInfo * const _screen_method_info_screencast_full_IN_ARG_pointers[] =$/;"	v	typeref:typename:const GDBusArgInfo * const[]	file:
+_screen_method_info_screencast_full_IN_ARG_video_format	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_full_IN_ARG_video_format =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_full_OUT_ARG_pointers	tt.c	/^static const GDBusArgInfo * const _screen_method_info_screencast_full_OUT_ARG_pointers[] =$/;"	v	typeref:typename:const GDBusArgInfo * const[]	file:
+_screen_method_info_screencast_full_OUT_ARG_success	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_full_OUT_ARG_success =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_pause	tt.c	/^static const _ExtendedGDBusMethodInfo _screen_method_info_screencast_pause =$/;"	v	typeref:typename:const _ExtendedGDBusMethodInfo	file:
+_screen_method_info_screencast_pause_OUT_ARG_pointers	tt.c	/^static const GDBusArgInfo * const _screen_method_info_screencast_pause_OUT_ARG_pointers[] =$/;"	v	typeref:typename:const GDBusArgInfo * const[]	file:
+_screen_method_info_screencast_pause_OUT_ARG_success	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_pause_OUT_ARG_success =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_stop	tt.c	/^static const _ExtendedGDBusMethodInfo _screen_method_info_screencast_stop =$/;"	v	typeref:typename:const _ExtendedGDBusMethodInfo	file:
+_screen_method_info_screencast_stop_OUT_ARG_pointers	tt.c	/^static const GDBusArgInfo * const _screen_method_info_screencast_stop_OUT_ARG_pointers[] =$/;"	v	typeref:typename:const GDBusArgInfo * const[]	file:
+_screen_method_info_screencast_stop_OUT_ARG_success	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_stop_OUT_ARG_success =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_test	tt.c	/^static const _ExtendedGDBusMethodInfo _screen_method_info_screencast_test =$/;"	v	typeref:typename:const _ExtendedGDBusMethodInfo	file:
+_screen_method_info_screencast_test_OUT_ARG_pointers	tt.c	/^static const GDBusArgInfo * const _screen_method_info_screencast_test_OUT_ARG_pointers[] =$/;"	v	typeref:typename:const GDBusArgInfo * const[]	file:
+_screen_method_info_screencast_test_OUT_ARG_success	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_test_OUT_ARG_success =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_unpause	tt.c	/^static const _ExtendedGDBusMethodInfo _screen_method_info_screencast_unpause =$/;"	v	typeref:typename:const _ExtendedGDBusMethodInfo	file:
+_screen_method_info_screencast_unpause_OUT_ARG_pointers	tt.c	/^static const GDBusArgInfo * const _screen_method_info_screencast_unpause_OUT_ARG_pointers[] =$/;"	v	typeref:typename:const GDBusArgInfo * const[]	file:
+_screen_method_info_screencast_unpause_OUT_ARG_success	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_unpause_OUT_ARG_success =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_xid	tt.c	/^static const _ExtendedGDBusMethodInfo _screen_method_info_screencast_xid =$/;"	v	typeref:typename:const _ExtendedGDBusMethodInfo	file:
+_screen_method_info_screencast_xid_IN_ARG_draw_cursor	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_xid_IN_ARG_draw_cursor =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_xid_IN_ARG_file_name	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_xid_IN_ARG_file_name =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_xid_IN_ARG_framerate	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_xid_IN_ARG_framerate =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_xid_IN_ARG_pointers	tt.c	/^static const GDBusArgInfo * const _screen_method_info_screencast_xid_IN_ARG_pointers[] =$/;"	v	typeref:typename:const GDBusArgInfo * const[]	file:
+_screen_method_info_screencast_xid_IN_ARG_video_format	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_xid_IN_ARG_video_format =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_xid_IN_ARG_xid	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_xid_IN_ARG_xid =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_method_info_screencast_xid_OUT_ARG_pointers	tt.c	/^static const GDBusArgInfo * const _screen_method_info_screencast_xid_OUT_ARG_pointers[] =$/;"	v	typeref:typename:const GDBusArgInfo * const[]	file:
+_screen_method_info_screencast_xid_OUT_ARG_success	tt.c	/^static const _ExtendedGDBusArgInfo _screen_method_info_screencast_xid_OUT_ARG_success =$/;"	v	typeref:typename:const _ExtendedGDBusArgInfo	file:
+_screen_property_info_daemon_version	tt.c	/^static const _ExtendedGDBusPropertyInfo _screen_property_info_daemon_version =$/;"	v	typeref:typename:const _ExtendedGDBusPropertyInfo	file:
+_screen_property_info_pointers	tt.c	/^static const GDBusPropertyInfo * const _screen_property_info_pointers[] =$/;"	v	typeref:typename:const GDBusPropertyInfo * const[]	file:
+_screen_schedule_emit_changed	tt.c	/^_screen_schedule_emit_changed (ScreenSkeleton *skeleton, const _ExtendedGDBusPropertyInfo *info,/;"	f	typeref:typename:void	file:
+_screen_skeleton_handle_get_property	tt.c	/^_screen_skeleton_handle_get_property ($/;"	f	typeref:typename:GVariant *	file:
+_screen_skeleton_handle_method_call	tt.c	/^_screen_skeleton_handle_method_call ($/;"	f	typeref:typename:void	file:
+_screen_skeleton_handle_set_property	tt.c	/^_screen_skeleton_handle_set_property ($/;"	f	typeref:typename:gboolean	file:
+_screen_skeleton_vtable	tt.c	/^static const GDBusInterfaceVTable _screen_skeleton_vtable =$/;"	v	typeref:typename:const GDBusInterfaceVTable	file:
+acquired_call_back	main.c	/^static void acquired_call_back (GDBusConnection *Connection,$/;"	f	typeref:typename:void	file:
+area	org.group.admin.xml	/^      <arg name="area" direction="in" type="a{sn}">$/;"	a	method:org.admin.screen.ScreencastArea
+avi_format_call_back	screen-server.c	/^static void avi_format_call_back (ScreenServer *ss, int i)$/;"	f	typeref:typename:void	file:
+call_back	screen-server.c	/^typedef void (call_back) (ScreenServer *, int );$/;"	t	typeref:typename:void ()(ScreenServer *,int)	file:
+cb_message	screen-server.c	/^static void cb_message (GstBus *bus, GstMessage *msg, gpointer data)$/;"	f	typeref:typename:void	file:
+changed_properties	tt.c	/^  GList *changed_properties;$/;"	m	struct:_ScreenSkeletonPrivate	typeref:typename:GList *	file:
+changed_properties_idle_source	tt.c	/^  GSource *changed_properties_idle_source;$/;"	m	struct:_ScreenSkeletonPrivate	typeref:typename:GSource *	file:
+clean	Makefile	/^clean:$/;"	t
+connection	screen-server.c	/^    GDBusConnection *connection;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GDBusConnection *	file:
+context	tt.c	/^  GMainContext *context;$/;"	m	struct:_ScreenSkeletonPrivate	typeref:typename:GMainContext *	file:
+cpu_count	screen-server.c	/^	guint            cpu_count;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:guint	file:
+draw_cursor	org.group.admin.xml	/^      <arg name="draw_cursor" direction="in" type="b">$/;"	a	method:org.admin.screen.ScreencastArea
+draw_cursor	org.group.admin.xml	/^      <arg name="draw_cursor" direction="in" type="b">$/;"	a	method:org.admin.screen.ScreencastFull
+draw_cursor	org.group.admin.xml	/^      <arg name="draw_cursor" direction="in" type="b">$/;"	a	method:org.admin.screen.ScreencastXid
+emits_changed_signal	tt.c	/^  guint emits_changed_signal : 1;$/;"	m	struct:__anon7c9e9f3e0408	typeref:typename:guint:1	file:
+file_name	org.group.admin.xml	/^      <arg name="file_name" direction="in" type="s">$/;"	a	method:org.admin.screen.ScreencastArea
+file_name	org.group.admin.xml	/^      <arg name="file_name" direction="in" type="s">$/;"	a	method:org.admin.screen.ScreencastFull
+file_name	org.group.admin.xml	/^      <arg name="file_name" direction="in" type="s">$/;"	a	method:org.admin.screen.ScreencastXid
+file_name	screen-server.c	/^	gchar           *file_name;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:gchar *	file:
+file_queue	screen-server.c	/^	GstElement      *file_queue;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+filter	screen-server.c	/^	GstElement      *filter;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+format	screen-server.c	/^	char      *format;$/;"	m	struct:video_format	typeref:typename:char *	file:
+framerate	org.group.admin.xml	/^      <arg name="framerate" direction="in" type="i">$/;"	a	method:org.admin.screen.ScreencastArea
+framerate	org.group.admin.xml	/^      <arg name="framerate" direction="in" type="i">$/;"	a	method:org.admin.screen.ScreencastFull
+framerate	org.group.admin.xml	/^      <arg name="framerate" direction="in" type="i">$/;"	a	method:org.admin.screen.ScreencastXid
+func	screen-server.c	/^	call_back *func;$/;"	m	struct:video_format	typeref:typename:call_back *	file:
+get_audio_source_info	screen-server.c	/^static void get_audio_source_info (ScreenServer *ss)$/;"	f	typeref:typename:void	file:
+get_daemon_version	tt.h	/^  const gchar * (*get_daemon_version) (Screen *object);$/;"	m	struct:_ScreenIface	typeref:typename:const gchar * (*)(Screen * object)
+get_full_screen_info	screen-server.c	/^static void get_full_screen_info (ScreenServer *ss)$/;"	f	typeref:typename:void	file:
+get_property	screen-server.c	/^static void get_property (GObject    *object,$/;"	f	typeref:typename:void	file:
+handle_screencast_area	tt.h	/^  gboolean (*handle_screencast_area) ($/;"	m	struct:_ScreenIface	typeref:typename:gboolean (*)(Screen * object,GDBusMethodInvocation * invocation,GVariant * arg_area,const gchar * arg_file_name,gint arg_framerate,gboolean arg_draw_cursor,const gchar * arg_video_format)
+handle_screencast_full	tt.h	/^  gboolean (*handle_screencast_full) ($/;"	m	struct:_ScreenIface	typeref:typename:gboolean (*)(Screen * object,GDBusMethodInvocation * invocation,const gchar * arg_file_name,gint arg_framerate,gboolean arg_draw_cursor,const gchar * arg_video_format)
+handle_screencast_pause	tt.h	/^  gboolean (*handle_screencast_pause) ($/;"	m	struct:_ScreenIface	typeref:typename:gboolean (*)(Screen * object,GDBusMethodInvocation * invocation)
+handle_screencast_stop	tt.h	/^  gboolean (*handle_screencast_stop) ($/;"	m	struct:_ScreenIface	typeref:typename:gboolean (*)(Screen * object,GDBusMethodInvocation * invocation)
+handle_screencast_test	tt.h	/^  gboolean (*handle_screencast_test) ($/;"	m	struct:_ScreenIface	typeref:typename:gboolean (*)(Screen * object,GDBusMethodInvocation * invocation)
+handle_screencast_unpause	tt.h	/^  gboolean (*handle_screencast_unpause) ($/;"	m	struct:_ScreenIface	typeref:typename:gboolean (*)(Screen * object,GDBusMethodInvocation * invocation)
+handle_screencast_xid	tt.h	/^  gboolean (*handle_screencast_xid) ($/;"	m	struct:_ScreenIface	typeref:typename:gboolean (*)(Screen * object,GDBusMethodInvocation * invocation,guint arg_xid,const gchar * arg_file_name,gint arg_framerate,gboolean arg_draw_cursor,const gchar * arg_video_format)
+huffyuv_format_call_back	screen-server.c	/^static void huffyuv_format_call_back (ScreenServer *ss, int i)$/;"	f	typeref:typename:void	file:
+hyphen_name	tt.c	/^  const gchar *hyphen_name;$/;"	m	struct:__anon7c9e9f3e0408	typeref:typename:const gchar *	file:
+hyphen_name	tt.c	/^  const gchar *hyphen_name;$/;"	m	struct:__anon7c9e9f3e0508	typeref:typename:const gchar *	file:
+id	screen-server.c	/^	int        id;$/;"	m	struct:video_format	typeref:typename:int	file:
+in_queue	screen-server.c	/^	GstElement      *in_queue;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+info	tt.c	/^  const _ExtendedGDBusPropertyInfo *info;$/;"	m	struct:__anon7c9e9f3e0608	typeref:typename:const _ExtendedGDBusPropertyInfo *	file:
+ljpeg_format_call_back	screen-server.c	/^static void ljpeg_format_call_back (ScreenServer *ss, int i)$/;"	f	typeref:typename:void	file:
+lock	tt.c	/^  GMutex lock;$/;"	m	struct:_ScreenSkeletonPrivate	typeref:typename:GMutex	file:
+main	Makefile	/^main: $/;"	t
+main	main.c	/^main (int argc, char **argv)$/;"	f	typeref:typename:int
+mux	screen-server.c	/^	GstElement      *mux;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+name_lost_call_back	main.c	/^static void name_lost_call_back (GDBusConnection *connection,$/;"	f	typeref:typename:void	file:
+org.admin.screen	org.group.admin.xml	/^    <interface name="org.admin.screen">$/;"	i
+orig_value	tt.c	/^  GValue orig_value; \/* the value before the change *\/$/;"	m	struct:__anon7c9e9f3e0608	typeref:typename:GValue	file:
+out_queue	screen-server.c	/^	GstElement      *out_queue;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+parent_class	screen-server.h	/^    ScreenSkeletonClass parent_class;$/;"	m	struct:_ScreenServerClass	typeref:typename:ScreenSkeletonClass
+parent_class	tt.h	/^  GDBusInterfaceSkeletonClass parent_class;$/;"	m	struct:_ScreenSkeletonClass	typeref:typename:GDBusInterfaceSkeletonClass
+parent_class	tt.h	/^  GDBusProxyClass parent_class;$/;"	m	struct:_ScreenProxyClass	typeref:typename:GDBusProxyClass
+parent_iface	tt.h	/^  GTypeInterface parent_iface;$/;"	m	struct:_ScreenIface	typeref:typename:GTypeInterface
+parent_instance	screen-server.h	/^    ScreenSkeleton      parent_instance;$/;"	m	struct:_ScreenServer	typeref:typename:ScreenSkeleton
+parent_instance	tt.h	/^  GDBusInterfaceSkeleton parent_instance;$/;"	m	struct:_ScreenSkeleton	typeref:typename:GDBusInterfaceSkeleton
+parent_instance	tt.h	/^  GDBusProxy parent_instance;$/;"	m	struct:_ScreenProxy	typeref:typename:GDBusProxy
+parent_struct	tt.c	/^  GDBusArgInfo parent_struct;$/;"	m	struct:__anon7c9e9f3e0108	typeref:typename:GDBusArgInfo	file:
+parent_struct	tt.c	/^  GDBusInterfaceInfo parent_struct;$/;"	m	struct:__anon7c9e9f3e0508	typeref:typename:GDBusInterfaceInfo	file:
+parent_struct	tt.c	/^  GDBusMethodInfo parent_struct;$/;"	m	struct:__anon7c9e9f3e0208	typeref:typename:GDBusMethodInfo	file:
+parent_struct	tt.c	/^  GDBusPropertyInfo parent_struct;$/;"	m	struct:__anon7c9e9f3e0408	typeref:typename:GDBusPropertyInfo	file:
+parent_struct	tt.c	/^  GDBusSignalInfo parent_struct;$/;"	m	struct:__anon7c9e9f3e0308	typeref:typename:GDBusSignalInfo	file:
+pass_fdlist	tt.c	/^  gboolean pass_fdlist;$/;"	m	struct:__anon7c9e9f3e0208	typeref:typename:gboolean	file:
+pipeline	screen-server.c	/^	GstElement      *pipeline;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+priv	screen-server.h	/^    ScreenServerPrivate  *priv;$/;"	m	struct:_ScreenServer	typeref:typename:ScreenServerPrivate *
+priv	tt.h	/^  ScreenProxyPrivate *priv;$/;"	m	struct:_ScreenProxy	typeref:typename:ScreenProxyPrivate *
+priv	tt.h	/^  ScreenSkeletonPrivate *priv;$/;"	m	struct:_ScreenSkeleton	typeref:typename:ScreenSkeletonPrivate *
+prop_id	tt.c	/^  guint prop_id;$/;"	m	struct:__anon7c9e9f3e0608	typeref:typename:guint	file:
+properties	tt.c	/^  GValue *properties;$/;"	m	struct:_ScreenSkeletonPrivate	typeref:typename:GValue *	file:
+qdata	tt.c	/^  GData *qdata;$/;"	m	struct:_ScreenProxyPrivate	typeref:typename:GData *	file:
+register_screen_server	screen-server.c	/^gboolean register_screen_server (ScreenServer *ss, GError **error)$/;"	f	typeref:typename:gboolean
+screen_call_screencast_area	tt.c	/^screen_call_screencast_area ($/;"	f	typeref:typename:void
+screen_call_screencast_area_finish	tt.c	/^screen_call_screencast_area_finish ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_area_sync	tt.c	/^screen_call_screencast_area_sync ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_full	tt.c	/^screen_call_screencast_full ($/;"	f	typeref:typename:void
+screen_call_screencast_full_finish	tt.c	/^screen_call_screencast_full_finish ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_full_sync	tt.c	/^screen_call_screencast_full_sync ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_pause	tt.c	/^screen_call_screencast_pause ($/;"	f	typeref:typename:void
+screen_call_screencast_pause_finish	tt.c	/^screen_call_screencast_pause_finish ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_pause_sync	tt.c	/^screen_call_screencast_pause_sync ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_stop	tt.c	/^screen_call_screencast_stop ($/;"	f	typeref:typename:void
+screen_call_screencast_stop_finish	tt.c	/^screen_call_screencast_stop_finish ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_stop_sync	tt.c	/^screen_call_screencast_stop_sync ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_test	tt.c	/^screen_call_screencast_test ($/;"	f	typeref:typename:void
+screen_call_screencast_test_finish	tt.c	/^screen_call_screencast_test_finish ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_test_sync	tt.c	/^screen_call_screencast_test_sync ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_unpause	tt.c	/^screen_call_screencast_unpause ($/;"	f	typeref:typename:void
+screen_call_screencast_unpause_finish	tt.c	/^screen_call_screencast_unpause_finish ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_unpause_sync	tt.c	/^screen_call_screencast_unpause_sync ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_xid	tt.c	/^screen_call_screencast_xid ($/;"	f	typeref:typename:void
+screen_call_screencast_xid_finish	tt.c	/^screen_call_screencast_xid_finish ($/;"	f	typeref:typename:gboolean
+screen_call_screencast_xid_sync	tt.c	/^screen_call_screencast_xid_sync ($/;"	f	typeref:typename:gboolean
+screen_complete_screencast_area	tt.c	/^screen_complete_screencast_area ($/;"	f	typeref:typename:void
+screen_complete_screencast_full	tt.c	/^screen_complete_screencast_full ($/;"	f	typeref:typename:void
+screen_complete_screencast_pause	tt.c	/^screen_complete_screencast_pause ($/;"	f	typeref:typename:void
+screen_complete_screencast_stop	tt.c	/^screen_complete_screencast_stop ($/;"	f	typeref:typename:void
+screen_complete_screencast_test	tt.c	/^screen_complete_screencast_test ($/;"	f	typeref:typename:void
+screen_complete_screencast_unpause	tt.c	/^screen_complete_screencast_unpause ($/;"	f	typeref:typename:void
+screen_complete_screencast_xid	tt.c	/^screen_complete_screencast_xid ($/;"	f	typeref:typename:void
+screen_dup_daemon_version	tt.c	/^screen_dup_daemon_version (Screen *object)$/;"	f	typeref:typename:gchar *
+screen_get_daemon_version	tt.c	/^screen_get_daemon_version (Screen *object)$/;"	f	typeref:typename:const gchar *
+screen_interface_info	tt.c	/^screen_interface_info (void)$/;"	f	typeref:typename:GDBusInterfaceInfo *
+screen_override_properties	tt.c	/^screen_override_properties (GObjectClass *klass, guint property_id_begin)$/;"	f	typeref:typename:guint
+screen_proxy_class_init	tt.c	/^screen_proxy_class_init (ScreenProxyClass *klass)$/;"	f	typeref:typename:void	file:
+screen_proxy_g_properties_changed	tt.c	/^screen_proxy_g_properties_changed (GDBusProxy *_proxy,$/;"	f	typeref:typename:void	file:
+screen_proxy_g_signal	tt.c	/^screen_proxy_g_signal (GDBusProxy *proxy,$/;"	f	typeref:typename:void	file:
+screen_proxy_get_daemon_version	tt.c	/^screen_proxy_get_daemon_version (Screen *object)$/;"	f	typeref:typename:const gchar *	file:
+screen_proxy_get_property	tt.c	/^screen_proxy_get_property (GObject      *object,$/;"	f	typeref:typename:void	file:
+screen_proxy_iface_init	tt.c	/^screen_proxy_iface_init (ScreenIface *iface)$/;"	f	typeref:typename:void	file:
+screen_proxy_init	tt.c	/^screen_proxy_init (ScreenProxy *proxy)$/;"	f	typeref:typename:void	file:
+screen_proxy_new	tt.c	/^screen_proxy_new ($/;"	f	typeref:typename:void
+screen_proxy_new_finish	tt.c	/^screen_proxy_new_finish ($/;"	f	typeref:typename:Screen *
+screen_proxy_new_for_bus	tt.c	/^screen_proxy_new_for_bus ($/;"	f	typeref:typename:void
+screen_proxy_new_for_bus_finish	tt.c	/^screen_proxy_new_for_bus_finish ($/;"	f	typeref:typename:Screen *
+screen_proxy_new_for_bus_sync	tt.c	/^screen_proxy_new_for_bus_sync ($/;"	f	typeref:typename:Screen *
+screen_proxy_new_sync	tt.c	/^screen_proxy_new_sync ($/;"	f	typeref:typename:Screen *
+screen_proxy_set_property	tt.c	/^screen_proxy_set_property (GObject      *object,$/;"	f	typeref:typename:void	file:
+screen_proxy_set_property_cb	tt.c	/^screen_proxy_set_property_cb (GDBusProxy *proxy,$/;"	f	typeref:typename:void	file:
+screen_server_class_init	screen-server.c	/^static void screen_server_class_init (ScreenServerClass *klass)$/;"	f	typeref:typename:void	file:
+screen_server_finalize	screen-server.c	/^static void screen_server_finalize (GObject *object)$/;"	f	typeref:typename:void	file:
+screen_server_init	screen-server.c	/^static void screen_server_init (ScreenServer *ss)$/;"	f	typeref:typename:void	file:
+screen_server_new	screen-server.c	/^ScreenServer *screen_server_new(void)$/;"	f	typeref:typename:ScreenServer *
+screen_server_screen_iface_init	screen-server.c	/^static void screen_server_screen_iface_init (ScreenIface *iface)$/;"	f	typeref:typename:void	file:
+screen_set_daemon_version	tt.c	/^screen_set_daemon_version (Screen *object, const gchar *value)$/;"	f	typeref:typename:void
+screen_skeleton_class_init	tt.c	/^screen_skeleton_class_init (ScreenSkeletonClass *klass)$/;"	f	typeref:typename:void	file:
+screen_skeleton_dbus_interface_flush	tt.c	/^screen_skeleton_dbus_interface_flush (GDBusInterfaceSkeleton *_skeleton)$/;"	f	typeref:typename:void	file:
+screen_skeleton_dbus_interface_get_info	tt.c	/^screen_skeleton_dbus_interface_get_info (GDBusInterfaceSkeleton *skeleton G_GNUC_UNUSED)$/;"	f	typeref:typename:GDBusInterfaceInfo *	file:
+screen_skeleton_dbus_interface_get_properties	tt.c	/^screen_skeleton_dbus_interface_get_properties (GDBusInterfaceSkeleton *_skeleton)$/;"	f	typeref:typename:GVariant *	file:
+screen_skeleton_dbus_interface_get_vtable	tt.c	/^screen_skeleton_dbus_interface_get_vtable (GDBusInterfaceSkeleton *skeleton G_GNUC_UNUSED)$/;"	f	typeref:typename:GDBusInterfaceVTable *	file:
+screen_skeleton_get_daemon_version	tt.c	/^screen_skeleton_get_daemon_version (Screen *object)$/;"	f	typeref:typename:const gchar *	file:
+screen_skeleton_get_property	tt.c	/^screen_skeleton_get_property (GObject      *object,$/;"	f	typeref:typename:void	file:
+screen_skeleton_iface_init	tt.c	/^screen_skeleton_iface_init (ScreenIface *iface)$/;"	f	typeref:typename:void	file:
+screen_skeleton_init	tt.c	/^screen_skeleton_init (ScreenSkeleton *skeleton)$/;"	f	typeref:typename:void	file:
+screen_skeleton_new	tt.c	/^screen_skeleton_new (void)$/;"	f	typeref:typename:Screen *
+screen_skeleton_notify	tt.c	/^screen_skeleton_notify (GObject      *object,$/;"	f	typeref:typename:void	file:
+screen_skeleton_set_property	tt.c	/^screen_skeleton_set_property (GObject      *object,$/;"	f	typeref:typename:void	file:
+screencast_area	screen-server.c	/^static gboolean screencast_area (Screen      *object,$/;"	f	typeref:typename:gboolean	file:
+screencast_full	screen-server.c	/^static gboolean screencast_full (Screen      *object,$/;"	f	typeref:typename:gboolean	file:
+screencast_get_daemon_version	screen-server.c	/^static const gchar *screencast_get_daemon_version (Screen *object)$/;"	f	typeref:typename:const gchar *	file:
+screencast_pause	screen-server.c	/^static gboolean screencast_pause (Screen   *object,$/;"	f	typeref:typename:gboolean	file:
+screencast_stop	screen-server.c	/^static gboolean screencast_stop (Screen   *object,$/;"	f	typeref:typename:gboolean	file:
+screencast_unpause	screen-server.c	/^static gboolean screencast_unpause (Screen   *object,$/;"	f	typeref:typename:gboolean	file:
+screencast_xid	screen-server.c	/^static gboolean screencast_xid  (Screen      *object,$/;"	f	typeref:typename:gboolean	file:
+set_property	screen-server.c	/^static void set_property (GObject      *object,$/;"	f	typeref:typename:void	file:
+setup_filesink	screen-server.c	/^static void setup_filesink (ScreenServer *ss, const char *file_name)$/;"	f	typeref:typename:void	file:
+setup_links	screen-server.c	/^static void setup_links (ScreenServer *ss, gboolean is_raw)$/;"	f	typeref:typename:void	file:
+setup_pipeline	screen-server.c	/^static void setup_pipeline (ScreenServer *ss)$/;"	f	typeref:typename:void	file:
+setup_video_sources	screen-server.c	/^static void setup_video_sources (ScreenServer *ss, int startx, int starty, int endx, int endy, i/;"	f	typeref:typename:void	file:
+signal_name	tt.c	/^  const gchar *signal_name;$/;"	m	struct:__anon7c9e9f3e0208	typeref:typename:const gchar *	file:
+signal_name	tt.c	/^  const gchar *signal_name;$/;"	m	struct:__anon7c9e9f3e0308	typeref:typename:const gchar *	file:
+signal_quit	main.c	/^static gboolean signal_quit (gpointer data)$/;"	f	typeref:typename:gboolean	file:
+sink	screen-server.c	/^	GstElement      *sink;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+success	org.group.admin.xml	/^       <arg name="success" direction="out" type="b">$/;"	a	method:org.admin.screen.ScreencastArea
+success	org.group.admin.xml	/^       <arg name="success" direction="out" type="b">$/;"	a	method:org.admin.screen.ScreencastFull
+success	org.group.admin.xml	/^       <arg name="success" direction="out" type="b">$/;"	a	method:org.admin.screen.ScreencastPause
+success	org.group.admin.xml	/^       <arg name="success" direction="out" type="b">$/;"	a	method:org.admin.screen.ScreencastStop
+success	org.group.admin.xml	/^       <arg name="success" direction="out" type="b">$/;"	a	method:org.admin.screen.ScreencastTest
+success	org.group.admin.xml	/^       <arg name="success" direction="out" type="b">$/;"	a	method:org.admin.screen.ScreencastUnpause
+success	org.group.admin.xml	/^       <arg name="success" direction="out" type="b">$/;"	a	method:org.admin.screen.ScreencastXid
+type	screen-server.c	/^	char      *type;$/;"	m	struct:video_format	typeref:typename:char *	file:
+use_gvariant	tt.c	/^  gboolean use_gvariant;$/;"	m	struct:__anon7c9e9f3e0108	typeref:typename:gboolean	file:
+use_gvariant	tt.c	/^  guint use_gvariant : 1;$/;"	m	struct:__anon7c9e9f3e0408	typeref:typename:guint:1	file:
+videnc	screen-server.c	/^	GstElement      *videnc;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+video_format	org.group.admin.xml	/^      <arg name="video_format" direction="in" type="s">$/;"	a	method:org.admin.screen.ScreencastArea
+video_format	org.group.admin.xml	/^      <arg name="video_format" direction="in" type="s">$/;"	a	method:org.admin.screen.ScreencastFull
+video_format	org.group.admin.xml	/^      <arg name="video_format" direction="in" type="s">$/;"	a	method:org.admin.screen.ScreencastXid
+video_format	screen-server.c	/^struct video_format$/;"	s	file:
+video_formats	screen-server.c	/^static struct video_format video_formats[5] = $/;"	v	typeref:struct:video_format[5]	file:
+videoconvert	screen-server.c	/^	GstElement      *videoconvert;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+videorate	screen-server.c	/^	GstElement      *videorate;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+videosrc	screen-server.c	/^	GstElement      *videosrc;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GstElement *	file:
+vp8enc_format_call_back	screen-server.c	/^static void vp8enc_format_call_back (ScreenServer *ss,int i)$/;"	f	typeref:typename:void	file:
+win_hash	screen-server.c	/^	GHashTable      *win_hash;$/;"	m	struct:_ScreenServerPrivate	typeref:typename:GHashTable *	file:
+x264enc_format_call_back	screen-server.c	/^static void x264enc_format_call_back (ScreenServer *ss, int i)$/;"	f	typeref:typename:void	file:
+xid	org.group.admin.xml	/^      <arg name="xid" direction="in" type="u">$/;"	a	method:org.admin.screen.ScreencastXid

@@ -72,11 +72,13 @@ struct video_format
 static void avi_format_call_back (ScreenServer *ss, int i);
 static void vp8enc_format_call_back (ScreenServer *ss, int i);
 
-static struct video_format video_formats[5] = 
+static struct video_format video_formats[] =
 {
     {0, "avimux", "RAW (AVI)", avi_format_call_back},
     {1, "vp8enc", "VP8 (WEBM)", vp8enc_format_call_back},
 };
+
+static guint count = sizeof (video_formats)/sizeof (struct video_format);
 typedef GDBusMethodInvocation GDBusMth;
 static void screen_server_screen_iface_init (ScreenIface *iface);
 
@@ -174,7 +176,7 @@ static void cb_message (GstBus *bus, GstMessage *msg, gpointer data)
 static void screen_server_init (ScreenServer *ss)
 {
     GstBus *bus;
-    ss->priv = screen_server_get_instance_private (ss);    
+    ss->priv = screen_server_get_instance_private (ss);
 
     get_full_screen_info (ss);
 
@@ -214,7 +216,7 @@ static void screen_server_finalize (GObject *object)
         g_free (ss->priv->file_name);
     if (ss->priv->pipeline != NULL)
     {
-        gst_object_unref(ss->priv->pipeline); 
+        gst_object_unref(ss->priv->pipeline);
         gst_element_send_event(ss->priv->pipeline, gst_event_new_eos());
     }
 }
@@ -320,7 +322,7 @@ static void setup_video_sources (ScreenServer *ss,
     {
         gst_bin_remove (GST_BIN (ss->priv->pipeline), ss->priv->mux);
     }
-    while (i < 5)
+    while (i < count)
     {
         if (g_strcmp0 (video_format, video_formats[i].format) == 0)
         {
@@ -328,7 +330,7 @@ static void setup_video_sources (ScreenServer *ss,
         }
         i++;
     }
-    if (i == 5)
+    if (i == count)
     {
         video_formats[0].func;
     }
@@ -365,7 +367,7 @@ static gboolean screencast_area (Screen      *object,
 
     ScreenServer *ss = SCREEN_SERVER (object);
 
-    g_return_val_if_fail (ss->priv->state != RECORDER_STATE_RECORDING, FALSE); 
+    g_return_val_if_fail (ss->priv->state != RECORDER_STATE_RECORDING, FALSE);
     ss->priv->state = RECORDER_STATE_RECORDING;
     ss->priv->file_name = g_strdup (file_name);
 
@@ -408,7 +410,7 @@ static gboolean screencast_full (Screen      *object,
     gboolean is_raw = FALSE;
     ScreenServer *ss = SCREEN_SERVER (object);
 
-    g_return_val_if_fail (ss->priv->state != RECORDER_STATE_RECORDING, FALSE); 
+    g_return_val_if_fail (ss->priv->state != RECORDER_STATE_RECORDING, FALSE);
     ss->priv->state = RECORDER_STATE_RECORDING;
     ss->priv->file_name = g_strdup (file_name);
 
@@ -438,7 +440,7 @@ static gboolean screencast_pause (Screen   *object,
 
     gst_element_set_state (ss->priv->pipeline, GST_STATE_PAUSED);
     ss->priv->state = RECORDER_STATE_PAUSE;
-    screen_complete_screencast_pause (object, invocation, TRUE); 
+    screen_complete_screencast_pause (object, invocation, TRUE);
     return TRUE;
 
 }
@@ -450,7 +452,7 @@ static gboolean screencast_unpause (Screen   *object,
 
     ss->priv->state = RECORDER_STATE_RECORDING;
     gst_element_set_state (ss->priv->pipeline, GST_STATE_PLAYING);
-    screen_complete_screencast_unpause (object, invocation, TRUE); 
+    screen_complete_screencast_unpause (object, invocation, TRUE);
     return TRUE;
 
 }

@@ -71,17 +71,11 @@ struct video_format
 
 static void avi_format_call_back (ScreenServer *ss, int i);
 static void vp8enc_format_call_back (ScreenServer *ss, int i);
-static void x264enc_format_call_back (ScreenServer *ss, int i);
-static void huffyuv_format_call_back (ScreenServer *ss, int i);
-static void ljpeg_format_call_back (ScreenServer *ss, int i);
 
 static struct video_format video_formats[5] = 
 {
     {0, "avimux", "RAW (AVI)", avi_format_call_back},
     {1, "vp8enc", "VP8 (WEBM)", vp8enc_format_call_back},
-    {2, "x264enc", "H264 (MP4)", x264enc_format_call_back},
-    {3, "avenc_huffyuv", "HUFFYUV (AVI)", huffyuv_format_call_back},
-    {4, "avenc_ljpeg", "Lossless JPEG (AVI)", ljpeg_format_call_back}
 };
 typedef GDBusMethodInvocation GDBusMth;
 static void screen_server_screen_iface_init (ScreenIface *iface);
@@ -90,7 +84,6 @@ G_DEFINE_TYPE_WITH_CODE (ScreenServer,screen_server, TYPE_SCREEN_SKELETON,
                          G_ADD_PRIVATE (ScreenServer) G_IMPLEMENT_INTERFACE (
                          TYPE_SCREEN, screen_server_screen_iface_init));
 
-//G_DEFINE_AUTOPTR_CLEANUP_FUNC (ScreenServer, g_object_unref)
 static gboolean
 recorder_is_recording (ScreenServer *ss)
 {
@@ -115,44 +108,6 @@ static void vp8enc_format_call_back (ScreenServer *ss,int i)
 	g_object_set (ss->priv->videnc, "max-quantizer", 30, NULL);
 	g_object_set (ss->priv->videnc, "threads", ss->priv->cpu_count -1, NULL);
 	ss->priv->mux = gst_element_factory_make ("webmmux", "muxer");
-	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
-	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
-}
-static void x264enc_format_call_back (ScreenServer *ss, int i)
-{
-	g_autofree char *temp_file = NULL;
-
-	temp_file = g_strdup_printf ("%s.mux", ss->priv->file_name);
-
-	ss->priv->videnc = gst_element_factory_make (video_formats[i].type, "video_encoder");
-	g_object_set (ss->priv->videnc, "speed-preset", "ultrafast", NULL);
-	g_object_set (ss->priv->videnc, "pass", 4, NULL);
-	g_object_set (ss->priv->videnc, "quantizer", 15, NULL);
-	g_object_set (ss->priv->videnc, "threads", ss->priv->cpu_count - 1, NULL);
-	
-	ss->priv->mux = gst_element_factory_make ("mp4mux", "muxer");
-	g_object_set (ss->priv->mux, "faststart", 1, NULL);
-	g_object_set (ss->priv->mux, "faststart-file",temp_file, NULL);
-	g_object_set (ss->priv->mux, "streamable", 1, NULL);
-	
-	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
-	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
-}
-
-static void huffyuv_format_call_back (ScreenServer *ss, int i)
-{
-	ss->priv->videnc = gst_element_factory_make (video_formats[i].type, "video_encoder");
-	g_object_set (ss->priv->videnc, "bitrate", 500000, NULL);
-	ss->priv->mux = gst_element_factory_make ("avimux", "muxer");
-	
-	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
-	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
-}
-static void ljpeg_format_call_back (ScreenServer *ss, int i)
-{
-	ss->priv->videnc = gst_element_factory_make (video_formats[i].type, "video_encoder");
-	ss->priv->mux = gst_element_factory_make ("avimux", "muxer");
-	
 	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
 	gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
 }
@@ -215,10 +170,6 @@ static void cb_message (GstBus *bus, GstMessage *msg, gpointer data)
       break;
     }
 }
-static void get_audio_source_info (ScreenServer *ss)
-{
-
-}
 
 static void screen_server_init (ScreenServer *ss)
 {
@@ -226,7 +177,6 @@ static void screen_server_init (ScreenServer *ss)
 	ss->priv = screen_server_get_instance_private (ss);    
 	
 	get_full_screen_info (ss);
-	get_audio_source_info (ss);
 
     ss->priv->state = RECORDER_STATE_CLOSED;
 	ss->priv->pipeline = gst_pipeline_new ("screen-pipeline");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node>
-    <interface name="org.admin.screen">
+    <interface name="org.screen.admin">
    
     <method name="ScreencastFull">
       <arg name="file_name" direction="in" type="s">

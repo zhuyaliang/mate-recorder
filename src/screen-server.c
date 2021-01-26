@@ -18,12 +18,10 @@
   Created Time: 2021年01月08日 星期五 18时09分29秒
  ************************************************************************/
 #include <gtk/gtk.h>
-#include <gst/gst.h>
 #include <sys/sysinfo.h>
 
 #include "screen-server.h"
-
-#define VERSION            "1.2.0"
+#include "config.h"
 enum
 {
     PROP_0,
@@ -80,13 +78,13 @@ static struct video_format video_formats[] =
 
 static guint count = sizeof (video_formats)/sizeof (struct video_format);
 typedef GDBusMethodInvocation GDBusMth;
-static void screen_server_screen_iface_init (ScreenIface *iface);
+static void screen_server_screen_admin_iface_init (ScreenAdminIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (ScreenServer,screen_server, TYPE_SCREEN_SKELETON,
+G_DEFINE_TYPE_WITH_CODE (ScreenServer,screen_server, SCREEN_TYPE_ADMIN_SKELETON,
                          G_ADD_PRIVATE (ScreenServer) G_IMPLEMENT_INTERFACE (
-                         TYPE_SCREEN, screen_server_screen_iface_init));
+                         SCREEN_TYPE_ADMIN, screen_server_screen_admin_iface_init));
 
-static gboolean
+gboolean
 recorder_is_recording (ScreenServer *ss)
 {
   g_return_val_if_fail (SCREEN_IS_SERVER (ss), FALSE);
@@ -302,7 +300,7 @@ static void setup_video_sources (ScreenServer *ss,
 {
     g_autofree char *text = NULL;
     GstCaps    *video_caps;
-    int i = 0;
+    guint i = 0;
 
     g_object_set (ss->priv->videosrc, "startx", startx, NULL);
     g_object_set (ss->priv->videosrc, "starty", starty, NULL);
@@ -332,7 +330,7 @@ static void setup_video_sources (ScreenServer *ss,
     }
     if (i == count)
     {
-        video_formats[0].func;
+        video_formats[0].func (ss,0);
     }
 }
 
@@ -354,7 +352,7 @@ static void setup_links (ScreenServer *ss, gboolean is_raw)
     gst_element_link (ss->priv->file_queue, ss->priv->sink);
 }
 
-static gboolean screencast_area (Screen      *object,
+static gboolean screencast_area (ScreenAdmin *object,
                                  GDBusMth    *invocation,
                                  GVariant    *area,
                                  const gchar *file_name,
@@ -384,12 +382,12 @@ static gboolean screencast_area (Screen      *object,
     g_object_set (ss->priv->sink, "location", file_name, NULL);
     setup_links (ss, is_raw);
     gst_element_set_state (ss->priv->pipeline, GST_STATE_PLAYING);
-    screen_complete_screencast_area (object,invocation,TRUE);
+    screen_admin_complete_screencast_area (object,invocation,TRUE);
 
     return TRUE;
 }
 
-static gboolean screencast_xid  (Screen      *object,
+static gboolean screencast_xid  (ScreenAdmin *object,
                                  GDBusMth    *invocation,
                                  guint        xid,
                                  const gchar *file_name,
@@ -397,9 +395,9 @@ static gboolean screencast_xid  (Screen      *object,
                                  gboolean     draw_cursor,
                                  const gchar *video_format)
 {
-
+    return TRUE;
 }
-static gboolean screencast_full (Screen      *object,
+static gboolean screencast_full (ScreenAdmin *object,
                                  GDBusMth    *invocation,
                                  const gchar *file_name,
                                  gint         framerate,
@@ -428,36 +426,36 @@ static gboolean screencast_full (Screen      *object,
         is_raw = TRUE;
     setup_links (ss, is_raw);
     gst_element_set_state (ss->priv->pipeline, GST_STATE_PLAYING);
-    screen_complete_screencast_full (object,invocation,TRUE);
+    screen_admin_complete_screencast_full (object,invocation,TRUE);
 
     return TRUE;
 }
-static gboolean screencast_pause (Screen   *object,
-                                  GDBusMth *invocation)
+static gboolean screencast_pause (ScreenAdmin *object,
+                                  GDBusMth    *invocation)
 {
     ScreenServer *ss = SCREEN_SERVER (object);
     g_return_val_if_fail (ss->priv->state != RECORDER_STATE_CLOSED, FALSE);
 
     gst_element_set_state (ss->priv->pipeline, GST_STATE_PAUSED);
     ss->priv->state = RECORDER_STATE_PAUSE;
-    screen_complete_screencast_pause (object, invocation, TRUE);
+    screen_admin_complete_screencast_pause (object, invocation, TRUE);
     return TRUE;
 
 }
-static gboolean screencast_unpause (Screen   *object,
-                                    GDBusMth *invocation)
+static gboolean screencast_unpause (ScreenAdmin *object,
+                                    GDBusMth    *invocation)
 {
     ScreenServer *ss = SCREEN_SERVER (object);
     g_return_val_if_fail (ss->priv->state == RECORDER_STATE_PAUSE, FALSE);
 
     ss->priv->state = RECORDER_STATE_RECORDING;
     gst_element_set_state (ss->priv->pipeline, GST_STATE_PLAYING);
-    screen_complete_screencast_unpause (object, invocation, TRUE);
+    screen_admin_complete_screencast_unpause (object, invocation, TRUE);
     return TRUE;
 
 }
-static gboolean screencast_stop (Screen   *object,
-                                 GDBusMth *invocation)
+static gboolean screencast_stop (ScreenAdmin *object,
+                                 GDBusMth    *invocation)
 {
     ScreenServer *ss = SCREEN_SERVER (object);
     g_return_val_if_fail (ss->priv->state != RECORDER_STATE_CLOSED, FALSE);
@@ -465,15 +463,15 @@ static gboolean screencast_stop (Screen   *object,
     ss->priv->state = RECORDER_STATE_CLOSED;
     gst_element_send_event(ss->priv->pipeline, gst_event_new_eos());
 
-    screen_complete_screencast_stop (object, invocation, TRUE); 
+    screen_admin_complete_screencast_stop (object, invocation, TRUE); 
     return TRUE;
 }
-static const gchar *screencast_get_daemon_version (Screen *object)
+static const gchar *screencast_get_daemon_version (ScreenAdmin *object)
 {
     return VERSION;
 }
 
-static void screen_server_screen_iface_init (ScreenIface *iface)
+static void screen_server_screen_admin_iface_init (ScreenAdminIface *iface)
 {
     iface->handle_screencast_area    = screencast_area;
     iface->handle_screencast_full    = screencast_full;

@@ -20,7 +20,8 @@
 #ifndef __SCREEN_SERVER__
 #define __SCREEN_SERVER__
 
-#include "tt.h"
+#include <gst/gst.h>
+#include "screen-generated.h"
 G_BEGIN_DECLS
 
 #define SCREEN_TYPE_SERVER         (screen_server_get_type ())
@@ -35,18 +36,20 @@ typedef struct _ScreenServerClass   ScreenServerClass;
 typedef struct _ScreenServerPrivate ScreenServerPrivate;
 
 struct _ScreenServer {
-    ScreenSkeleton      parent_instance;
+    ScreenAdminSkeleton   parent_instance;
     ScreenServerPrivate  *priv;
 };
 
 struct _ScreenServerClass {
-    ScreenSkeletonClass parent_class;
+    ScreenAdminSkeletonClass parent_class;
 };
 
-GType           screen_server_get_type         (void) G_GNUC_CONST;
+GType           screen_server_get_type                (void) G_GNUC_CONST;
 
 ScreenServer   *screen_server_new                     (void);
 
 gboolean        register_screen_server                (ScreenServer *ss,
                                                        GError      **error);
+
+gboolean        recorder_is_recording                 (ScreenServer *ss);
 #endif

@@ -133,7 +133,7 @@ static void acquired_call_back (GDBusConnection *Connection,
         g_warning ("register video source interface failed %s", error->message);
         exit (0);
     }
-    window = screen_window_new (ss);
+    window = screen_window_new ();
     if (window == NULL)
     {
        screen_message_dialog (_("Init GDbus"), GDBUD_ERROR, ERROR);

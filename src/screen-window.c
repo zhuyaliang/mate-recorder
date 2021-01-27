@@ -31,10 +31,6 @@
 #define SCREEN_NAME         "org.screen.admin"
 #define SCREEN_PATH         "/org/screen/admin"
 
-#define EXTENSION1_PATH                "/usr/share/gnome-shell/extensions/appindicatorsupport@rgcjonas.gmail.com/metadata.json"
-#define EXTENSION2_PATH                "/usr/share/gnome-shell/extensions/TopIcons@phocean.net/metadata.json"
-#define EXTENSION3_PATH                "/usr/share/gnome-shell/extensions/ubuntu-appindicators@ubuntu.com/metadata.json"
-
 #define MSGFORMAT    "<span foreground='red'font_desc='13'>%s </span>"
 
 typedef enum
@@ -48,7 +44,6 @@ struct _ScreenWindowPrivate
 {
     GDBusProxy   *proxy;
     AppIndicator *indicator;
-    ScreenServer *ss;
     NotifyNotification *notify;
 
     GtkWidget  *style;
@@ -61,7 +56,6 @@ struct _ScreenWindowPrivate
     GtkWidget  *stop_item;
     GtkWidget  *quit_item;
     GtkWidget  *skip_item;
-    GtkWidget  *dialog;
 
     GtkWidget  *btn;
     gboolean    is_start;
@@ -78,38 +72,6 @@ struct _ScreenWindowPrivate
 G_DEFINE_TYPE_WITH_PRIVATE (ScreenWindow, screen_window, GTK_TYPE_WINDOW)
 
 static void stop_screencast (ScreenWindow *screenwin);
-
-static gboolean use_appindicator (void)
-{
-    const char *xdg_session;
-    gboolean    is_xorg = TRUE;
-    gboolean    is_main;
-    gboolean    f1,f2;
-    gboolean    is_secondary;
-
-    xdg_session = g_getenv ("XDG_SESSION_TYPE");
-    if (g_strcmp0 (xdg_session, "wayland") == 0)
-    {
-        is_xorg = FALSE;
-    }
-
-    f1 = g_file_test (EXTENSION1_PATH, G_FILE_TEST_EXISTS);
-    f2 = g_file_test (EXTENSION3_PATH, G_FILE_TEST_EXISTS);
-
-    is_main = f1 | f2;
-    is_secondary = g_file_test (EXTENSION2_PATH, G_FILE_TEST_EXISTS);
-
-    if (is_main == TRUE)
-        return TRUE;
-    else if (is_xorg == FALSE)
-    {
-        return FALSE;
-    }
-    else
-    {
-        return is_secondary;
-    }
-}
 
 static NotifyNotification *get_notification (void)
 {
@@ -273,54 +235,7 @@ static GtkWidget *get_menu_button (ScreenWindow *screenwin)
 
     return menu;
 }
-static void set_widget_css (GtkWidget *box)
-{
-    GtkCssProvider  *provider;
-    GtkStyleContext *context;
-    gchar           *css = NULL;
 
-    provider = gtk_css_provider_new ();
-    context = gtk_widget_get_style_context (box);
-    css = g_strdup_printf ("* {background-color:rgba(252,252,252,100);min-height: 1px;}");
-    gtk_css_provider_load_from_data (provider, css, -1, NULL);
-    gtk_style_context_add_provider (context,
-                                    GTK_STYLE_PROVIDER (provider),
-                                    GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    g_object_unref (provider);
-    g_free (css);
-}
-
-static void create_custom_indicator (ScreenWindow *screenwin)
-{
-    GtkWidget *dialog;
-    GtkWidget *button;
-    GtkWidget *image;
-    GIcon     *icon;
-    GtkWidget *menu;
-
-    button = gtk_menu_button_new ();
-    gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
-
-    icon = g_themed_icon_new ("camera-video");
-    image = gtk_image_new_from_gicon (icon, GTK_ICON_SIZE_BUTTON);
-    g_object_unref (icon);
-
-    gtk_container_add (GTK_CONTAINER (button), image);
-    gtk_widget_show (button);
-
-    dialog = gtk_dialog_new_with_buttons (_("Recording Management"),GTK_WINDOW (screenwin),GTK_DIALOG_DESTROY_WITH_PARENT,NULL,NULL);
-    set_widget_css (dialog);
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
-    gtk_dialog_add_action_widget (GTK_DIALOG (dialog), button,GTK_RESPONSE_OK);
-
-    menu = get_menu_button (screenwin);
-    gtk_widget_show_all (menu);
-    gtk_menu_button_set_popup (GTK_MENU_BUTTON (button), menu);
-    gtk_window_set_deletable(GTK_WINDOW (dialog), FALSE);
-    gtk_window_set_resizable(GTK_WINDOW (dialog), FALSE);
-    screenwin->priv->dialog = dialog;
-    //gtk_widget_show_all (dialog);
-}
 static void create_screencast_indicator (ScreenWindow *screenwin)
 {
     GtkWidget *menu;
@@ -527,9 +442,6 @@ static void screencast_button_cb (GtkWidget *button, gpointer user_data)
     ScreenCount  *count = SCREEN_COUNT (screenwin->priv->count);
 
     gtk_widget_hide (GTK_WIDGET (screenwin));
-    if (screenwin->priv->dialog != NULL)
-        gtk_widget_show_all (screenwin->priv->dialog);
-
     gtk_widget_set_sensitive (screenwin->priv->skip_item, TRUE);
     screen_start_count_down (count);
 }
@@ -762,22 +674,12 @@ screen_window_init (ScreenWindow *screenwin)
                                  400, 400);
     screenwin->priv->show_label = TRUE;
     screenwin->priv->mode = FULL_SCREEAN;
-    if (use_appindicator () != TRUE)
-    {
-        create_custom_indicator (screenwin);
-    }
-    else
-    {
-        if (screenwin->priv->indicator == NULL)
-        {
-            create_screencast_indicator (screenwin);
-        }
-    }
+    create_screencast_indicator (screenwin);
     screenwin->priv->notify = get_notification ();
 }
 
 GtkWidget *
-screen_window_new (ScreenServer *ss)
+screen_window_new (void)
 {
     ScreenWindow *screenwin;
 
@@ -789,7 +691,6 @@ screen_window_new (ScreenServer *ss)
     {
         return NULL;
     }
-    screenwin->priv->ss = ss;
     return GTK_WIDGET (screenwin);
 }
 

@@ -51,9 +51,9 @@ typedef enum
 }MsgType;
 GType         screen_window_get_type         (void) G_GNUC_CONST;
 
-GtkWidget    *screen_window_new              (ScreenServer *ss);
+GtkWidget    *screen_window_new              (void);
 
-void          destroy_screen_window          (ScreenWindow *screenwin);
+void          destroy_screen_window          (ScreenWindow *ss);
 
 int           screen_message_dialog          (const char   *title,
                                               const char   *msg,

@@ -385,7 +385,7 @@ stop_screencast_done (GObject      *source_object,
 static void stop_screencast (ScreenWindow *screenwin)
 {
     g_dbus_proxy_call(screenwin->priv->proxy,
-                     "StopScreencast",
+                     "ScreencastStop",
                       g_variant_new ("()"),
                       G_DBUS_CALL_FLAGS_NONE,
                       -1,
@@ -492,6 +492,7 @@ screean_area_select_cb (ScreenArea *area,
     ScreenWindow *screenwin = SCREEN_WINDOW (user_data);
 
     screenwin->priv->mode = AREA_SCREEN;
+    gtk_widget_show (GTK_WIDGET (screenwin));
 }
 
 static void
@@ -501,6 +502,7 @@ screean_area_cancel_cb (ScreenArea *area,
     ScreenWindow *screenwin = SCREEN_WINDOW (user_data);
     gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (screenwin->priv->btn), TRUE);
     screenwin->priv->mode = FULL_SCREEAN;
+    gtk_widget_show (GTK_WIDGET (screenwin));
 }
 static void
 screen_area_mode_cb (GtkToggleToolButton *button,
@@ -517,6 +519,7 @@ screen_area_mode_cb (GtkToggleToolButton *button,
 
     if (g_strcmp0 (name, "Area") == 0 && active == TRUE)
     {
+        gtk_widget_hide (GTK_WIDGET (screenwin));
         area = screen_area_new ();
         screenwin->priv->area = area;
 

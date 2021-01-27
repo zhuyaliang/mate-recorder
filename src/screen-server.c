@@ -107,6 +107,7 @@ static void vp8enc_format_call_back (ScreenServer *ss,int i)
     g_object_set (ss->priv->videnc, "token-partitions", 2, NULL);
     g_object_set (ss->priv->videnc, "max-quantizer", 30, NULL);
     g_object_set (ss->priv->videnc, "threads", ss->priv->cpu_count -1, NULL);
+
     ss->priv->mux = gst_element_factory_make ("webmmux", "muxer");
     gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
     gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
@@ -124,7 +125,7 @@ static void get_full_screen_info (ScreenServer *ss)
     display = gdk_display_get_default ();
     num = gdk_display_get_n_monitors (display);
     monitor = gdk_display_get_monitor (display, num-1);
-    
+
     gdk_monitor_get_geometry (monitor, &rect);
     g_hash_table_insert (ss->priv->win_hash, "x", GINT_TO_POINTER(rect.x));
     g_hash_table_insert (ss->priv->win_hash, "y", GINT_TO_POINTER(rect.y));
@@ -282,7 +283,7 @@ gboolean register_screen_server (ScreenServer *ss, GError **error)
 
     if (!g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (ss),
                                            ss->priv->connection,
-                                          "/org/admin/screen",
+                                          "/org/screen/admin",
                                            error))
     {
         return FALSE;
@@ -328,7 +329,7 @@ static void setup_video_sources (ScreenServer *ss,
         }
         i++;
     }
-    if (i == count)
+    if (i > count)
     {
         video_formats[0].func (ss,0);
     }

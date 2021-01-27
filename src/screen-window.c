@@ -28,8 +28,9 @@
 #include "screen-area.h"
 #include "screen-generated.h"
 
-#define GNOME_SCREENCAST_NAME         "org.gnome.Shell.Screencast"
-#define GNOME_SCREENCAST_PATH         "/org/gnome/Shell/Screencast"
+#define SCREEN_NAME         "org.screen.admin"
+#define SCREEN_PATH         "/org/screen/admin"
+
 #define EXTENSION1_PATH                "/usr/share/gnome-shell/extensions/appindicatorsupport@rgcjonas.gmail.com/metadata.json"
 #define EXTENSION2_PATH                "/usr/share/gnome-shell/extensions/TopIcons@phocean.net/metadata.json"
 #define EXTENSION3_PATH                "/usr/share/gnome-shell/extensions/ubuntu-appindicators@ubuntu.com/metadata.json"
@@ -415,8 +416,9 @@ static void start_screencast (ScreenWindow *screenwin)
     if (screenwin->priv->mode == FULL_SCREEAN)
     {
         g_dbus_proxy_call (screenwin->priv->proxy,
-                          "Screencast",
-                           g_variant_new ("(sa{sv})", screenwin->priv->save_path, variant),
+                          "ScreencastFull",
+                          // g_variant_new ("(sa{sv})", screenwin->priv->save_path, variant),
+                           g_variant_new ("(sibs)", screenwin->priv->save_path, 15, TRUE, "VP8 (WEBM)"),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            NULL,
@@ -745,13 +747,13 @@ screen_window_init (ScreenWindow *screenwin)
 
     screenwin->priv = screen_window_get_instance_private (screenwin);
     screenwin->priv->proxy = g_dbus_proxy_new_for_bus_sync (
-                  G_BUS_TYPE_SESSION,
-                  G_DBUS_PROXY_FLAGS_NONE,
-                  NULL,
-                  GNOME_SCREENCAST_NAME,
-                  GNOME_SCREENCAST_PATH,
-                  GNOME_SCREENCAST_NAME,
-                  NULL, NULL);
+                             G_BUS_TYPE_SESSION,
+                             G_DBUS_PROXY_FLAGS_NONE,
+                             NULL,
+                             SCREEN_NAME,
+                             SCREEN_PATH,
+                             SCREEN_NAME,
+                             NULL, NULL);
 
     window = GTK_WINDOW (screenwin);
     gtk_window_set_title (GTK_WINDOW (window), _("Gnome Record Screen"));

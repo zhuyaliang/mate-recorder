@@ -179,5 +179,6 @@ main (int argc, char **argv)
                          NULL);
 
     gtk_main ();
+    g_bus_unown_name (id);
     return 0;
 }

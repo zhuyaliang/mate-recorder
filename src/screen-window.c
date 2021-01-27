@@ -338,23 +338,17 @@ static void create_screencast_indicator (ScreenWindow *screenwin)
     app_indicator_set_menu (screenwin->priv->indicator, GTK_MENU(menu));
 }
 
-static GVariantBuilder *get_screencast_variant (ScreenWindow *screenwin)
+static GVariantBuilder *get_screencast_area (gint x, gint y, gint w, gint h)
 {
     GVariantBuilder *builder;
-    gboolean  show_cursor;
-    uint       framerate;
 
-    ScreenStyle *style = SCREEN_STYLE (screenwin->priv->style);
-
-    show_cursor = screen_style_get_show_cursor (style);
-    framerate = screen_style_get_framerate (style);
-
-    builder = g_variant_builder_new (G_VARIANT_TYPE ("a{sv}"));
-    g_variant_builder_add (builder, "{sv}", "draw-cursor",g_variant_new_boolean (show_cursor));
-    g_variant_builder_add (builder, "{sv}", "framerate", g_variant_new_uint32 (framerate));
+    builder = g_variant_builder_new (G_VARIANT_TYPE ("a{sn}"));
+    g_variant_builder_add (builder, "{sn}", "x",      x);
+    g_variant_builder_add (builder, "{sn}", "y",      y);
+    g_variant_builder_add (builder, "{sn}", "width",  w);
+    g_variant_builder_add (builder, "{sn}", "height", h);
 
     return builder;
-
 }
 
 static char *get_screencast_save_path (ScreenSave *save)
@@ -381,7 +375,6 @@ static char *get_screencast_save_path (ScreenSave *save)
             return save_path;
         num++;
     }
-
 }
 
 static void
@@ -406,19 +399,23 @@ static void start_screencast (ScreenWindow *screenwin)
 {
     GVariantBuilder *variant;
     ScreenSave      *save;
+    ScreenStyle     *style;
+    gboolean         show_cursor;
+    uint             framerate;
     gint32 x, y, h ,w;
 
     save = SCREEN_SAVE (screenwin->priv->save);
+    style = SCREEN_STYLE (screenwin->priv->style);
 
-    variant = get_screencast_variant (screenwin);
+    show_cursor = screen_style_get_show_cursor (style);
+    framerate = screen_style_get_framerate (style);
     screenwin->priv->save_path = get_screencast_save_path (save);
 
     if (screenwin->priv->mode == FULL_SCREEAN)
     {
         g_dbus_proxy_call (screenwin->priv->proxy,
                           "ScreencastFull",
-                          // g_variant_new ("(sa{sv})", screenwin->priv->save_path, variant),
-                           g_variant_new ("(sibs)", screenwin->priv->save_path, 15, TRUE, "VP8 (WEBM)"),
+                           g_variant_new ("(sibs)", screenwin->priv->save_path, framerate, show_cursor, "VP8 (WEBM)"),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            NULL,
@@ -431,10 +428,11 @@ static void start_screencast (ScreenWindow *screenwin)
         y = screen_area_get_starty (SCREEN_AREA (screenwin->priv->area));
         h = screen_area_get_height (SCREEN_AREA (screenwin->priv->area));
         w = screen_area_get_width  (SCREEN_AREA (screenwin->priv->area));
+        variant = get_screencast_area (x, y, w, h);
 
         g_dbus_proxy_call (screenwin->priv->proxy,
                           "ScreencastArea",
-                           g_variant_new ("(iiiisa{sv})",x, y, w, h, screenwin->priv->save_path, variant),
+                           g_variant_new ("(a{sn}sibs)",variant, screenwin->priv->save_path, framerate, show_cursor, "VP8 (WEBM)"),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            NULL,

@@ -378,7 +378,7 @@ static gboolean screencast_area (ScreenAdmin *object,
     if (g_strcmp0 (video_format, "RAW (AVI)") == 0)
         is_raw = TRUE;
 
-    setup_video_sources (ss, startx, starty, endx, endy, framerate, video_format);
+    setup_video_sources (ss, startx, starty, endx+startx, endy+starty, framerate, video_format);
     g_object_set (ss->priv->videosrc, "show-pointer", draw_cursor, NULL);
     g_object_set (ss->priv->sink, "location", file_name, NULL);
     setup_links (ss, is_raw);

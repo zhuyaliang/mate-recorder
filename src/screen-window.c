@@ -77,8 +77,8 @@ static NotifyNotification *get_notification (void)
 {
     NotifyNotification *notify;
 
-    notify_init ("Screen-Admin");
-    notify = notify_notification_new ("screen-admin",
+    notify_init ("Mate-Recorder-Admin");
+    notify = notify_notification_new ("mate-recorder-admin",
                                       _("Screen  ready"),
                                       "emblem-default");
     notify_notification_set_urgency (notify, NOTIFY_URGENCY_LOW);
@@ -236,20 +236,20 @@ static GtkWidget *get_menu_button (ScreenWindow *screenwin)
     return menu;
 }
 
-static void create_screencast_indicator (ScreenWindow *screenwin)
+static void create_tray_indicator (ScreenWindow *screenwin)
 {
     GtkWidget *menu;
 
     menu = get_menu_button (screenwin);
 
-    screenwin->priv->indicator = app_indicator_new ("screen-admin",
+    screenwin->priv->indicator = app_indicator_new ("mate-recorder-admin-menu",
                                                     "screen-start",
                                                      APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
     app_indicator_set_attention_icon_full(screenwin->priv->indicator, "screen-start", "Local Attention Icon");
     app_indicator_set_status (screenwin->priv->indicator, APP_INDICATOR_STATUS_ATTENTION);
     app_indicator_set_label (screenwin->priv->indicator, "00:00", "100%");
 
-    app_indicator_set_title (screenwin->priv->indicator, "screen-admin");
+    app_indicator_set_title (screenwin->priv->indicator, "mate-recorder-admin-menu");
     app_indicator_set_menu (screenwin->priv->indicator, GTK_MENU(menu));
 }
 
@@ -669,7 +669,7 @@ screen_window_init (ScreenWindow *screenwin)
                              NULL, NULL);
 
     window = GTK_WINDOW (screenwin);
-    gtk_window_set_title (GTK_WINDOW (window), _("Gnome Record Screen"));
+    gtk_window_set_title (GTK_WINDOW (window), _("Mate Recording Screen"));
     gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
 
     gtk_window_set_position (window, GTK_WIN_POS_CENTER);
@@ -677,7 +677,7 @@ screen_window_init (ScreenWindow *screenwin)
                                  400, 400);
     screenwin->priv->show_label = TRUE;
     screenwin->priv->mode = FULL_SCREEAN;
-    create_screencast_indicator (screenwin);
+    create_tray_indicator (screenwin);
     screenwin->priv->notify = get_notification ();
 }
 

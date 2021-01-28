@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the mate-recorder-admin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: mate-recorder-admin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-28 11:48+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/main.c:34
+msgid ""
+"Error connecting screen-server gdbus interface. Please check whether screen-"
+"server is installed and running"
+msgstr ""
+
+#: src/main.c:139
+msgid "Init GDbus"
+msgstr ""
+
+#: src/screen-count.c:163 src/screen-window.c:599
+msgid "count down"
+msgstr ""
+
+#: src/screen-save.c:102
+msgid "Screen video"
+msgstr ""
+
+#: src/screen-save.c:137
+msgid "Folder"
+msgstr ""
+
+#: src/screen-save.c:155
+msgid "FileName"
+msgstr ""
+
+#: src/screen-stop.c:145
+msgid "stop by time (S)"
+msgstr ""
+
+#: src/screen-stop.c:158
+msgid "stop by size (MB)"
+msgstr ""
+
+#: src/screen-stop.c:171
+msgid "unlimited"
+msgstr ""
+
+#: src/screen-style.c:103
+msgid "show cursor when screencast"
+msgstr ""
+
+#: src/screen-style.c:108
+msgid "Show cursor"
+msgstr ""
+
+#: src/screen-style.c:114
+msgid "framerate"
+msgstr ""
+
+#: src/screen-area.c:297
+msgid "Select an area by clicking and dragging."
+msgstr ""
+
+#: src/screen-area.c:298
+msgid "Press ENTER to confirm or ESC to cancel"
+msgstr ""
+
+#: src/screen-window.c:82
+msgid "Screen  ready"
+msgstr ""
+
+#: src/screen-window.c:149
+msgid "Close application"
+msgstr ""
+
+#: src/screen-window.c:150
+msgid "Application closed successfully"
+msgstr ""
+
+#: src/screen-window.c:186
+msgid "Settings"
+msgstr ""
+
+#: src/screen-window.c:189
+msgid "Start new recording"
+msgstr ""
+
+#: src/screen-window.c:197
+msgid "Stop recording"
+msgstr ""
+
+#: src/screen-window.c:205
+msgid "Skip countdown"
+msgstr ""
+
+#: src/screen-window.c:216
+msgid "Show Time"
+msgstr ""
+
+#: src/screen-window.c:227
+msgid "Quit recording"
+msgstr ""
+
+#: src/screen-window.c:309
+msgid "start screen recording"
+msgstr ""
+
+#: src/screen-window.c:379
+msgid "End of recording"
+msgstr ""
+
+#: src/screen-window.c:467
+msgid "Start Recording"
+msgstr ""
+
+#: src/screen-window.c:572
+msgid "Full Screen"
+msgstr ""
+
+#: src/screen-window.c:584
+msgid "Area Screen"
+msgstr ""
+
+#: src/screen-window.c:587
+msgid "Recording screen settings"
+msgstr ""
+
+#: src/screen-window.c:591
+msgid "Stop Mode"
+msgstr ""
+
+#: src/screen-window.c:595
+msgid "Save Mode"
+msgstr ""
+
+#: src/screen-window.c:622
+msgid "Start application"
+msgstr ""
+
+#: src/screen-window.c:623
+msgid "The recording program is ready. Please start recording"
+msgstr ""
+
+#: src/screen-window.c:672
+msgid "Mate Recording Screen"
+msgstr ""
+
+#: src/screen-window.c:758
+msgid "Message"
+msgstr ""

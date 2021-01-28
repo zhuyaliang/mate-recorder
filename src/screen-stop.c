@@ -20,12 +20,8 @@
 
 #include "screen-stop.h"
 
-#define GNOME_DAEMON_MEDAI_SCHEMA              "org.gnome.settings-daemon.plugins.media-keys"
-#define GNOME_MAX_SCREENCAST_LENGTH_KEY        "max-screencast-length"
-
 struct _ScreenStopPrivate
 {
-    GSettings *settings;
     guint      stop_time;
     guint      stop_size;
     stop_type  stop_mode;
@@ -77,9 +73,6 @@ screen_stop_dispose (GObject *object)
 {
     ScreenStop *stop = SCREEN_STOP (object);
 
-    if (stop->priv->settings)
-        g_object_unref (stop->priv->settings);
-    stop->priv->settings = NULL;
     if (stop->priv->time_id != 0)
     {
         g_source_remove (stop->priv->time_id);
@@ -139,13 +132,10 @@ screen_stop_init (ScreenStop *stop)
     GtkWidget *spin;
     GtkWidget *radio1,*radio2,*radio3;
     GSList    *radio_group;
-    uint       length;
+    uint       length = 86400;
 
     stop->priv = screen_stop_get_instance_private (stop);
-    stop->priv->settings = g_settings_new (GNOME_DAEMON_MEDAI_SCHEMA);
-    length = g_settings_get_uint (stop->priv->settings, GNOME_MAX_SCREENCAST_LENGTH_KEY);
-    if (length <= 1)
-       length = 86400;
+    
     table = gtk_grid_new();
     gtk_container_add (GTK_CONTAINER (stop), table);
     gtk_grid_set_row_spacing(GTK_GRID(table), 10);

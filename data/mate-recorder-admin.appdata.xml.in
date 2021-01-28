@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+ <id>mate-recorder-admin.desktop</id>
+ <metadata_license>CC0-1.0</metadata_license>
+ <project_license>GPL-3.0+</project_license>
+ <name>Recording screen</name>
+ <summary>Recording the current screen on Linux</summary>
+ <description>
+ <p>
+     This is a screen recording software running under Linux system. 
+     It uses gtk3 as the graphical interface library. 
+     This application supports setting cursor visible, framerate size, recording time, recording size, etc.
+ </p>
+ </description>
+ <screenshots>
+  <screenshot type="default">
+   <image width="600" height="540">
+    https://github.com/zhuyaliang/images/blob/master/user-admin-001.png
+   </image>
+  </screenshot>
+  <screenshot>
+   <image width="900" height="540">
+    https://github.com/zhuyaliang/images/blob/master/user-admin-001.png
+   </image>
+  </screenshot>
+ </screenshots>
+ <url type="homepage">https://github.com/zhuyaliang/</url>
+ <updatecontact>https://github.com/zhuyaliang/</updatecontact>
+ <project_group>Admin</project_group>
+</component>

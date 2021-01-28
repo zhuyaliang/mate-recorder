@@ -31,7 +31,7 @@
 #include "screen-count.h"
 #include "config.h"
 
-#define  GDBUD_ERROR _("Error connecting gnome gdbus screencast interface. Please check whether Gnome shell is installed and running")
+#define  GDBUD_ERROR _("Error connecting screen-server gdbus interface. Please check whether screen-server is installed and running")
 #define  NAME_TO_CLAIM            "org.screen.admin"
 static void remove_lock_dir (void)
 {
@@ -119,6 +119,7 @@ static void acquired_call_back (GDBusConnection *Connection,
 {
     ScreenServer *ss;
     GtkWidget    *window;
+    GdkPixbuf    *pixbuf = NULL;
     GError       *error = NULL;
 
     ss = screen_server_new();
@@ -142,6 +143,8 @@ static void acquired_call_back (GDBusConnection *Connection,
                      "destroy",
                       G_CALLBACK (app_quit),
                       NULL);
+    pixbuf = gdk_pixbuf_new_from_file(ICONPATH, NULL);
+    gtk_window_set_icon(GTK_WINDOW(window), pixbuf);
 
     gtk_widget_show_all (window);
 }

@@ -40,7 +40,7 @@ sources = files(
  'screen-server.c',
 )
 
-executable('screen-admin',
+executable('mate-recorder-admin',
   sources : sources,
   dependencies : [gtk_dep, gst_dep, indicator_dep, notify_dep, math_dep, libscreen_generated_dep],
   include_directories: top_srcdir,

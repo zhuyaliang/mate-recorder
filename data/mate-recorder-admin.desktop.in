@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Mate Recording screen
+Name[zh_CN]=Mate 录屏
+Comment=mate-recorder-admin
+Comment[zh_CN]= 录制屏幕。
+Categories=GTK;Settings;System;Utility;
+Keywords=Configuration;Utility;
+Exec=mate-recorder-admin
+Icon=mate-recorder-admin
+Terminal=false
+Type=Application

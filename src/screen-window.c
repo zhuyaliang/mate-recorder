@@ -82,20 +82,64 @@ static NotifyNotification *get_notification (void)
                                       _("Screen  ready"),
                                       "emblem-default");
     notify_notification_set_urgency (notify, NOTIFY_URGENCY_LOW);
-    //notify_notification_set_timeout (notify, NOTIFY_EXPIRES_DEFAULT);
     notify_notification_set_timeout (notify, 2000);
 
     return notify;
 }
 
+static void open_recorder_dir_callback (NotifyNotification *notification,
+                                        const char         *action,
+                                        const char         *path)
+{
+    GtkWidget  *chooser;
+    GtkWidget  *preview;
+    char       *dir;
+
+    chooser = gtk_file_chooser_dialog_new (_("View recording video"),
+                                           NULL,
+                                           GTK_FILE_CHOOSER_ACTION_OPEN,
+                                           _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                           _("_Open"), GTK_RESPONSE_ACCEPT,
+                                           NULL);
+
+    gtk_window_set_modal (GTK_WINDOW (chooser), TRUE);
+
+    preview = gtk_image_new ();
+    gtk_widget_set_size_request (preview, 128, -1);
+    gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER (chooser), preview);
+    gtk_file_chooser_set_use_preview_label (GTK_FILE_CHOOSER (chooser), FALSE);
+    gtk_widget_show (preview);
+
+    dir = g_path_get_dirname (path);
+    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (chooser),
+                                         dir);
+
+    gtk_window_present (GTK_WINDOW (chooser));
+}
+static void set_notify_action (NotifyNotification *notify,
+                               const char         *path)
+{
+    notify_notification_add_action (notify,
+                                   "action",
+                                   _("Enter recording directory"),
+                                   (NotifyActionCallback) open_recorder_dir_callback,
+                                   path,
+                                   NULL);
+
+}
 static void screen_admin_update_notification (NotifyNotification *notify,
                                               const char         *summary,
                                               const char         *body,
-                                              const char         *icon)
+                                              const char         *icon,
+                                              const char         *dir_path)
 {
     if (notify == NULL)
         return;
     notify_notification_update (notify, summary, body, icon);
+    if (dir_path != NULL)
+    {
+        set_notify_action (notify, dir_path);
+    }
     notify_notification_show (notify, NULL);
 }
 static void
@@ -149,7 +193,8 @@ screen_quit_item_cb (GtkMenuItem *item, gpointer user_data)
     screen_admin_update_notification (screenwin->priv->notify,
                                       _("Close application"),
                                       _("Application closed successfully"),
-                                      "face-worried");
+                                      "face-worried",
+                                      NULL);
 
     destroy_screen_window (screenwin);
 }
@@ -379,7 +424,8 @@ stop_screencast_done (GObject      *source_object,
     screen_admin_update_notification (screenwin->priv->notify,
                                       _("End of recording"),
                                       screenwin->priv->save_path,
-                                      "face-cool");
+                                      "face-cool",
+                                      screenwin->priv->save_path);
 
 }
 
@@ -622,7 +668,8 @@ screen_window_constructor (GType                  type,
     screen_admin_update_notification (screenwin->priv->notify,
                                      _("Start application"),
                                      _("The recording program is ready. Please start recording"),
-                                     "face-smile");
+                                     "face-smile",
+                                     NULL);
 
     return obj;
 }

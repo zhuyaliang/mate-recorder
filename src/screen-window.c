@@ -82,7 +82,8 @@ static NotifyNotification *get_notification (void)
                                       _("Screen  ready"),
                                       "emblem-default");
     notify_notification_set_urgency (notify, NOTIFY_URGENCY_LOW);
-    notify_notification_set_timeout (notify, NOTIFY_EXPIRES_DEFAULT);
+    //notify_notification_set_timeout (notify, NOTIFY_EXPIRES_DEFAULT);
+    notify_notification_set_timeout (notify, 2000);
 
     return notify;
 }

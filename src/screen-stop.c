@@ -73,7 +73,7 @@ screen_stop_dispose (GObject *object)
 {
     ScreenStop *stop = SCREEN_STOP (object);
 
-    if (stop->priv->time_id != 0)
+    if (stop->priv->time_id > 0)
     {
         g_source_remove (stop->priv->time_id);
         stop->priv->time_id = 0;

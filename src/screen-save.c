@@ -50,9 +50,15 @@ screen_save_dispose (GObject *object)
 {
     ScreenSave *save = SCREEN_SAVE (object);
     if (save->priv->folder_name != NULL)
+    {
         g_free (save->priv->folder_name);
+        save->priv->folder_name = NULL;
+    }
     if (save->priv->file_name != NULL)
+    {
         g_free (save->priv->file_name);
+        save->priv->file_name = NULL;
+    }
 }
 
 static void

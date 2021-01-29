@@ -91,34 +91,28 @@ static void open_recorder_dir_callback (NotifyNotification *notification,
                                         const char         *action,
                                         const char         *path)
 {
-    GtkWidget  *chooser;
-    GtkWidget  *preview;
-    char       *dir;
-
-    chooser = gtk_file_chooser_dialog_new (_("View recording video"),
-                                           NULL,
-                                           GTK_FILE_CHOOSER_ACTION_OPEN,
-                                           _("_Cancel"), GTK_RESPONSE_CANCEL,
-                                           _("_Open"), GTK_RESPONSE_ACCEPT,
-                                           NULL);
-
-    gtk_window_set_modal (GTK_WINDOW (chooser), TRUE);
-
-    preview = gtk_image_new ();
-    gtk_widget_set_size_request (preview, 128, -1);
-    gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER (chooser), preview);
-    gtk_file_chooser_set_use_preview_label (GTK_FILE_CHOOSER (chooser), FALSE);
-    gtk_widget_show (preview);
+    char   *dir;
+    char   *argv[3];
+    GError *error = NULL;
 
     dir = g_path_get_dirname (path);
-    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (chooser),
-                                         dir);
 
-    gtk_window_present (GTK_WINDOW (chooser));
+    argv[0] = "/usr/bin/caja";
+    argv[1] = dir;
+    argv[2] = NULL;
+
+    if (!g_spawn_async (NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, NULL, &error))
+    {
+        screen_message_dialog (_("Open Save Dir"), error->message, ERROR);
+    }
 }
 static void set_notify_action (NotifyNotification *notify,
                                const char         *path)
 {
+    if (g_find_program_in_path ("caja") == NULL)
+    {
+        return;
+    }
     notify_notification_add_action (notify,
                                    "action",
                                    _("Enter recording directory"),

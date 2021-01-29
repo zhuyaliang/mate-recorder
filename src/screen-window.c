@@ -136,6 +136,7 @@ static void screen_admin_update_notification (NotifyNotification *notify,
     if (notify == NULL)
         return;
     notify_notification_update (notify, summary, body, icon);
+    notify_notification_clear_actions (notify);
     if (dir_path != NULL)
     {
         set_notify_action (notify, dir_path);

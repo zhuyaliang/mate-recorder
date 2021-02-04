@@ -292,6 +292,7 @@ gboolean register_screen_server (ScreenServer *ss, GError **error)
     return TRUE;
 }
 static void setup_video_sources (ScreenServer *ss,
+                                 gulong        xid,
                                  int           startx,
                                  int           starty,
                                  int           endx,
@@ -303,11 +304,18 @@ static void setup_video_sources (ScreenServer *ss,
     GstCaps    *video_caps;
     guint i = 0;
 
-    g_object_set (ss->priv->videosrc, "startx", startx, NULL);
-    g_object_set (ss->priv->videosrc, "starty", starty, NULL);
-    g_object_set (ss->priv->videosrc, "endx", endx, NULL);
-    g_object_set (ss->priv->videosrc, "endy", endy, NULL);
-    g_object_set (ss->priv->videosrc, "use-damage", FALSE, NULL);
+    if (xid > 0)
+    {
+        g_object_set (ss->priv->videosrc, "xid", xid, NULL);
+    }
+    else
+    {
+        g_object_set (ss->priv->videosrc, "startx", startx, NULL);
+        g_object_set (ss->priv->videosrc, "starty", starty, NULL);
+        g_object_set (ss->priv->videosrc, "endx", endx, NULL);
+        g_object_set (ss->priv->videosrc, "endy", endy, NULL);
+        g_object_set (ss->priv->videosrc, "use-damage", FALSE, NULL);
+    }
 
     text = g_strdup_printf ("video/x-raw, framerate=%d/1", framerate);
     video_caps = gst_caps_from_string (text);
@@ -378,7 +386,7 @@ static gboolean screencast_area (ScreenAdmin *object,
     if (g_strcmp0 (video_format, "RAW (AVI)") == 0)
         is_raw = TRUE;
 
-    setup_video_sources (ss, startx, starty, endx+startx, endy+starty, framerate, video_format);
+    setup_video_sources (ss, 0, startx, starty, endx+startx, endy+starty, framerate, video_format);
     g_object_set (ss->priv->videosrc, "show-pointer", draw_cursor, NULL);
     g_object_set (ss->priv->sink, "location", file_name, NULL);
     setup_links (ss, is_raw);
@@ -396,6 +404,23 @@ static gboolean screencast_xid  (ScreenAdmin *object,
                                  gboolean     draw_cursor,
                                  const gchar *video_format)
 {
+    gboolean is_raw = FALSE;
+
+    ScreenServer *ss = SCREEN_SERVER (object);
+    g_return_val_if_fail (ss->priv->state != RECORDER_STATE_RECORDING, FALSE);
+
+    ss->priv->state = RECORDER_STATE_RECORDING;
+    if (g_strcmp0 (video_format, "RAW (AVI)") == 0)
+        is_raw = TRUE;
+
+    setup_video_sources (ss, xid, 0, 0, 0, 0, framerate, video_format);
+    g_object_set (ss->priv->videosrc, "show-pointer", draw_cursor, NULL);
+    g_object_set (ss->priv->sink, "location", file_name, NULL);
+    setup_links (ss, is_raw);
+    gst_element_set_state (ss->priv->pipeline, GST_STATE_PLAYING);
+
+    screen_admin_complete_screencast_xid (object, invocation, TRUE);
+
     return TRUE;
 }
 static gboolean screencast_full (ScreenAdmin *object,
@@ -420,7 +445,7 @@ static gboolean screencast_full (ScreenAdmin *object,
     endx = startx + width - 1;
     endy = starty + height - 1;
 
-    setup_video_sources (ss, startx, starty, endx, endy, framerate,video_format);
+    setup_video_sources (ss, 0, startx, starty, endx, endy, framerate,video_format);
     g_object_set (ss->priv->videosrc, "show-pointer", draw_cursor, NULL);
     g_object_set (ss->priv->sink, "location", file_name, NULL);
     if (g_strcmp0 (video_format, "RAW (AVI)") == 0)

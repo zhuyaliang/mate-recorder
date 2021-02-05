@@ -35,9 +35,11 @@ struct _ScreenListPrivate
 {
     WnckWindow   *wnck_window;
 
+    GtkTreeSelection *selection;
     GtkListStore *store;
     GtkWidget    *tree_view;
     GtkWidget    *button;
+    gulong        s_id;
 };
 
 static guint signals[LAST_SIGNAL] = { 0 };
@@ -155,7 +157,7 @@ select_window_list_cb (GtkWidget *widget, gpointer data)
     GtkTreeIter   iter;
     GtkTreeModel *model;
     WnckWindow   *window;
-    
+
     ScreenList *list = SCREEN_LIST (data);
     if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(widget), &model, &iter))
     {
@@ -182,6 +184,7 @@ screen_list_dialog_fill (ScreenList *list)
     GtkWidget    *dialog_area;
     GtkWidget    *sw;
     GtkDialog    *dialog;
+    gulong        s_id;
     GtkTreeSelection *selection;
 
     dialog = GTK_DIALOG (list);
@@ -192,18 +195,19 @@ screen_list_dialog_fill (ScreenList *list)
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (list->priv->tree_view));
     gtk_tree_selection_set_mode (selection,GTK_SELECTION_SINGLE);
-    g_signal_connect(selection,
-                    "changed",
-                     G_CALLBACK(select_window_list_cb),
-                     list);
+    s_id = g_signal_connect(selection,
+                           "changed",
+                            G_CALLBACK(select_window_list_cb),
+                            list);
 
+    list->priv->selection = selection;
+    list->priv->s_id = s_id;
     sw = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
                                     GTK_POLICY_AUTOMATIC,
                                     GTK_POLICY_AUTOMATIC);
     gtk_container_add (GTK_CONTAINER (sw), list->priv->tree_view);
     gtk_box_pack_start (GTK_BOX (dialog_area), sw, TRUE, TRUE, 6);
-
 
 }
 
@@ -262,8 +266,9 @@ window_opened_callback (WnckScreen    *screen,
                         gpointer       data)
 {
     ScreenList *list = SCREEN_LIST (data);
-
+    g_signal_handler_block (list->priv->selection, list->priv->s_id);
     refresh_screen_window_list (list);
+    g_signal_handler_unblock (list->priv->selection, list->priv->s_id);
 }
 
 static void
@@ -273,24 +278,24 @@ window_closed_callback (WnckScreen    *screen,
 {
     ScreenList *list = SCREEN_LIST (data);
 
+    g_signal_handler_block (list->priv->selection, list->priv->s_id);
     refresh_screen_window_list (list);
+    g_signal_handler_unblock (list->priv->selection, list->priv->s_id);
 }
 
 static void
 screen_list_dispose (GObject *object)
 {
-    //ScreenList *list;
-
-    //list = SCREEN_LIST (object);
-
-    G_OBJECT_CLASS (screen_list_parent_class)->dispose (object);
+//    ScreenList *list;
 }
 
 static void
 screen_list_dialog_response  (GtkDialog *dialog,
                               gint response_id)
 {
+
     ScreenList *list = SCREEN_LIST (dialog);
+
     switch (response_id)
     {
         case GTK_RESPONSE_OK:
@@ -371,7 +376,6 @@ screen_list_init (ScreenList *list)
                      "window_closed",
                       G_CALLBACK (window_closed_callback),
                       list);
-
 }
 
 GtkWidget *
@@ -409,4 +413,4 @@ void screnn_set_window_activate (ScreenList *list)
         return;
 
     wnck_window_activate (list->priv->wnck_window, gtk_get_current_event_time ());
-} 
+}

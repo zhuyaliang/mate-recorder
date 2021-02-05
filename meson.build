@@ -97,6 +97,7 @@ indicator_dep = dependency('appindicator3-0.1')
 notify_dep = dependency('libnotify')
 gst_dep = dependency('gstreamer-1.0')
 math_dep = cc.find_library('m')
+wnck_dep = dependency('libwnck-3.0')
 # Configure data
 conf = configuration_data()
 

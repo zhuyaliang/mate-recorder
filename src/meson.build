@@ -38,11 +38,12 @@ sources = files(
  'screen-area.c',
  'screen-window.c',
  'screen-server.c',
-)
+ 'screen-list.c',
+ )
 
 executable('mate-recorder-admin',
   sources : sources,
-  dependencies : [gtk_dep, gst_dep, indicator_dep, notify_dep, math_dep, libscreen_generated_dep],
+  dependencies : [gtk_dep, gst_dep, indicator_dep, notify_dep, math_dep, wnck_dep, libscreen_generated_dep],
   include_directories: top_srcdir,
   install : true,
   install_dir : get_option('bindir')

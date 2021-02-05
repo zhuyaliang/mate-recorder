@@ -33,8 +33,11 @@ enum
 };
 struct _ScreenListPrivate
 {
+    WnckWindow   *wnck_window;
+
     GtkListStore *store;
     GtkWidget    *tree_view;
+    GtkWidget    *button;
 };
 
 static guint signals[LAST_SIGNAL] = { 0 };
@@ -153,6 +156,7 @@ select_window_list_cb (GtkWidget *widget, gpointer data)
     GtkTreeModel *model;
     WnckWindow   *window;
     
+    ScreenList *list = SCREEN_LIST (data);
     if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(widget), &model, &iter))
     {
 
@@ -166,13 +170,8 @@ select_window_list_cb (GtkWidget *widget, gpointer data)
     { 
             return FALSE;
     }
-    if (wnck_window_is_active (window))
-        return TRUE;
-    else
-    {
-        wnck_window_activate (window, gtk_get_current_event_time ());
-        return FALSE;
-    }
+    list->priv->wnck_window = window;
+    gtk_widget_set_sensitive (list->priv->button, TRUE);
     
     return TRUE;
 }
@@ -207,6 +206,7 @@ screen_list_dialog_fill (ScreenList *list)
 
 
 }
+
 static GObject *
 screen_list_constructor (GType                  type,
                          guint                  n_construct_properties,
@@ -285,21 +285,25 @@ screen_list_dispose (GObject *object)
 
     G_OBJECT_CLASS (screen_list_parent_class)->dispose (object);
 }
+
 static void
 screen_list_dialog_response  (GtkDialog *dialog,
                               gint response_id)
 {
-
-     switch (response_id)
-     {
-         case GTK_RESPONSE_OK:
-             break;
-         case GTK_RESPONSE_CANCEL:
-             break;
-         default:
-             break;
-     }
-
+    ScreenList *list = SCREEN_LIST (dialog);
+    switch (response_id)
+    {
+        case GTK_RESPONSE_OK:
+            g_signal_emit (list, signals[SELECTED], 0);
+            gtk_widget_hide (GTK_WIDGET (dialog));
+            break;
+        case GTK_RESPONSE_CANCEL:
+            g_signal_emit (list, signals[CANCELED], 0);
+            gtk_widget_hide (GTK_WIDGET (dialog));
+            break;
+        default:
+            break;
+    }
 }
 
 static void
@@ -334,24 +338,28 @@ static void
 screen_list_init (ScreenList *list)
 {
     GtkDialog  *dialog;
+    GtkWidget  *button;
     WnckScreen *screen;
 
     list->priv = screen_list_get_instance_private (list);
+    list->priv->wnck_window = NULL;
+
     dialog = GTK_DIALOG (list);
 
     dialog_add_button_with_icon_name (dialog,
-                                      _("Return"), 
-                                      "window-close", 
+                                      _("Return"),
+                                      "window-close",
                                        GTK_RESPONSE_CANCEL);
 
-    dialog_add_button_with_icon_name (dialog,
-                                     _("Confirm"), 
-                                     "emblem-default",
-                                      GTK_RESPONSE_OK);
+    button = dialog_add_button_with_icon_name (dialog,
+                                             _("Confirm"),
+                                               "emblem-default",
+                                                GTK_RESPONSE_OK);
 
-    gtk_window_set_deletable (GTK_WINDOW (dialog), FALSE);
+    gtk_widget_set_sensitive (button, FALSE);
+    list->priv->button = button;
     gtk_window_set_default_size (GTK_WINDOW (dialog), 300, 300);
-    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
 
     screen = wnck_screen_get (0);
     g_signal_connect (G_OBJECT (screen),
@@ -377,3 +385,28 @@ screen_list_new (void)
 
     return GTK_WIDGET (list);
 }
+
+gulong screen_list_get_window_xid (ScreenList *list)
+{
+    gulong xid;
+    if (list->priv->wnck_window == NULL)
+    {
+        return 0;
+    }
+
+    xid = wnck_window_get_xid (list->priv->wnck_window);
+
+    return xid; 
+}
+
+void screnn_set_window_activate (ScreenList *list)
+{
+
+    if (list->priv->wnck_window == NULL)
+        return;
+
+    if (wnck_window_is_active (list->priv->wnck_window))
+        return;
+
+    wnck_window_activate (list->priv->wnck_window, gtk_get_current_event_time ());
+} 

@@ -48,8 +48,9 @@ GType         screen_list_get_type         (void) G_GNUC_CONST;
 
 GtkWidget    *screen_list_new              (void);
 
-gint32        screen_list_get_window_xid   (ScreenList *list);
+gulong        screen_list_get_window_xid   (ScreenList *list);
 
+void          screnn_set_window_activate   (ScreenList *list);
 G_END_DECLS
 
 #endif

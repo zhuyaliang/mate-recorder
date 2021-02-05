@@ -64,7 +64,7 @@ set_window_icons_cb (GtkTreeViewColumn *column,
                      GtkTreeModel      *model,
                      GtkTreeIter       *iter,
                      gpointer           data)
-{ 
+{
     WnckWindow *window;
     GdkPixbuf  *pixbuf;
 
@@ -74,7 +74,7 @@ set_window_icons_cb (GtkTreeViewColumn *column,
                         &window,
                         -1);
     if (window == NULL)
-    { 
+    {
         return;
     }
     
@@ -89,7 +89,7 @@ set_window_title_cb (GtkTreeViewColumn *column,
                      GtkTreeModel      *model,
                      GtkTreeIter       *iter,
                      gpointer           data)
-{ 
+{
     WnckWindow *window;
     const char *mini_name;
 
@@ -99,7 +99,7 @@ set_window_title_cb (GtkTreeViewColumn *column,
                         &window,
                         -1);
     if (window == NULL)
-    { 
+    {
         return;
     }
     mini_name = wnck_window_get_name (window);
@@ -109,39 +109,39 @@ set_window_title_cb (GtkTreeViewColumn *column,
 
 static void
 create_tree_view_column (GtkWidget *tree_view)
-{   
+{
     GtkTreeViewColumn *column;
     GtkCellRenderer   *renderer;
 
     column = gtk_tree_view_column_new ();
     gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column),
                                      GTK_TREE_VIEW_COLUMN_FIXED);
-    
+
     renderer = gtk_cell_renderer_pixbuf_new ();
     g_object_set (G_OBJECT (renderer), "stock-size", 8, NULL);
     gtk_cell_renderer_set_padding (renderer, 8, 8);
-    
+
     gtk_tree_view_column_pack_start (column,
                                      renderer,
                                      FALSE);
-    
+
     gtk_tree_view_column_set_cell_data_func (column, 
                                              renderer,
                                              set_window_icons_cb,
                                              NULL,
                                              NULL);
-    
+
     renderer = gtk_cell_renderer_text_new ();
     gtk_tree_view_column_pack_start (column,
                                      renderer,
                                      TRUE);
-    
+
     gtk_tree_view_column_set_cell_data_func (column,
                                              renderer,
                                              set_window_title_cb,
                                              NULL,
                                              NULL);
-    
+
     gtk_tree_view_append_column(GTK_TREE_VIEW(tree_view), column);
     gtk_tree_view_set_headers_visible (GTK_TREE_VIEW(tree_view), FALSE);
 }
@@ -236,7 +236,7 @@ refresh_screen_window_list (ScreenList *list)
 
     own_pid = getpid ();
     gtk_list_store_clear (list->priv->store);
-    
+
     screen = wnck_screen_get (0);
     l = wnck_screen_get_windows (screen);
     while (l != NULL)
@@ -262,7 +262,7 @@ window_opened_callback (WnckScreen    *screen,
                         gpointer       data)
 {
     ScreenList *list = SCREEN_LIST (data);
-    
+
     refresh_screen_window_list (list);
 }
 
@@ -272,7 +272,7 @@ window_closed_callback (WnckScreen    *screen,
                         gpointer       data)
 {
     ScreenList *list = SCREEN_LIST (data);
-    
+
     refresh_screen_window_list (list);
 }
 
@@ -288,8 +288,8 @@ screen_list_dispose (GObject *object)
 static void
 screen_list_dialog_response  (GtkDialog *dialog,
                               gint response_id)
- {
- 
+{
+
      switch (response_id)
      {
          case GTK_RESPONSE_OK:
@@ -299,8 +299,8 @@ screen_list_dialog_response  (GtkDialog *dialog,
          default:
              break;
      }
- 
- }
+
+}
 
 static void
 screen_list_class_init (ScreenListClass *klass)
@@ -335,10 +335,10 @@ screen_list_init (ScreenList *list)
 {
     GtkDialog  *dialog;
     WnckScreen *screen;
-   
+
     list->priv = screen_list_get_instance_private (list);
     dialog = GTK_DIALOG (list);
-     
+
     dialog_add_button_with_icon_name (dialog,
                                       _("Return"), 
                                       "window-close", 
@@ -352,7 +352,7 @@ screen_list_init (ScreenList *list)
     gtk_window_set_deletable (GTK_WINDOW (dialog), FALSE);
     gtk_window_set_default_size (GTK_WINDOW (dialog), 300, 300);
     gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
-    
+
     screen = wnck_screen_get (0);
     g_signal_connect (G_OBJECT (screen),
                      "window_opened",

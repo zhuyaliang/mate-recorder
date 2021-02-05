@@ -48,8 +48,6 @@ GType         screen_list_get_type         (void) G_GNUC_CONST;
 
 GtkWidget    *screen_list_new              (void);
 
-gint32        screen_list_get_startx       (ScreenList *list);
-
 gint32        screen_list_get_window_xid   (ScreenList *list);
 
 G_END_DECLS

@@ -716,7 +716,7 @@ screen_window_fill (ScreenWindow *screenwin)
                       G_CALLBACK (screen_area_mode_cb),
                       screenwin);
 
-    gtk_tool_button_set_label (GTK_TOOL_BUTTON (item), _("Area Screen"));
+    gtk_tool_button_set_label (GTK_TOOL_BUTTON (item), _("Selection Area"));
     group = gtk_radio_tool_button_get_group (GTK_RADIO_TOOL_BUTTON (item));
     gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
     screenwin->priv->button_area = GTK_WIDGET (item);
@@ -727,7 +727,7 @@ screen_window_fill (ScreenWindow *screenwin)
                      "toggled",
                       G_CALLBACK (screen_xid_mode_cb),
                       screenwin);
-    gtk_tool_button_set_label (GTK_TOOL_BUTTON (item), _("Xid Screen"));
+    gtk_tool_button_set_label (GTK_TOOL_BUTTON (item), _("Selection window"));
     gtk_toolbar_insert (GTK_TOOLBAR (toolbar), item, -1);
     screenwin->priv->button_xid = GTK_WIDGET (item);
 

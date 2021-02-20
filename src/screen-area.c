@@ -602,10 +602,10 @@ screen_area_fill (ScreenArea *area)
 
     window = GTK_WINDOW (area);
 
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
+    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add (GTK_CONTAINER (window), vbox);
     drawing = gtk_drawing_area_new ();
-    gtk_box_pack_start (GTK_BOX (vbox), drawing, TRUE, TRUE, 6);
+    gtk_box_pack_start (GTK_BOX (vbox), drawing, TRUE, TRUE, 0);
     gtk_widget_set_size_request (drawing, 500, 500);
     gtk_widget_add_events(drawing, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
                           GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |

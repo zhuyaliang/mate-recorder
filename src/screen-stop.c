@@ -151,6 +151,7 @@ screen_stop_init (ScreenStop *stop)
 
     spin = gtk_spin_button_new_with_range (2, 86400, 1);
     g_object_bind_property (spin, "value", stop, "stop_time", 0);
+    g_object_bind_property (radio1, "active", spin, "sensitive", 0);
     gtk_grid_attach(GTK_GRID(table), spin, 1, 0, 1, 1);
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (spin), (double)length);
 

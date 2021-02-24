@@ -41,7 +41,7 @@ sources = files(
  'screen-list.c',
  )
 
-executable('mate-recorder-admin',
+executable('mate-recorder',
   sources : sources,
   dependencies : [gtk_dep, gst_dep, indicator_dep, notify_dep, math_dep, wnck_dep, libscreen_generated_dep],
   include_directories: top_srcdir,

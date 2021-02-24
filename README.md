@@ -1,4 +1,4 @@
-# mate-recorder-admin
+# mate-recorder
 Screen recording tool based on mate desktop
 # reference
 
@@ -14,5 +14,5 @@ sudo ninja -C build install
 
 # Use
 
-mate-recorder-admin
+mate-recorder
 ![Interface:](https://github.com/zhuyaliang/images/blob/master/mate-recorder-001.png)

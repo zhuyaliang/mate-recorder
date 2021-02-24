@@ -6,3 +6,4 @@ src/screen-style.c
 src/screen-area.c
 src/screen-window.c
 src/screen-server.c
+src/screen-list.c

@@ -48,7 +48,7 @@ static gboolean on_darw (GtkWidget *widget, cairo_t *cr1, gpointer data)
     int              i;
 
     i = count->priv->count_down;
-    file = g_strdup_printf ("%s/%s","/usr/share/mate-recorder-admin/counter",count_images[i]);
+    file = g_strdup_printf ("%s/%s","/usr/share/mate-recorder/counter",count_images[i]);
     window = gtk_widget_get_window (widget);
     image = cairo_image_surface_create_from_png(file);
 

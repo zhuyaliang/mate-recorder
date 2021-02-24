@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the mate-recorder-admin package.
+# This file is distributed under the same license as the mate-recorder package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: mate-recorder-admin\n"
+"Project-Id-Version: mate-recorder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-28 11:48+0800\n"
+"POT-Creation-Date: 2021-02-24 16:48+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,23 +23,23 @@ msgid ""
 "server is installed and running"
 msgstr ""
 
-#: src/main.c:139
+#: src/main.c:140
 msgid "Init GDbus"
 msgstr ""
 
-#: src/screen-count.c:163 src/screen-window.c:599
+#: src/screen-count.c:163 src/screen-window.c:746
 msgid "count down"
 msgstr ""
 
-#: src/screen-save.c:102
+#: src/screen-save.c:108
 msgid "Screen video"
 msgstr ""
 
-#: src/screen-save.c:137
+#: src/screen-save.c:143
 msgid "Folder"
 msgstr ""
 
-#: src/screen-save.c:155
+#: src/screen-save.c:161
 msgid "FileName"
 msgstr ""
 
@@ -47,11 +47,11 @@ msgstr ""
 msgid "stop by time (S)"
 msgstr ""
 
-#: src/screen-stop.c:158
+#: src/screen-stop.c:159
 msgid "stop by size (MB)"
 msgstr ""
 
-#: src/screen-stop.c:171
+#: src/screen-stop.c:172
 msgid "unlimited"
 msgstr ""
 
@@ -75,86 +75,106 @@ msgstr ""
 msgid "Press ENTER to confirm or ESC to cancel"
 msgstr ""
 
-#: src/screen-window.c:82
+#: src/screen-window.c:87
 msgid "Screen  ready"
 msgstr ""
 
-#: src/screen-window.c:149
+#: src/screen-window.c:111
+msgid "Open Save Dir"
+msgstr ""
+
+#: src/screen-window.c:123
+msgid "Enter recording directory"
+msgstr ""
+
+#: src/screen-window.c:196
 msgid "Close application"
 msgstr ""
 
-#: src/screen-window.c:150
+#: src/screen-window.c:197
 msgid "Application closed successfully"
 msgstr ""
 
-#: src/screen-window.c:186
+#: src/screen-window.c:234
 msgid "Settings"
 msgstr ""
 
-#: src/screen-window.c:189
+#: src/screen-window.c:237
 msgid "Start new recording"
 msgstr ""
 
-#: src/screen-window.c:197
+#: src/screen-window.c:245
 msgid "Stop recording"
 msgstr ""
 
-#: src/screen-window.c:205
+#: src/screen-window.c:253
 msgid "Skip countdown"
 msgstr ""
 
-#: src/screen-window.c:216
+#: src/screen-window.c:264
 msgid "Show Time"
 msgstr ""
 
-#: src/screen-window.c:227
+#: src/screen-window.c:275
 msgid "Quit recording"
 msgstr ""
 
-#: src/screen-window.c:309
+#: src/screen-window.c:357
 msgid "start screen recording"
 msgstr ""
 
-#: src/screen-window.c:379
+#: src/screen-window.c:444
 msgid "End of recording"
 msgstr ""
 
-#: src/screen-window.c:467
+#: src/screen-window.c:533
 msgid "Start Recording"
 msgstr ""
 
-#: src/screen-window.c:572
+#: src/screen-window.c:707
 msgid "Full Screen"
 msgstr ""
 
-#: src/screen-window.c:584
-msgid "Area Screen"
+#: src/screen-window.c:719
+msgid "Selection Area"
 msgstr ""
 
-#: src/screen-window.c:587
+#: src/screen-window.c:730
+msgid "Selection window"
+msgstr ""
+
+#: src/screen-window.c:734
 msgid "Recording screen settings"
 msgstr ""
 
-#: src/screen-window.c:591
+#: src/screen-window.c:738
 msgid "Stop Mode"
 msgstr ""
 
-#: src/screen-window.c:595
+#: src/screen-window.c:742
 msgid "Save Mode"
 msgstr ""
 
-#: src/screen-window.c:622
+#: src/screen-window.c:769
 msgid "Start application"
 msgstr ""
 
-#: src/screen-window.c:623
+#: src/screen-window.c:770
 msgid "The recording program is ready. Please start recording"
 msgstr ""
 
-#: src/screen-window.c:672
+#: src/screen-window.c:820
 msgid "Mate Recording Screen"
 msgstr ""
 
-#: src/screen-window.c:758
+#: src/screen-window.c:906
 msgid "Message"
+msgstr ""
+
+#: src/screen-list.c:355
+msgid "Return"
+msgstr ""
+
+#: src/screen-list.c:360
+msgid "Confirm"
 msgstr ""

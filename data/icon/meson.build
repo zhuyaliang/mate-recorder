@@ -1,3 +1,3 @@
-install_data('mate-recorder-admin.png',
-  install_dir : join_paths(get_option('prefix'), 'share','mate-recorder-admin','icon'),
+install_data('mate-recorder.png',
+  install_dir : join_paths(get_option('prefix'), 'share','mate-recorder','icon'),
 )

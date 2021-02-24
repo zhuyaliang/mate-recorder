@@ -82,8 +82,8 @@ static NotifyNotification *get_notification (void)
 {
     NotifyNotification *notify;
 
-    notify_init ("Mate-Recorder-Admin");
-    notify = notify_notification_new ("mate-recorder-admin",
+    notify_init ("Mate-Recorder");
+    notify = notify_notification_new ("mate-recorder",
                                       _("Screen  ready"),
                                       "emblem-default");
     notify_notification_set_urgency (notify, NOTIFY_URGENCY_LOW);
@@ -290,14 +290,14 @@ static void create_tray_indicator (ScreenWindow *screenwin)
 
     menu = get_menu_button (screenwin);
 
-    screenwin->priv->indicator = app_indicator_new ("mate-recorder-admin-menu",
+    screenwin->priv->indicator = app_indicator_new ("mate-recorder-menu",
                                                     "screen-start",
                                                      APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
     app_indicator_set_attention_icon_full(screenwin->priv->indicator, "screen-start", "Local Attention Icon");
     app_indicator_set_status (screenwin->priv->indicator, APP_INDICATOR_STATUS_ATTENTION);
     app_indicator_set_label (screenwin->priv->indicator, "00:00", "100%");
 
-    app_indicator_set_title (screenwin->priv->indicator, "mate-recorder-admin-menu");
+    app_indicator_set_title (screenwin->priv->indicator, "mate-recorder-menu");
     app_indicator_set_menu (screenwin->priv->indicator, GTK_MENU(menu));
 }
 

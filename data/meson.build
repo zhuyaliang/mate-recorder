@@ -13,16 +13,16 @@ install_data(
 )
 
 i18n.merge_file(
-  'mate-recorder-admin-desktop',
-  input: 'mate-recorder-admin.desktop.in',
-  output: 'mate-recorder-admin.desktop',
+  'mate-recorder-desktop',
+  input: 'mate-recorder.desktop.in',
+  output: 'mate-recorder.desktop',
   install: true,
   po_dir: join_paths(meson.source_root(), 'po'),
   install_dir : join_paths(get_option('prefix'), 'share/applications'),
   type: 'desktop',
 )
 
-appdata = 'mate-recorder-admin.appdata.xml'
+appdata = 'mate-recorder.appdata.xml'
 i18n.merge_file(
   input: appdata + '.in',
   output: appdata,

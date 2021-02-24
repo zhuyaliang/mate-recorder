@@ -12,6 +12,6 @@ faces = [
   ]
 foreach face: faces
   install_data(face,
-    install_dir : join_paths(get_option('prefix'), 'share', 'mate-recorder-admin', 'counter')
+    install_dir : join_paths(get_option('prefix'), 'share', 'mate-recorder', 'counter')
   )
 endforeach

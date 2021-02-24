@@ -1,10 +1,10 @@
 actions_icons = [
-  ['16x16', 'mate-recorder-admin.png'],
+  ['16x16', 'mate-recorder.png'],
   ['22x22', 'screen-start.png'],
-  ['22x22', 'mate-recorder-admin.png'],
-  ['24x24', 'mate-recorder-admin.png'],
-  ['32x32', 'mate-recorder-admin.png'],
-  ['48x48', 'mate-recorder-admin.png']
+  ['22x22', 'mate-recorder.png'],
+  ['24x24', 'mate-recorder.png'],
+  ['32x32', 'mate-recorder.png'],
+  ['48x48', 'mate-recorder.png']
 ]
 
 foreach icon: actions_icons

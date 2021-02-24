@@ -1,4 +1,4 @@
-project('mate-recorder-admin', 'c',
+project('mate-recorder', 'c',
   version : '1.0.0',
   license : 'GPLv3',
   meson_version : '>=0.40.1',
@@ -102,7 +102,7 @@ wnck_dep = dependency('libwnck-3.0')
 conf = configuration_data()
 
 conf.set_quoted('PACKAGE_NAME', meson.project_name())
-conf.set_quoted('PACKAGE_URL','https://github.com/zhuyaliang/mate-recorder-admin')
+conf.set_quoted('PACKAGE_URL','https://github.com/zhuyaliang/mate-recorder')
 conf.set_quoted('PACKAGE_VERSION', meson.project_version())
 conf.set_quoted('VERSION', meson.project_version())
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
@@ -111,11 +111,11 @@ conf.set_quoted('DATADIR', join_paths(get_option('prefix'), get_option('datadir'
 conf.set_quoted('LIBDIR', join_paths(get_option('prefix'), get_option('libdir')))
 conf.set_quoted('BINDIR', join_paths(get_option('prefix'), get_option('bindir')))
 conf.set_quoted('SYSCONFDIR', join_paths(get_option('prefix'), get_option('sysconfdir')))
-conf.set_quoted('LOCKDIR', '/tmp/.mate-recorder-admin-lock/')
+conf.set_quoted('LOCKDIR', '/tmp/.mate-recorder-lock/')
 conf.set_quoted('LOCALSTATEDIR', join_paths(get_option('prefix'), get_option('localstatedir')))
 conf.set_quoted('LIBEXECDIR', join_paths(get_option('prefix'), get_option('libexecdir')))
 conf.set_quoted('ICONDIR', join_paths(get_option('prefix'), get_option('datadir'), meson.project_name(), 'icon/'))
-conf.set_quoted('ICONPATH', join_paths(get_option('prefix'), get_option('datadir'), meson.project_name(), 'icon/mate-recorder-admin.png'))
+conf.set_quoted('ICONPATH', join_paths(get_option('prefix'), get_option('datadir'), meson.project_name(), 'icon/mate-recorder.png'))
 data_dir = join_paths(meson.current_source_dir(), 'data')
 configure_file(
   output : 'config.h',

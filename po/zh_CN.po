@@ -1,14 +1,14 @@
-# Chinese translations for mate-recorder-admin package
-# Copyright (C) 2021 THE mate-recorder-admin'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the mate-recorder-admin package.
+# Chinese translations for mate-recorder package
+# Copyright (C) 2021 THE mate-recorder'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the mate-recorder package.
 # Automatically generated, 2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mate-recorder-admin\n"
+"Project-Id-Version: mate-recorder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-28 11:48+0800\n"
-"PO-Revision-Date: 2021-01-28 11:49+0800\n"
+"POT-Creation-Date: 2021-02-24 16:47+0800\n"
+"PO-Revision-Date: 2021-02-24 16:48+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
@@ -24,23 +24,23 @@ msgid ""
 msgstr ""
 "连接screen-server gdbus接口时出错。请检查screen-server是否已安装并正在运行"
 
-#: src/main.c:139
+#: src/main.c:140
 msgid "Init GDbus"
 msgstr "初始化 Dbus 服务"
 
-#: src/screen-count.c:163 src/screen-window.c:599
+#: src/screen-count.c:163 src/screen-window.c:746
 msgid "count down"
 msgstr "倒计时"
 
-#: src/screen-save.c:102
+#: src/screen-save.c:108
 msgid "Screen video"
 msgstr "屏幕视频"
 
-#: src/screen-save.c:137
+#: src/screen-save.c:143
 msgid "Folder"
 msgstr "文件夹"
 
-#: src/screen-save.c:155
+#: src/screen-save.c:161
 msgid "FileName"
 msgstr "文件名字"
 
@@ -48,11 +48,11 @@ msgstr "文件名字"
 msgid "stop by time (S)"
 msgstr "根据时间停止 （S）"
 
-#: src/screen-stop.c:158
+#: src/screen-stop.c:159
 msgid "stop by size (MB)"
 msgstr "根据大小停止 （MB）"
 
-#: src/screen-stop.c:171
+#: src/screen-stop.c:172
 msgid "unlimited"
 msgstr "无限制"
 
@@ -76,86 +76,109 @@ msgstr "通过单击并拖动选择区域。"
 msgid "Press ENTER to confirm or ESC to cancel"
 msgstr "按ENTER键确认，或按ESC键取消"
 
-#: src/screen-window.c:82
+#: src/screen-window.c:87
 msgid "Screen  ready"
 msgstr "屏幕准备好"
 
-#: src/screen-window.c:149
+#: src/screen-window.c:111
+msgid "Open Save Dir"
+msgstr "打开保存目录"
+
+#: src/screen-window.c:123
+msgid "Enter recording directory"
+msgstr "进入录制目录"
+
+#: src/screen-window.c:196
 msgid "Close application"
 msgstr "关闭应用程序"
 
-#: src/screen-window.c:150
+#: src/screen-window.c:197
 msgid "Application closed successfully"
 msgstr "应用程序关闭成功"
 
-#: src/screen-window.c:186
+#: src/screen-window.c:234
 msgid "Settings"
 msgstr "设置"
 
-#: src/screen-window.c:189
+#: src/screen-window.c:237
 msgid "Start new recording"
 msgstr "开始录制"
 
-#: src/screen-window.c:197
+#: src/screen-window.c:245
 msgid "Stop recording"
 msgstr "结束录制"
 
-#: src/screen-window.c:205
+#: src/screen-window.c:253
 msgid "Skip countdown"
 msgstr "跳过倒计时"
 
-#: src/screen-window.c:216
+#: src/screen-window.c:264
 msgid "Show Time"
 msgstr "显示时间"
 
-#: src/screen-window.c:227
+#: src/screen-window.c:275
 msgid "Quit recording"
 msgstr "退出录制"
 
-#: src/screen-window.c:309
+#: src/screen-window.c:357
 msgid "start screen recording"
 msgstr "开始屏幕录制"
 
-#: src/screen-window.c:379
+#: src/screen-window.c:444
 msgid "End of recording"
 msgstr "结束录制"
 
-#: src/screen-window.c:467
+#: src/screen-window.c:533
 msgid "Start Recording"
 msgstr "开始录制"
 
-#: src/screen-window.c:572
+#: src/screen-window.c:707
 msgid "Full Screen"
 msgstr "全屏录制"
 
-#: src/screen-window.c:584
-msgid "Area Screen"
-msgstr "区域录制"
+#: src/screen-window.c:719
+msgid "Selection Area"
+msgstr "选择区域"
 
-#: src/screen-window.c:587
+#: src/screen-window.c:730
+msgid "Selection window"
+msgstr "选择窗口"
+
+#: src/screen-window.c:734
 msgid "Recording screen settings"
 msgstr "录制设置"
 
-#: src/screen-window.c:591
+#: src/screen-window.c:738
 msgid "Stop Mode"
 msgstr "停止模式"
 
-#: src/screen-window.c:595
+#: src/screen-window.c:742
 msgid "Save Mode"
 msgstr "保存模式"
 
-#: src/screen-window.c:622
+#: src/screen-window.c:769
 msgid "Start application"
 msgstr "启动应用程序"
 
-#: src/screen-window.c:623
+#: src/screen-window.c:770
 msgid "The recording program is ready. Please start recording"
 msgstr "录制程序准备好了。请开始录制"
 
-#: src/screen-window.c:672
+#: src/screen-window.c:820
 msgid "Mate Recording Screen"
 msgstr "Mate 屏幕录制"
 
-#: src/screen-window.c:758
+#: src/screen-window.c:906
 msgid "Message"
 msgstr "消息"
+
+#: src/screen-list.c:355
+msgid "Return"
+msgstr "返回"
+
+#: src/screen-list.c:360
+msgid "Confirm"
+msgstr "确认"
+
+#~ msgid "Area Screen"
+#~ msgstr "区域录制"

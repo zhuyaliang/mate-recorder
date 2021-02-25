@@ -181,7 +181,8 @@ screen_stop_item_cb (GtkMenuItem *item, gpointer user_data)
     ScreenList *list = SCREEN_LIST (screenwin->priv->list);
 
     gtk_widget_set_sensitive (screenwin->priv->stop_item, FALSE);
-    screnn_set_window_activate (list);
+    if (screenwin->priv->list != NULL)
+        screnn_set_window_activate (list);
     stop_screencast (screenwin);
     update_tray_time (screenwin);
     gtk_widget_set_sensitive (screenwin->priv->start_item, TRUE);
@@ -825,6 +826,7 @@ screen_window_init (ScreenWindow *screenwin)
                                  400, 400);
     screenwin->priv->show_label = TRUE;
     screenwin->priv->mode = FULL_SCREEN;
+    screenwin->priv->list = NULL;
     create_tray_indicator (screenwin);
     screenwin->priv->notify = get_notification ();
 }

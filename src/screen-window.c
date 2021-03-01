@@ -855,7 +855,8 @@ void destroy_screen_window (ScreenWindow *screenwin)
     gtk_widget_destroy (screenwin->priv->count);
     gtk_widget_destroy (GTK_WIDGET (screenwin));
 }
-int screen_message_dialog(const char *title,const char *msg,MsgType type)
+
+int screen_message_dialog(const char *title, const char *msg, MsgType type)
 {
     GtkWidget *dialog = NULL;
     int ret;

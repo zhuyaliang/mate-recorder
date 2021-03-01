@@ -21,8 +21,11 @@
 
 #include <gtk/gtk.h>
 #include <sys/sysinfo.h>
+#include <locale.h>
+#include <glib/gi18n.h>
 
 #include "screen-server.h"
+#include "screen-window.h"
 #include "config.h"
 enum
 {
@@ -114,11 +117,13 @@ static void vp8enc_format_call_back (ScreenServer *ss,int i)
     gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
     gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
 }
+
 static void get_full_screen_info (ScreenServer *ss)
 {
     GdkDisplay  *display;
     GdkMonitor  *monitor;
     int          num;
+    int          scale;
     GdkRectangle rect;
 
     ss->priv->win_hash = g_hash_table_new (NULL, NULL);
@@ -126,13 +131,19 @@ static void get_full_screen_info (ScreenServer *ss)
 
     display = gdk_display_get_default ();
     num = gdk_display_get_n_monitors (display);
-    monitor = gdk_display_get_monitor (display, num-1);
-
+    monitor = gdk_display_get_primary_monitor (display);
+    scale = gdk_monitor_get_scale_factor (monitor);
+    if (num > 1)
+    {
+        screen_message_dialog (_("Detection screen monitor"),
+                               _("It is detected that the system has multiple screen monitors. At present, it only supports recording the primary monitor desktop"),
+                               INFOR);
+    }
     gdk_monitor_get_geometry (monitor, &rect);
     g_hash_table_insert (ss->priv->win_hash, "x", GINT_TO_POINTER(rect.x));
     g_hash_table_insert (ss->priv->win_hash, "y", GINT_TO_POINTER(rect.y));
-    g_hash_table_insert (ss->priv->win_hash, "width", GINT_TO_POINTER(rect.width));
-    g_hash_table_insert (ss->priv->win_hash, "height", GINT_TO_POINTER(rect.height));
+    g_hash_table_insert (ss->priv->win_hash, "width", GINT_TO_POINTER(rect.width * scale));
+    g_hash_table_insert (ss->priv->win_hash, "height", GINT_TO_POINTER(rect.height * scale));
 
 }
 static void cb_message (GstBus *bus, GstMessage *msg, gpointer data)

@@ -89,11 +89,9 @@ static GdkRectangle get_rectangle_data (GdkDevice *device)
     GdkDisplay   *ds;
     GdkMonitor   *monitor;
     GdkRectangle  rect;
-    int           num;
 
     ds = gdk_device_get_display (device);
-    num = gdk_display_get_n_monitors (ds);
-    monitor = gdk_display_get_monitor (ds, num - 1);
+    monitor = gdk_display_get_primary_monitor (ds);
     gdk_monitor_get_geometry (monitor, &rect);
 
     return rect;

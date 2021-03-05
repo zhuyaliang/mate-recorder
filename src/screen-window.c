@@ -108,9 +108,10 @@ static void open_recorder_dir_callback (NotifyNotification *notification,
 
     if (!g_spawn_async (NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD, NULL, NULL, NULL, &error))
     {
-        screen_message_dialog (_("Open Save Dir"), error->message, ERROR);
+        screen_message_dialog (_("Open Save Dir"), ERROR, error->message);
     }
 }
+
 static void set_notify_action (NotifyNotification *notify,
                                const char         *path)
 {
@@ -355,7 +356,7 @@ start_screencast_done (GObject      *source_object,
     {
         if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
         {
-            screen_message_dialog (_("start screen recording"), error->message, ERROR);
+            screen_message_dialog (_("start screen recording"), ERROR, error->message);
         }
     }
 }
@@ -856,10 +857,12 @@ void destroy_screen_window (ScreenWindow *screenwin)
     gtk_widget_destroy (GTK_WIDGET (screenwin));
 }
 
-int screen_message_dialog(const char *title, const char *msg, MsgType type)
+int screen_message_dialog(const char *title, MsgType type, const char *msg,...)
 {
     GtkWidget *dialog = NULL;
-    int ret;
+    va_list    args;
+    char      *message;
+    int        ret;
 
     switch(type)
     {
@@ -903,12 +906,18 @@ int screen_message_dialog(const char *title, const char *msg, MsgType type)
             break;
 
     }
+
+    va_start(args, msg);
+    message = g_strdup_vprintf (msg, args);
+    va_end(args);
+
     gtk_message_dialog_format_secondary_markup(GTK_MESSAGE_DIALOG(dialog),
                                                MSGFORMAT,
-                                               msg);
+                                               message);
     gtk_window_set_title(GTK_WINDOW(dialog),_("Message"));
     ret =  gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
+    g_free (message);
 
     return ret;
 }

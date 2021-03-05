@@ -136,8 +136,8 @@ static void get_full_screen_info (ScreenServer *ss)
     if (num > 1)
     {
         screen_message_dialog (_("Detection screen monitor"),
-                               _("It is detected that the system has multiple screen monitors. At present, it only supports recording the primary monitor desktop"),
-                               INFOR);
+                               INFOR,
+                               _("It is detected that the system has multiple screen monitors. At present, it only supports recording the primary monitor desktop"));
     }
     gdk_monitor_get_geometry (monitor, &rect);
     g_hash_table_insert (ss->priv->win_hash, "x", GINT_TO_POINTER(rect.x));

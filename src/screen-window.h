@@ -42,6 +42,7 @@ struct _ScreenWindow {
 struct _ScreenWindowClass {
     GtkWindowClass parent_class;
 };
+
 typedef enum
 {
     ERROR = 0,
@@ -49,6 +50,7 @@ typedef enum
     INFOR,
     QUESTION
 }MsgType;
+
 GType         screen_window_get_type         (void) G_GNUC_CONST;
 
 GtkWidget    *screen_window_new              (void);
@@ -56,6 +58,7 @@ GtkWidget    *screen_window_new              (void);
 void          destroy_screen_window          (ScreenWindow *ss);
 
 int           screen_message_dialog          (const char   *title,
+                                              MsgType       type,
                                               const char   *msg,
-                                              MsgType       type);
+                                              ...);
 #endif

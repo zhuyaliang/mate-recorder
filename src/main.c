@@ -125,19 +125,19 @@ static void acquired_call_back (GDBusConnection *Connection,
     ss = screen_server_new();
     if (ss == NULL)
     {
-        g_warning ("Failed to initialize video source");
+        screen_message_dialog (_("init server"), ERROR,  _("Failed to initialize video source"));
         exit (0);
     }
     
     if(register_screen_server (ss, &error) < 0)
     {
-        g_warning ("register video source interface failed %s", error->message);
+        screen_message_dialog (_("register server"), ERROR, "register video source interface failed %s", error->message);
         exit (0);
     }
     window = screen_window_new ();
     if (window == NULL)
     {
-       screen_message_dialog (_("Init GDbus"), GDBUD_ERROR, ERROR);
+       screen_message_dialog (_("Init GDbus"), ERROR, GDBUD_ERROR);
     }
     g_signal_connect (window,
                      "destroy",
@@ -153,7 +153,7 @@ static void name_lost_call_back (GDBusConnection *connection,
                                  const gchar     *name,
                                  gpointer         data)
 {
-    screen_message_dialog (_("Init GDbus"), _("dbus name lost call back !!!!"), ERROR);
+    screen_message_dialog (_("Init GDbus"), ERROR, _("dbus name lost call back !!!!"));
     exit (0);
 }
 

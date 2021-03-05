@@ -84,6 +84,19 @@ typedef enum
     HANDLE_BR,
 }Resize;
 
+static int get_window_scaling (void)
+{
+    GdkDisplay   *ds;
+    GdkMonitor   *monitor;
+    gint          scale;
+
+    ds = gdk_display_get_default ();
+    monitor = gdk_display_get_primary_monitor (ds);
+    scale = gdk_monitor_get_scale_factor (monitor);
+
+    return scale;
+}
+
 static GdkRectangle get_rectangle_data (GdkDevice *device)
 {
     GdkDisplay   *ds;
@@ -126,6 +139,7 @@ static void swap (int *a, int *b)
         *b = tmp;
     }
 }
+
 static void accept_area (ScreenArea *area)
 {
 
@@ -145,8 +159,9 @@ static void accept_area (ScreenArea *area)
     area->priv->width  = ABS(area->priv->endx - area->priv->startx);
     area->priv->height = ABS(area->priv->endy - area->priv->starty);
 
-    //g_print ("Selected coords: = g_startx = %d g_starty = %d g_endx = %d g_endy = %d\r\n",g_startx, g_starty, g_endx, g_endy);
+//    g_print ("Selected coords: = g_startx = %d g_starty = %d g_endx = %d g_endy = %d\r\n",area->priv->g_startx, area->priv->g_starty, area->priv->g_endx, area->priv->g_endy);
 }
+
 static gboolean
 cb_keypress_event (GtkWidget *widget,
                    GdkEvent  *event,
@@ -605,7 +620,7 @@ screen_area_fill (ScreenArea *area)
     gtk_container_add (GTK_CONTAINER (window), vbox);
     drawing = gtk_drawing_area_new ();
     gtk_box_pack_start (GTK_BOX (vbox), drawing, TRUE, TRUE, 0);
-    gtk_widget_set_size_request (drawing, 500, 500);
+    gtk_widget_set_size_request (drawing, 100, 100);
     gtk_widget_add_events(drawing, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
                           GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
                           GDK_LEAVE_NOTIFY_MASK);
@@ -725,31 +740,39 @@ screen_area_new (void)
 gint32
 screen_area_get_height (ScreenArea *area)
 {
+    int scale;
     g_return_val_if_fail (SCREEN_IS_AREA (area), -1);
 
-    return area->priv->height;
+    scale = get_window_scaling ();
+    return area->priv->height * scale;
 }
 
 gint32
 screen_area_get_width (ScreenArea *area)
 {
+    int scale;
     g_return_val_if_fail (SCREEN_IS_AREA (area), -1);
 
-    return area->priv->width;
+    scale = get_window_scaling ();
+    return area->priv->width * scale;
 }
 
 gint32
 screen_area_get_starty (ScreenArea *area)
 {
+    int scale;
     g_return_val_if_fail (SCREEN_IS_AREA (area), -1);
 
-    return area->priv->starty;
+    scale = get_window_scaling ();
+    return area->priv->starty * scale;
 }
 
 gint32
 screen_area_get_startx (ScreenArea *area)
 {
+    int scale;
     g_return_val_if_fail (SCREEN_IS_AREA (area), -1);
 
-    return area->priv->startx;
+    scale = get_window_scaling ();
+    return area->priv->startx * scale;
 }

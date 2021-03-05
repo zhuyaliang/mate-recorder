@@ -153,7 +153,7 @@ static void name_lost_call_back (GDBusConnection *connection,
                                  const gchar     *name,
                                  gpointer         data)
 {
-    g_warning("dbus name lost call back !!!!");
+    screen_message_dialog (_("Init GDbus"), _("dbus name lost call back !!!!"), ERROR);
     exit (0);
 }
 

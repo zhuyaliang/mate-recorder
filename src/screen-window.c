@@ -366,6 +366,7 @@ static void start_screencast (ScreenWindow *screenwin)
     ScreenSave      *save;
     ScreenStyle     *style;
     ScreenList      *list;
+    char            *video_format;
     gboolean         show_cursor;
     uint             framerate;
     gulong           xid;
@@ -377,12 +378,13 @@ static void start_screencast (ScreenWindow *screenwin)
     show_cursor = screen_style_get_show_cursor (style);
     framerate = screen_style_get_framerate (style);
     screenwin->priv->save_path = get_screencast_save_path (save);
+    video_format = screen_save_get_video_format (save);
 
     if (screenwin->priv->mode == FULL_SCREEN)
     {
         g_dbus_proxy_call (screenwin->priv->proxy,
                           "ScreencastFull",
-                           g_variant_new ("(sibs)", screenwin->priv->save_path, framerate, show_cursor, "VP8 (WEBM)"),
+                           g_variant_new ("(sibs)", screenwin->priv->save_path, framerate, show_cursor, video_format),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            NULL,
@@ -399,7 +401,7 @@ static void start_screencast (ScreenWindow *screenwin)
 
         g_dbus_proxy_call (screenwin->priv->proxy,
                           "ScreencastArea",
-                           g_variant_new ("(a{sn}sibs)",variant, screenwin->priv->save_path, framerate, show_cursor, "VP8 (WEBM)"),
+                           g_variant_new ("(a{sn}sibs)",variant, screenwin->priv->save_path, framerate, show_cursor, video_format),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            NULL,
@@ -414,7 +416,7 @@ static void start_screencast (ScreenWindow *screenwin)
 
         g_dbus_proxy_call (screenwin->priv->proxy,
                           "ScreencastXid",
-                           g_variant_new ("(usibs)",xid, screenwin->priv->save_path, framerate, show_cursor, "VP8 (WEBM)"),
+                           g_variant_new ("(usibs)",xid, screenwin->priv->save_path, framerate, show_cursor, video_format),
                            G_DBUS_CALL_FLAGS_NONE,
                            -1,
                            NULL,

@@ -36,6 +36,13 @@ enum
     PROP_VIDEO_FORMAT,
 };
 
+enum
+{
+    FORMAT_CHANGED,
+    LAST_SIGNAL
+};
+
+static guint signals[LAST_SIGNAL] = { 0 };
 G_DEFINE_TYPE_WITH_PRIVATE (ScreenSave, screen_save, GTK_TYPE_FRAME)
 static void screen_save_set_folder_name (ScreenSave *save,const char *folder_name)
 {
@@ -116,6 +123,7 @@ screen_save_set_property (GObject      *object,
             break;
         case PROP_VIDEO_FORMAT:
             save->priv->video_format = g_value_dup_string (value);
+            g_signal_emit (save, signals[FORMAT_CHANGED], 0);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -171,11 +179,36 @@ static GHashTable *create_hash_table (void)
     return hash;
 }
 
+static GtkWidget *
+create_video_format_combox (void)
+{
+    const char *video_formats[] = {"VP8 (WEBM)", "RAW (AVI)", "H264 (MP4)", "H264 (MKV)", NULL};
+    GtkWidget  *combox;
+    int         i = 0;
+
+    combox = gtk_combo_box_text_new ();
+    while (video_formats[i] != NULL)
+    {
+        gtk_combo_box_text_append (GTK_COMBO_BOX_TEXT (combox), video_formats[i], video_formats[i]);
+        i++;
+    }
+
+    return combox;
+}
+
+static void
+record_format_changed (ScreenSave  *save,
+                       gpointer     user_data)
+{
+    screen_save_update_file_name (save);
+}
+
 static void
 screen_save_init (ScreenSave *save)
 {
     GtkWidget  *label;
     GtkWidget  *table;
+    GtkWidget  *combox;
     GtkWidget  *picker;
     GtkWidget  *entry;
     g_autofree  gchar *time;
@@ -185,7 +218,6 @@ screen_save_init (ScreenSave *save)
     save->priv = screen_save_get_instance_private (save);
 
     save->priv->hash_table = create_hash_table ();
-    save->priv->video_format = g_strdup ("VP8 (WEBM)");
 
     table = gtk_grid_new();
     gtk_container_add (GTK_CONTAINER (save), table);
@@ -193,10 +225,24 @@ screen_save_init (ScreenSave *save)
     gtk_grid_set_column_spacing(GTK_GRID(table), 10);
     gtk_grid_set_column_homogeneous(GTK_GRID(table), TRUE);
 
-    label = gtk_label_new (_("Folder"));
+    label = gtk_label_new (_("Video Foramt"));
     gtk_widget_set_halign (label, GTK_ALIGN_START);
     gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
     gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
+
+    combox = create_video_format_combox ();
+    g_object_bind_property (combox,
+                           "active-id",
+                           save,
+                           "video-format",
+                           G_BINDING_BIDIRECTIONAL);
+    gtk_combo_box_set_active_id (GTK_COMBO_BOX (combox), "VP8 (WEBM)");
+    gtk_grid_attach (GTK_GRID (table), combox, 1, 0, 1, 1);
+
+    label = gtk_label_new (_("Folder"));
+    gtk_widget_set_halign (label, GTK_ALIGN_START);
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
+    gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
 
     picker = gtk_file_chooser_button_new ("Pick a Folder",
                                           GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
@@ -209,20 +255,20 @@ screen_save_init (ScreenSave *save)
     video = g_get_user_special_dir (G_USER_DIRECTORY_VIDEOS);
     gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (picker), video);
     screen_save_set_folder_name (save,video);
-    gtk_grid_attach (GTK_GRID (table), picker, 1, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), picker, 1, 1, 1, 1);
 
     label = gtk_label_new (_("FileName"));
     gtk_widget_set_halign (label, GTK_ALIGN_START);
     gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-    gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), label, 0, 2, 1, 1);
 
     entry = gtk_entry_new ();
-    g_object_bind_property (entry, "text", save, "file_name", G_BINDING_BIDIRECTIONAL);
+    g_object_bind_property (entry, "text", save, "file-name", G_BINDING_BIDIRECTIONAL);
 
     suffix = get_screen_save_format_suffix (save);
     time = get_screen_save_file_name (suffix);
     gtk_entry_set_text (GTK_ENTRY (entry), time);
-    gtk_grid_attach (GTK_GRID (table), entry, 1, 1, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), entry, 1, 2, 1, 1);
 }
 
 static void
@@ -248,13 +294,22 @@ screen_save_class_init (ScreenSaveClass *save_class)
 
     g_object_class_install_property (
             gobject_class,
-            PROP_FILE_NAME,
+            PROP_VIDEO_FORMAT,
             g_param_spec_string (
                     "video-format",
                     "VIDEO FORMAT",
                     "Format of recorded video",
                      "VP8 (WEBM)",
                      G_PARAM_READWRITE));
+
+    signals [FORMAT_CHANGED] =
+         g_signal_new ("format-changed",
+                       G_TYPE_FROM_CLASS (save_class),
+                       G_SIGNAL_RUN_LAST,
+                       0,
+                       NULL, NULL,
+                       g_cclosure_marshal_VOID__VOID,
+                       G_TYPE_NONE, 0);
 
 }
 
@@ -266,6 +321,10 @@ screen_save_new (const char *title)
     char        *text;
 
     save = g_object_new (SCREEN_TYPE_SAVE, NULL);
+    g_signal_connect (save,
+                     "format-changed",
+                      G_CALLBACK (record_format_changed),
+                      NULL);
     gtk_frame_set_label (GTK_FRAME (save),"");
     text =  g_markup_printf_escaped("<span color = \'grey\' size=\"%s\" weight='bold'>%s</span>","large",title);
     label = gtk_frame_get_label_widget (GTK_FRAME (save));

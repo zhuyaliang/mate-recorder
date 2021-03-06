@@ -25,7 +25,10 @@ struct _ScreenSavePrivate
     char *folder_name;
     char *file_name;
     char *video_format;
+
+    GHashTable *hash_table;
 };
+
 enum
 {
     PROP_0,
@@ -38,6 +41,7 @@ static void screen_save_set_folder_name (ScreenSave *save,const char *folder_nam
 {
     save->priv->folder_name = g_strdup (folder_name);
 }
+
 static void save_folder_changed_cb (GtkFileChooser *chooser,
                                     gpointer        user_data)
 {
@@ -47,10 +51,12 @@ static void save_folder_changed_cb (GtkFileChooser *chooser,
     folder_name = gtk_file_chooser_get_uri (chooser);
     screen_save_set_folder_name (save,g_filename_from_uri (folder_name,NULL,NULL));
 }
+
 static void
 screen_save_dispose (GObject *object)
 {
     ScreenSave *save = SCREEN_SAVE (object);
+
     if (save->priv->folder_name != NULL)
     {
         g_free (save->priv->folder_name);
@@ -65,6 +71,11 @@ screen_save_dispose (GObject *object)
     {
         g_free (save->priv->video_format);
         save->priv->video_format = NULL;
+    }
+    if (save->priv->hash_table)
+    {
+        g_hash_table_destroy (save->priv->hash_table);
+        save->priv->hash_table = NULL;
     }
 }
 
@@ -112,7 +123,18 @@ screen_save_set_property (GObject      *object,
     }
 }
 
-static char *get_screen_save_file_name (void)
+static char *get_screen_save_format_suffix (ScreenSave *save)
+{
+    char *suffix;
+    g_return_val_if_fail (SCREEN_IS_SAVE (save), NULL);
+    g_return_val_if_fail (save->priv->hash_table != NULL, NULL);
+
+    suffix = g_hash_table_lookup (save->priv->hash_table, save->priv->video_format);
+
+    return suffix;
+}
+
+static char *get_screen_save_file_name (char *suffix)
 {
     char *time3;
     int i = 0;
@@ -123,7 +145,7 @@ static char *get_screen_save_file_name (void)
     date_time = g_date_time_new_now_local ();
     time1 = g_date_time_format (date_time, ("%x"));
     time2 = g_date_time_format (date_time, ("%X"));
-    time3 = g_strdup_printf ("%s%s%s.webm",time1,text,time2);
+    time3 = g_strdup_printf ("%s%s%s.%s",time1,text,time2,suffix);
 
     while (time3[i] != '\0')
     {
@@ -136,16 +158,34 @@ static char *get_screen_save_file_name (void)
     return time3;
 }
 
+static GHashTable *create_hash_table (void)
+{
+    GHashTable *hash;
+
+    hash = g_hash_table_new (g_str_hash, g_str_equal);
+    g_hash_table_insert (hash, "RAW (AVI)", "avi");
+    g_hash_table_insert (hash, "VP8 (WEBM)", "webm");
+    g_hash_table_insert (hash, "H264 (MP4)", "mp4");
+    g_hash_table_insert (hash, "H264 (MKV)", "mkv");
+
+    return hash;
+}
+
 static void
 screen_save_init (ScreenSave *save)
 {
-    GtkWidget *label;
-    GtkWidget *table;
-    GtkWidget *picker;
-    GtkWidget *entry;
-    g_autofree gchar *time;
+    GtkWidget  *label;
+    GtkWidget  *table;
+    GtkWidget  *picker;
+    GtkWidget  *entry;
+    g_autofree  gchar *time;
     const char *video;
+    char       *suffix;
+
     save->priv = screen_save_get_instance_private (save);
+
+    save->priv->hash_table = create_hash_table ();
+    save->priv->video_format = g_strdup ("VP8 (WEBM)");
 
     table = gtk_grid_new();
     gtk_container_add (GTK_CONTAINER (save), table);
@@ -178,7 +218,9 @@ screen_save_init (ScreenSave *save)
 
     entry = gtk_entry_new ();
     g_object_bind_property (entry, "text", save, "file_name", G_BINDING_BIDIRECTIONAL);
-    time = get_screen_save_file_name ();
+
+    suffix = get_screen_save_format_suffix (save);
+    time = get_screen_save_file_name (suffix);
     gtk_entry_set_text (GTK_ENTRY (entry), time);
     gtk_grid_attach (GTK_GRID (table), entry, 1, 1, 1, 1);
 }
@@ -233,6 +275,7 @@ screen_save_new (const char *title)
 
     return GTK_WIDGET (save);
 }
+
 char *screen_save_get_folder_name (ScreenSave *save)
 {
     return save->priv->folder_name;
@@ -263,8 +306,10 @@ char *screen_save_get_file_name (ScreenSave *save)
 void screen_save_update_file_name (ScreenSave *save)
 {
     g_autofree gchar *time;
+    char             *suffix;
 
-    time = get_screen_save_file_name ();
+    suffix = get_screen_save_format_suffix (save);
+    time = get_screen_save_file_name (suffix);
 
     g_object_set (save, "file-name", time, NULL);
 }

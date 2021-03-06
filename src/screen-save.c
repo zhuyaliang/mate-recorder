@@ -24,11 +24,13 @@ struct _ScreenSavePrivate
 {
     char *folder_name;
     char *file_name;
+    char *video_format;
 };
 enum
 {
     PROP_0,
     PROP_FILE_NAME,
+    PROP_VIDEO_FORMAT,
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (ScreenSave, screen_save, GTK_TYPE_FRAME)
@@ -59,6 +61,11 @@ screen_save_dispose (GObject *object)
         g_free (save->priv->file_name);
         save->priv->file_name = NULL;
     }
+    if (save->priv->video_format != NULL)
+    {
+        g_free (save->priv->video_format);
+        save->priv->video_format = NULL;
+    }
 }
 
 static void
@@ -73,6 +80,9 @@ screen_save_get_property (GObject    *object,
     {
         case PROP_FILE_NAME:
             g_value_set_string (value, save->priv->file_name);
+            break;
+        case PROP_VIDEO_FORMAT:
+            g_value_set_string (value, save->priv->video_format);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -92,6 +102,9 @@ screen_save_set_property (GObject      *object,
     {
         case PROP_FILE_NAME:
             save->priv->file_name = g_value_dup_string (value);
+            break;
+        case PROP_VIDEO_FORMAT:
+            save->priv->video_format = g_value_dup_string (value);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -191,6 +204,16 @@ screen_save_class_init (ScreenSaveClass *save_class)
                      NULL,
                      G_PARAM_READWRITE));
 
+    g_object_class_install_property (
+            gobject_class,
+            PROP_FILE_NAME,
+            g_param_spec_string (
+                    "video-format",
+                    "VIDEO FORMAT",
+                    "Format of recorded video",
+                     "VP8 (WEBM)",
+                     G_PARAM_READWRITE));
+
 }
 
 GtkWidget *
@@ -213,6 +236,11 @@ screen_save_new (const char *title)
 char *screen_save_get_folder_name (ScreenSave *save)
 {
     return save->priv->folder_name;
+}
+
+char *screen_save_get_video_format (ScreenSave *save)
+{
+    return save->priv->video_format;
 }
 
 char *screen_save_get_file_name (ScreenSave *save)

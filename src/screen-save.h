@@ -56,6 +56,8 @@ GtkWidget      *screen_save_new                (const char  *title);
 
 char           *screen_save_get_folder_name    (ScreenSave *save);
 
+char           *screen_save_get_video_format   (ScreenSave *save);
+
 char           *screen_save_get_file_name      (ScreenSave *save);
 
 void            screen_save_update_file_name   (ScreenSave *save);

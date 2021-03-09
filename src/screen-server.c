@@ -37,6 +37,7 @@ enum
     PROP_FILE_TEMPLATE,
     PROP_DRAW_CURSOR
 };
+
 typedef enum {
   RECORDER_STATE_CLOSED,
   RECORDER_STATE_PAUSE,
@@ -74,11 +75,13 @@ struct video_format
 
 static void avi_format_call_back (ScreenServer *ss, int i);
 static void vp8enc_format_call_back (ScreenServer *ss, int i);
+static void mp4_format_call_back (ScreenServer *ss, int i);
 
 static struct video_format video_formats[] =
 {
     {0, "avimux", "RAW (AVI)", avi_format_call_back},
     {1, "vp8enc", "VP8 (WEBM)", vp8enc_format_call_back},
+    {2, "x264enc", "H264 (MP4)", mp4_format_call_back},
 };
 
 static guint count = sizeof (video_formats)/sizeof (struct video_format);
@@ -102,6 +105,7 @@ static void avi_format_call_back (ScreenServer *ss, int i)
     ss->priv->mux = gst_element_factory_make (video_formats[i].type, "muxer");
     gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
 }
+
 static void vp8enc_format_call_back (ScreenServer *ss,int i)
 {
     ss->priv->videnc = gst_element_factory_make ("vp8enc", "video_encoder");
@@ -114,6 +118,20 @@ static void vp8enc_format_call_back (ScreenServer *ss,int i)
     g_object_set (ss->priv->videnc, "threads", ss->priv->cpu_count -1, NULL);
 
     ss->priv->mux = gst_element_factory_make ("webmmux", "muxer");
+    gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
+    gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
+}
+
+static void mp4_format_call_back (ScreenServer *ss,int i)
+{
+    ss->priv->videnc = gst_element_factory_make ("x264enc", "video_encoder");
+    g_object_set (ss->priv->videnc, "pass", 4, NULL);
+    g_object_set (ss->priv->videnc, "quantizer", 15, NULL);
+    g_object_set (ss->priv->videnc, "threads", ss->priv->cpu_count -1, NULL);
+
+    ss->priv->mux = gst_element_factory_make ("mp4mux", "muxer");
+    g_object_set (ss->priv->mux, "faststart", 1, NULL);
+    g_object_set (ss->priv->mux, "streamable", 1, NULL);
     gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videnc);
     gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->mux);
 }

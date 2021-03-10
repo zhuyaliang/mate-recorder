@@ -127,6 +127,7 @@ static void set_notify_action (NotifyNotification *notify,
                                    NULL);
 
 }
+
 static void screen_admin_update_notification (NotifyNotification *notify,
                                               const char         *summary,
                                               const char         *body,
@@ -143,6 +144,7 @@ static void screen_admin_update_notification (NotifyNotification *notify,
     }
     notify_notification_show (notify, NULL);
 }
+
 static void
 screen_start_item_cb (GtkMenuItem *item, gpointer user_data)
 {
@@ -152,6 +154,9 @@ screen_start_item_cb (GtkMenuItem *item, gpointer user_data)
     gtk_widget_set_sensitive (screenwin->priv->stop_item,  TRUE);
     gtk_widget_set_sensitive (screenwin->priv->start_item, FALSE);
 
+    gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (screenwin->priv->button_full), TRUE);
+    gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (screenwin->priv->button_area), FALSE);
+    gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (screenwin->priv->button_xid), FALSE);
     gtk_widget_show (GTK_WIDGET (screenwin));
     screen_save_update_file_name (save);
 }
@@ -175,6 +180,7 @@ static void update_tray_time (ScreenWindow *screenwin)
     else
         app_indicator_set_label (screenwin->priv->indicator, NULL, NULL);
 }
+
 static void
 screen_stop_item_cb (GtkMenuItem *item, gpointer user_data)
 {
@@ -360,6 +366,7 @@ start_screencast_done (GObject      *source_object,
         }
     }
 }
+
 static void start_screencast (ScreenWindow *screenwin)
 {
     GVariantBuilder *variant;
@@ -425,6 +432,7 @@ static void start_screencast (ScreenWindow *screenwin)
     }
 
 }
+
 static void
 stop_screencast_done (GObject      *source_object,
                       GAsyncResult *res,
@@ -495,6 +503,7 @@ static void create_indicator_time (ScreenWindowPrivate *priv)
     priv->second = 1;
     priv->tray_timeout_id  = g_timeout_add_seconds(1, screen_time_changed, priv);
 }
+
 static void countdown_finished_cb (ScreenCount *count, gpointer user_data)
 {
     ScreenWindow    *screenwin = SCREEN_WINDOW (user_data);

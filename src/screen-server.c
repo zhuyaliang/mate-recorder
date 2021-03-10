@@ -212,7 +212,6 @@ static void screen_server_init (ScreenServer *ss)
 
     ss->priv->state = RECORDER_STATE_CLOSED;
     ss->priv->pipeline = gst_pipeline_new ("screen-pipeline");
-    ss->priv->videosrc = gst_element_factory_make("ximagesrc", "video_src");
     ss->priv->filter = gst_element_factory_make("capsfilter", "vid_filter");
     ss->priv->videoconvert = gst_element_factory_make("videoconvert", "videoconvert");
     ss->priv->videorate =    gst_element_factory_make("videorate", "video_rate");
@@ -221,7 +220,6 @@ static void screen_server_init (ScreenServer *ss)
     ss->priv->sink = gst_element_factory_make("filesink", "sink");
     ss->priv->file_queue = gst_element_factory_make("queue", "queue_file");
     gst_bin_add_many (GST_BIN (ss->priv->pipeline),
-                      ss->priv->videosrc,
                       ss->priv->filter,
                       ss->priv->videoconvert,
                       ss->priv->videorate,
@@ -335,6 +333,12 @@ static void setup_video_sources (ScreenServer *ss,
     GstCaps    *video_caps;
     guint i = 0;
 
+    if (gst_bin_get_by_name (GST_BIN (ss->priv->pipeline), "video_src") != NULL)
+    {
+        gst_bin_remove (GST_BIN (ss->priv->pipeline), ss->priv->videosrc);
+    }
+    /* Property value has been modified during continuous recording */
+    ss->priv->videosrc = gst_element_factory_make("ximagesrc", "video_src");
     if (xid > 0)
     {
         g_object_set (ss->priv->videosrc, "xid", xid, NULL);
@@ -360,6 +364,7 @@ static void setup_video_sources (ScreenServer *ss,
     {
         gst_bin_remove (GST_BIN (ss->priv->pipeline), ss->priv->mux);
     }
+    gst_bin_add (GST_BIN (ss->priv->pipeline), ss->priv->videosrc);
     while (i < count)
     {
         if (g_strcmp0 (video_format, video_formats[i].format) == 0)

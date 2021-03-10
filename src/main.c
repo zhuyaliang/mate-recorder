@@ -33,6 +33,8 @@
 
 #define  GDBUD_ERROR _("Error connecting screen-server gdbus interface. Please check whether screen-server is installed and running")
 #define  NAME_TO_CLAIM            "org.screen.admin"
+#define  H264_PLUG                "/usr/share/gstreamer-1.0/presets/GstX264Enc.prs"
+
 static void remove_lock_dir (void)
 {
     DIR  *dir;
@@ -122,6 +124,11 @@ static void acquired_call_back (GDBusConnection *Connection,
     GdkPixbuf    *pixbuf = NULL;
     GError       *error = NULL;
 
+    if (access(H264_PLUG, F_OK) !=0)
+    {
+        screen_message_dialog (_("Check Run Env"), INFOR, _("Please install H264 plug-in (GST plugins ugly), otherwise some recording formats cannot be used"));
+    }
+
     ss = screen_server_new();
     if (ss == NULL)
     {
@@ -169,7 +176,6 @@ main (int argc, char **argv)
     {
         return 0;
     }
-
     gtk_init (&argc, &argv);
     gst_init (&argc, &argv);
     id = g_bus_own_name (G_BUS_TYPE_SESSION,

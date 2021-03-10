@@ -19,6 +19,7 @@
  ************************************************************************/
 
 #include "screen-save.h"
+#define  H264_PLUG                "/usr/share/gstreamer-1.0/presets/GstX264Enc.prs"
 
 struct _ScreenSavePrivate
 {
@@ -184,13 +185,20 @@ create_video_format_combox (void)
 {
     const char *video_formats[] = {"VP8 (WEBM)", "RAW (AVI)", "H264 (MP4)", "H264 (MKV)", NULL};
     GtkWidget  *combox;
+    gboolean    sensitive = TRUE;
     int         i = 0;
 
+    if (access(H264_PLUG, F_OK) !=0)
+    {
+        sensitive = FALSE;
+    }
     combox = gtk_combo_box_text_new ();
     while (video_formats[i] != NULL)
     {
         gtk_combo_box_text_append (GTK_COMBO_BOX_TEXT (combox), video_formats[i], video_formats[i]);
         i++;
+        if (!sensitive && i > 1)
+            break;
     }
 
     return combox;

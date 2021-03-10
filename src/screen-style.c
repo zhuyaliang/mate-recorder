@@ -6,15 +6,15 @@
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
-                                      
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
-                                               
+
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
-                                               
+
   Created Time: 2020年12月14日 星期一 09时30分29秒
  ************************************************************************/
 
@@ -25,6 +25,7 @@ struct _ScreenStylePrivate
     gboolean   show_cursor;
     int        framerate;
 };
+
 enum
 {
     PROP_0,
@@ -94,6 +95,7 @@ screen_style_init (ScreenStyle *style)
     GtkWidget *spin;
 
     style->priv = screen_style_get_instance_private (style);
+    style->priv->framerate = 15;
     table = gtk_grid_new();
     gtk_container_add (GTK_CONTAINER (style), table);
     gtk_grid_set_row_spacing(GTK_GRID(table), 10);
@@ -118,7 +120,7 @@ screen_style_init (ScreenStyle *style)
 
     spin = gtk_spin_button_new_with_range (15, 60, 1);
     g_object_bind_property (spin, "value", style, "framerate", 0);
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (spin), 30);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (spin), 15);
     gtk_grid_attach(GTK_GRID(table), spin, 1, 1, 1, 1);
 }
 
@@ -149,7 +151,7 @@ screen_style_class_init (ScreenStyleClass *style_class)
                     "framerate",
                     "Framerate",
                     "The frame rate at which the screen is recorded",
-                    15,60,30,
+                    15,60,15,
                     G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
@@ -170,6 +172,7 @@ screen_style_new (const char *title)
 
     return GTK_WIDGET (style);
 }
+
 gboolean screen_style_get_show_cursor (ScreenStyle *style)
 {
     return style->priv->show_cursor;

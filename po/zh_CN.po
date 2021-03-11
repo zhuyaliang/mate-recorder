@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mate-recorder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-24 16:47+0800\n"
-"PO-Revision-Date: 2021-02-24 16:48+0800\n"
+"POT-Creation-Date: 2021-03-11 12:26+0800\n"
+"PO-Revision-Date: 2021-03-11 12:29+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
@@ -24,23 +24,53 @@ msgid ""
 msgstr ""
 "连接screen-server gdbus接口时出错。请检查screen-server是否已安装并正在运行"
 
-#: src/main.c:140
+#: src/main.c:129
+msgid "Check Run Env"
+msgstr "检查运行环境"
+
+#: src/main.c:129
+msgid ""
+"Please install H264 plug-in (GST plugins ugly), otherwise some recording "
+"formats cannot be used"
+msgstr "请安装H264插件（gst-plugins-ugly），否则无法使用某些录制格式"
+
+#: src/main.c:135
+msgid "init server"
+msgstr "初始化服务"
+
+#: src/main.c:135
+msgid "Failed to initialize video source"
+msgstr "初始化视频源失败"
+
+#: src/main.c:141
+msgid "register server"
+msgstr "注册服务"
+
+#: src/main.c:147 src/main.c:163
 msgid "Init GDbus"
 msgstr "初始化 Dbus 服务"
 
-#: src/screen-count.c:163 src/screen-window.c:746
+#: src/main.c:163
+msgid "dbus name lost call back !!!!"
+msgstr ""
+
+#: src/screen-count.c:164 src/screen-window.c:759
 msgid "count down"
 msgstr "倒计时"
 
-#: src/screen-save.c:108
+#: src/screen-save.c:152
 msgid "Screen video"
 msgstr "屏幕视频"
 
-#: src/screen-save.c:143
+#: src/screen-save.c:236
+msgid "Video Foramt"
+msgstr "视屏格式"
+
+#: src/screen-save.c:250
 msgid "Folder"
 msgstr "文件夹"
 
-#: src/screen-save.c:161
+#: src/screen-save.c:268
 msgid "FileName"
 msgstr "文件名字"
 
@@ -56,23 +86,23 @@ msgstr "根据大小停止 （MB）"
 msgid "unlimited"
 msgstr "无限制"
 
-#: src/screen-style.c:103
+#: src/screen-style.c:105
 msgid "show cursor when screencast"
 msgstr "播放时显示光标"
 
-#: src/screen-style.c:108
+#: src/screen-style.c:110
 msgid "Show cursor"
 msgstr "显示光标"
 
-#: src/screen-style.c:114
+#: src/screen-style.c:116
 msgid "framerate"
 msgstr "帧速率"
 
-#: src/screen-area.c:297
+#: src/screen-area.c:311
 msgid "Select an area by clicking and dragging."
 msgstr "通过单击并拖动选择区域。"
 
-#: src/screen-area.c:298
+#: src/screen-area.c:312
 msgid "Press ENTER to confirm or ESC to cancel"
 msgstr "按ENTER键确认，或按ESC键取消"
 
@@ -84,93 +114,103 @@ msgstr "屏幕准备好"
 msgid "Open Save Dir"
 msgstr "打开保存目录"
 
-#: src/screen-window.c:123
+#: src/screen-window.c:124
 msgid "Enter recording directory"
 msgstr "进入录制目录"
 
-#: src/screen-window.c:196
+#: src/screen-window.c:204
 msgid "Close application"
 msgstr "关闭应用程序"
 
-#: src/screen-window.c:197
+#: src/screen-window.c:205
 msgid "Application closed successfully"
 msgstr "应用程序关闭成功"
 
-#: src/screen-window.c:234
+#: src/screen-window.c:242
 msgid "Settings"
 msgstr "设置"
 
-#: src/screen-window.c:237
+#: src/screen-window.c:245
 msgid "Start new recording"
 msgstr "开始录制"
 
-#: src/screen-window.c:245
+#: src/screen-window.c:253
 msgid "Stop recording"
 msgstr "结束录制"
 
-#: src/screen-window.c:253
+#: src/screen-window.c:261
 msgid "Skip countdown"
 msgstr "跳过倒计时"
 
-#: src/screen-window.c:264
+#: src/screen-window.c:272
 msgid "Show Time"
 msgstr "显示时间"
 
-#: src/screen-window.c:275
+#: src/screen-window.c:283
 msgid "Quit recording"
 msgstr "退出录制"
 
-#: src/screen-window.c:357
+#: src/screen-window.c:365
 msgid "start screen recording"
 msgstr "开始屏幕录制"
 
-#: src/screen-window.c:444
+#: src/screen-window.c:456
 msgid "End of recording"
 msgstr "结束录制"
 
-#: src/screen-window.c:533
+#: src/screen-window.c:546
 msgid "Start Recording"
 msgstr "开始录制"
 
-#: src/screen-window.c:707
+#: src/screen-window.c:720
 msgid "Full Screen"
 msgstr "全屏录制"
 
-#: src/screen-window.c:719
+#: src/screen-window.c:732
 msgid "Selection Area"
 msgstr "选择区域"
 
-#: src/screen-window.c:730
+#: src/screen-window.c:743
 msgid "Selection window"
 msgstr "选择窗口"
 
-#: src/screen-window.c:734
+#: src/screen-window.c:747
 msgid "Recording screen settings"
 msgstr "录制设置"
 
-#: src/screen-window.c:738
+#: src/screen-window.c:751
 msgid "Stop Mode"
 msgstr "停止模式"
 
-#: src/screen-window.c:742
+#: src/screen-window.c:755
 msgid "Save Mode"
 msgstr "保存模式"
 
-#: src/screen-window.c:769
+#: src/screen-window.c:782
 msgid "Start application"
 msgstr "启动应用程序"
 
-#: src/screen-window.c:770
+#: src/screen-window.c:783
 msgid "The recording program is ready. Please start recording"
 msgstr "录制程序准备好了。请开始录制"
 
-#: src/screen-window.c:820
+#: src/screen-window.c:833
 msgid "Mate Recording Screen"
 msgstr "Mate 屏幕录制"
 
-#: src/screen-window.c:906
+#: src/screen-window.c:928
 msgid "Message"
 msgstr "消息"
+
+#: src/screen-server.c:169
+msgid "Detection screen monitor"
+msgstr "检测屏幕监视器"
+
+#: src/screen-server.c:171
+msgid ""
+"It is detected that the system has multiple screen monitors. At present, it "
+"only supports recording the primary monitor desktop"
+msgstr "检测到系统有多个屏幕监视器。目前只支持录制主桌面"
 
 #: src/screen-list.c:355
 msgid "Return"

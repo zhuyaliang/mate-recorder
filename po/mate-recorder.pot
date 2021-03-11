@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mate-recorder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-24 16:48+0800\n"
+"POT-Creation-Date: 2021-03-11 12:26+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,23 +23,53 @@ msgid ""
 "server is installed and running"
 msgstr ""
 
-#: src/main.c:140
+#: src/main.c:129
+msgid "Check Run Env"
+msgstr ""
+
+#: src/main.c:129
+msgid ""
+"Please install H264 plug-in (GST plugins ugly), otherwise some recording "
+"formats cannot be used"
+msgstr ""
+
+#: src/main.c:135
+msgid "init server"
+msgstr ""
+
+#: src/main.c:135
+msgid "Failed to initialize video source"
+msgstr ""
+
+#: src/main.c:141
+msgid "register server"
+msgstr ""
+
+#: src/main.c:147 src/main.c:163
 msgid "Init GDbus"
 msgstr ""
 
-#: src/screen-count.c:163 src/screen-window.c:746
+#: src/main.c:163
+msgid "dbus name lost call back !!!!"
+msgstr ""
+
+#: src/screen-count.c:164 src/screen-window.c:759
 msgid "count down"
 msgstr ""
 
-#: src/screen-save.c:108
+#: src/screen-save.c:152
 msgid "Screen video"
 msgstr ""
 
-#: src/screen-save.c:143
+#: src/screen-save.c:236
+msgid "Video Foramt"
+msgstr ""
+
+#: src/screen-save.c:250
 msgid "Folder"
 msgstr ""
 
-#: src/screen-save.c:161
+#: src/screen-save.c:268
 msgid "FileName"
 msgstr ""
 
@@ -55,23 +85,23 @@ msgstr ""
 msgid "unlimited"
 msgstr ""
 
-#: src/screen-style.c:103
+#: src/screen-style.c:105
 msgid "show cursor when screencast"
 msgstr ""
 
-#: src/screen-style.c:108
+#: src/screen-style.c:110
 msgid "Show cursor"
 msgstr ""
 
-#: src/screen-style.c:114
+#: src/screen-style.c:116
 msgid "framerate"
 msgstr ""
 
-#: src/screen-area.c:297
+#: src/screen-area.c:311
 msgid "Select an area by clicking and dragging."
 msgstr ""
 
-#: src/screen-area.c:298
+#: src/screen-area.c:312
 msgid "Press ENTER to confirm or ESC to cancel"
 msgstr ""
 
@@ -83,92 +113,102 @@ msgstr ""
 msgid "Open Save Dir"
 msgstr ""
 
-#: src/screen-window.c:123
+#: src/screen-window.c:124
 msgid "Enter recording directory"
 msgstr ""
 
-#: src/screen-window.c:196
+#: src/screen-window.c:204
 msgid "Close application"
 msgstr ""
 
-#: src/screen-window.c:197
+#: src/screen-window.c:205
 msgid "Application closed successfully"
 msgstr ""
 
-#: src/screen-window.c:234
+#: src/screen-window.c:242
 msgid "Settings"
 msgstr ""
 
-#: src/screen-window.c:237
+#: src/screen-window.c:245
 msgid "Start new recording"
 msgstr ""
 
-#: src/screen-window.c:245
+#: src/screen-window.c:253
 msgid "Stop recording"
 msgstr ""
 
-#: src/screen-window.c:253
+#: src/screen-window.c:261
 msgid "Skip countdown"
 msgstr ""
 
-#: src/screen-window.c:264
+#: src/screen-window.c:272
 msgid "Show Time"
 msgstr ""
 
-#: src/screen-window.c:275
+#: src/screen-window.c:283
 msgid "Quit recording"
 msgstr ""
 
-#: src/screen-window.c:357
+#: src/screen-window.c:365
 msgid "start screen recording"
 msgstr ""
 
-#: src/screen-window.c:444
+#: src/screen-window.c:456
 msgid "End of recording"
 msgstr ""
 
-#: src/screen-window.c:533
+#: src/screen-window.c:546
 msgid "Start Recording"
 msgstr ""
 
-#: src/screen-window.c:707
+#: src/screen-window.c:720
 msgid "Full Screen"
 msgstr ""
 
-#: src/screen-window.c:719
+#: src/screen-window.c:732
 msgid "Selection Area"
 msgstr ""
 
-#: src/screen-window.c:730
+#: src/screen-window.c:743
 msgid "Selection window"
 msgstr ""
 
-#: src/screen-window.c:734
+#: src/screen-window.c:747
 msgid "Recording screen settings"
 msgstr ""
 
-#: src/screen-window.c:738
+#: src/screen-window.c:751
 msgid "Stop Mode"
 msgstr ""
 
-#: src/screen-window.c:742
+#: src/screen-window.c:755
 msgid "Save Mode"
 msgstr ""
 
-#: src/screen-window.c:769
+#: src/screen-window.c:782
 msgid "Start application"
 msgstr ""
 
-#: src/screen-window.c:770
+#: src/screen-window.c:783
 msgid "The recording program is ready. Please start recording"
 msgstr ""
 
-#: src/screen-window.c:820
+#: src/screen-window.c:833
 msgid "Mate Recording Screen"
 msgstr ""
 
-#: src/screen-window.c:906
+#: src/screen-window.c:928
 msgid "Message"
+msgstr ""
+
+#: src/screen-server.c:169
+msgid "Detection screen monitor"
+msgstr ""
+
+#: src/screen-server.c:171
+msgid ""
+"It is detected that the system has multiple screen monitors. At present, it "
+"only supports recording the primary monitor desktop"
 msgstr ""
 
 #: src/screen-list.c:355

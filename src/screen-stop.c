@@ -135,7 +135,7 @@ screen_stop_init (ScreenStop *stop)
     uint       length = 86400;
 
     stop->priv = screen_stop_get_instance_private (stop);
-    
+
     table = gtk_grid_new();
     gtk_container_add (GTK_CONTAINER (stop), table);
     gtk_grid_set_row_spacing(GTK_GRID(table), 10);

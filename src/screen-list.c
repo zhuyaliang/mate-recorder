@@ -130,7 +130,7 @@ create_tree_view_column (GtkWidget *tree_view)
                                      renderer,
                                      FALSE);
 
-    gtk_tree_view_column_set_cell_data_func (column, 
+    gtk_tree_view_column_set_cell_data_func (column,
                                              renderer,
                                              set_window_icons_cb,
                                              NULL,
@@ -151,7 +151,7 @@ create_tree_view_column (GtkWidget *tree_view)
     gtk_tree_view_set_headers_visible (GTK_TREE_VIEW(tree_view), FALSE);
 }
 
-static gboolean  
+static gboolean
 select_window_list_cb (GtkWidget *widget, gpointer data)
 {
     GtkTreeIter   iter;
@@ -169,12 +169,12 @@ select_window_list_cb (GtkWidget *widget, gpointer data)
                             -1);
     }
     if (window == NULL)
-    { 
+    {
             return FALSE;
     }
     list->priv->wnck_window = window;
     gtk_widget_set_sensitive (list->priv->button, TRUE);
-    
+
     return TRUE;
 }
 
@@ -400,7 +400,7 @@ gulong screen_list_get_window_xid (ScreenList *list)
 
     xid = wnck_window_get_xid (list->priv->wnck_window);
 
-    return xid; 
+    return xid;
 }
 
 void screnn_set_window_activate (ScreenList *list)

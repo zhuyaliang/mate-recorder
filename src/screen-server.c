@@ -39,7 +39,8 @@ enum
     PROP_DRAW_CURSOR
 };
 
-typedef enum {
+typedef enum
+{
   RECORDER_STATE_CLOSED,
   RECORDER_STATE_PAUSE,
   RECORDER_STATE_RECORDING
@@ -525,7 +526,7 @@ static gboolean screencast_stop (ScreenAdmin *object,
     ss->priv->state = RECORDER_STATE_CLOSED;
     gst_element_send_event(ss->priv->pipeline, gst_event_new_eos());
 
-    screen_admin_complete_screencast_stop (object, invocation, TRUE); 
+    screen_admin_complete_screencast_stop (object, invocation, TRUE);
     return TRUE;
 }
 static const gchar *screencast_get_daemon_version (ScreenAdmin *object)

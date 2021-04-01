@@ -172,7 +172,7 @@ cb_keypress_event (GtkWidget *widget,
     ScreenArea *area = SCREEN_AREA (user_data);
 
     gdk_event_get_keycode (event, &keycode);
-    if (keycode == 36 || keycode == 104)// Enter
+    if (keycode == 36 || keycode == 104)//Enter
     {
         restore_default_cursor (area);
         gtk_widget_hide (widget);

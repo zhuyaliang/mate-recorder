@@ -41,7 +41,7 @@ typedef enum
     XID_SCREEN
 }RecordMode;
 
-struct _ScreenWindowPrivate 
+struct _ScreenWindowPrivate
 {
     GDBusProxy   *proxy;
     AppIndicator *indicator;
@@ -239,7 +239,7 @@ static GtkWidget *get_menu_button (ScreenWindow *screenwin)
     GtkWidget *menu;
     GtkWidget *separator_item;
     GtkWidget *time_item;
-    
+
     menu = gtk_menu_new ();
 
     screenwin->priv->settings_item = gtk_menu_item_new_with_label (_("Settings"));

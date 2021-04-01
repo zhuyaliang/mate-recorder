@@ -306,6 +306,8 @@ cb_draw (GtkWidget    *widget,
         cairo_set_source_rgb (cairo, 1.0, 1.0, 1.0);
         cairo_arc (cairo, centerx, centery, 8, 0, 2 * M_PI);
         cairo_stroke (cairo);
+
+        cairo_pattern_destroy (grad);
     }
     size = g_strdup_printf ("%d X %d",ABS(area->priv->width + 1), ABS(area->priv->height + 1));
     outline_text(cairo, w, h, 30, _("Select an area by clicking and dragging."), area->priv->compositing);

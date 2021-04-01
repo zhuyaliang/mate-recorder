@@ -115,7 +115,10 @@ static void open_recorder_dir_callback (NotifyNotification *notification,
 static void set_notify_action (NotifyNotification *notify,
                                const char         *path)
 {
-    if (g_find_program_in_path ("caja") == NULL)
+    g_autofree gchar *caja_path = NULL;
+
+    caja_path = g_find_program_in_path ("caja");
+    if (caja_path == NULL)
     {
         return;
     }
@@ -414,6 +417,7 @@ static void start_screencast (ScreenWindow *screenwin)
                            NULL,
                            (GAsyncReadyCallback)start_screencast_done,
                            screenwin);
+        g_variant_builder_unref (variant);
     }
     else if (screenwin->priv->mode == XID_SCREEN)
     {

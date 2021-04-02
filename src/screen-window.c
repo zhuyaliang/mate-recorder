@@ -176,9 +176,9 @@ static void update_tray_time (ScreenWindow *screenwin)
     
     if (screenwin->priv->show_label)
     {
-        percentstr = g_strdup_printf("%02u:%02u", screenwin->priv->minute, screenwin->priv->second);
+        percentstr = g_strdup_printf ("%02u:%02u", screenwin->priv->minute, screenwin->priv->second);
         app_indicator_set_label (screenwin->priv->indicator, percentstr, "100%");
-        g_free(percentstr);
+        g_free (percentstr);
     }
     else
         app_indicator_set_label (screenwin->priv->indicator, NULL, NULL);
@@ -304,7 +304,7 @@ static void create_tray_indicator (ScreenWindow *screenwin)
     screenwin->priv->indicator = app_indicator_new ("mate-recorder-menu",
                                                     "screen-start",
                                                      APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
-    app_indicator_set_attention_icon_full(screenwin->priv->indicator, "screen-start", "Local Attention Icon");
+    app_indicator_set_attention_icon_full (screenwin->priv->indicator, "screen-start", "Local Attention Icon");
     app_indicator_set_status (screenwin->priv->indicator, APP_INDICATOR_STATUS_ATTENTION);
     app_indicator_set_label (screenwin->priv->indicator, "00:00", "100%");
 
@@ -443,7 +443,7 @@ stop_screencast_done (GObject      *source_object,
                       gpointer      data)
 {
     g_autoptr(GError) error = NULL;
-    GVariant    *result;
+    GVariant     *result;
     ScreenWindow *screenwin = SCREEN_WINDOW (data);
 
     result = g_dbus_proxy_call_finish (G_DBUS_PROXY (source_object), res, &error);
@@ -489,9 +489,9 @@ screen_time_changed (gpointer user_data)
     }
     if (priv->show_label)
     {
-        gchar * percentstr = g_strdup_printf("%02u:%02u", priv->minute, priv->second);
+        gchar * percentstr = g_strdup_printf ("%02u:%02u", priv->minute, priv->second);
         app_indicator_set_label (priv->indicator, percentstr, "100%");
-        g_free(percentstr);
+        g_free (percentstr);
     }
     else
     {
@@ -505,7 +505,7 @@ static void create_indicator_time (ScreenWindowPrivate *priv)
     if (priv->show_label)
         app_indicator_set_label (priv->indicator, "00:01", "100%");
     priv->second = 1;
-    priv->tray_timeout_id  = g_timeout_add_seconds(1, screen_time_changed, priv);
+    priv->tray_timeout_id  = g_timeout_add_seconds (1, screen_time_changed, priv);
 }
 
 static void countdown_finished_cb (ScreenCount *count, gpointer user_data)
@@ -599,7 +599,7 @@ screen_area_mode_cb (GtkToggleToolButton *button,
 
     ScreenWindow *screenwin = SCREEN_WINDOW (user_data);
 
-    active = gtk_toggle_tool_button_get_active(button);
+    active = gtk_toggle_tool_button_get_active (button);
     name = gtk_widget_get_name (GTK_WIDGET (button));
 
     if (g_strcmp0 (name, "Area") == 0 && active == TRUE)
@@ -665,7 +665,7 @@ screen_xid_mode_cb (GtkToggleToolButton *button,
 
     ScreenWindow *screenwin = SCREEN_WINDOW (user_data);
 
-    active = gtk_toggle_tool_button_get_active(button);
+    active = gtk_toggle_tool_button_get_active (button);
     name = gtk_widget_get_name (GTK_WIDGET (button));
 
     if (g_strcmp0 (name, "Xid") == 0 && active == TRUE)
@@ -872,7 +872,7 @@ void destroy_screen_window (ScreenWindow *screenwin)
     gtk_widget_destroy (GTK_WIDGET (screenwin));
 }
 
-int screen_message_dialog(const char *title, MsgType type, const char *msg,...)
+int screen_message_dialog (const char *title, MsgType type, const char *msg,...)
 {
     GtkWidget *dialog = NULL;
     va_list    args;
@@ -883,38 +883,38 @@ int screen_message_dialog(const char *title, MsgType type, const char *msg,...)
     {
         case ERROR:
         {
-            dialog = gtk_message_dialog_new(NULL,
-                                            GTK_DIALOG_DESTROY_WITH_PARENT,
-                                            GTK_MESSAGE_ERROR,
-                                            GTK_BUTTONS_OK,
-                                            "%s",title);
+            dialog = gtk_message_dialog_new (NULL,
+                                             GTK_DIALOG_DESTROY_WITH_PARENT,
+                                             GTK_MESSAGE_ERROR,
+                                             GTK_BUTTONS_OK,
+                                             "%s",title);
             break;
         }
         case WARING:
         {
-            dialog = gtk_message_dialog_new(NULL,
-                                            GTK_DIALOG_DESTROY_WITH_PARENT,
-                                            GTK_MESSAGE_WARNING,
-                                            GTK_BUTTONS_OK,
-                                            "%s",title);
+            dialog = gtk_message_dialog_new (NULL,
+                                             GTK_DIALOG_DESTROY_WITH_PARENT,
+                                             GTK_MESSAGE_WARNING,
+                                             GTK_BUTTONS_OK,
+                                             "%s",title);
             break;
         }
         case INFOR:
         {
-            dialog = gtk_message_dialog_new(NULL,
-                                            GTK_DIALOG_DESTROY_WITH_PARENT,
-                                            GTK_MESSAGE_INFO,
-                                            GTK_BUTTONS_OK,
-                                            "%s",title);
+            dialog = gtk_message_dialog_new (NULL,
+                                             GTK_DIALOG_DESTROY_WITH_PARENT,
+                                             GTK_MESSAGE_INFO,
+                                             GTK_BUTTONS_OK,
+                                             "%s",title);
             break;
         }
         case QUESTION:
         {
-            dialog = gtk_message_dialog_new(NULL,
-                                            GTK_DIALOG_DESTROY_WITH_PARENT,
-                                            GTK_MESSAGE_QUESTION,
-                                            GTK_BUTTONS_YES_NO,
-                                            "%s",title);
+            dialog = gtk_message_dialog_new (NULL,
+                                             GTK_DIALOG_DESTROY_WITH_PARENT,
+                                             GTK_MESSAGE_QUESTION,
+                                             GTK_BUTTONS_YES_NO,
+                                             "%s",title);
             break;
         }
         default :
@@ -922,16 +922,17 @@ int screen_message_dialog(const char *title, MsgType type, const char *msg,...)
 
     }
 
-    va_start(args, msg);
+    va_start (args, msg);
     message = g_strdup_vprintf (msg, args);
-    va_end(args);
+    va_end (args);
 
-    gtk_message_dialog_format_secondary_markup(GTK_MESSAGE_DIALOG(dialog),
-                                               MSGFORMAT,
-                                               message);
-    gtk_window_set_title(GTK_WINDOW(dialog),_("Message"));
-    ret =  gtk_dialog_run(GTK_DIALOG(dialog));
-    gtk_widget_destroy(dialog);
+    gtk_message_dialog_format_secondary_markup (GTK_MESSAGE_DIALOG (dialog),
+                                                MSGFORMAT,
+                                                message);
+
+    gtk_window_set_title (GTK_WINDOW (dialog), _("Message"));
+    ret = gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
     g_free (message);
 
     return ret;

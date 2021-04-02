@@ -31,6 +31,7 @@ enum
     CANCELED,
     LAST_SIGNAL
 };
+
 struct _ScreenListPrivate
 {
     WnckWindow   *wnck_window;
@@ -63,6 +64,7 @@ static GtkWidget* dialog_add_button_with_icon_name (GtkDialog   *dialog,
 
     return button;
 }
+
 static void
 set_window_icons_cb (GtkTreeViewColumn *column,
                      GtkCellRenderer   *renderer,
@@ -147,8 +149,8 @@ create_tree_view_column (GtkWidget *tree_view)
                                              NULL,
                                              NULL);
 
-    gtk_tree_view_append_column(GTK_TREE_VIEW(tree_view), column);
-    gtk_tree_view_set_headers_visible (GTK_TREE_VIEW(tree_view), FALSE);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
+    gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tree_view), FALSE);
 }
 
 static gboolean
@@ -159,7 +161,7 @@ select_window_list_cb (GtkWidget *widget, gpointer data)
     WnckWindow   *window;
 
     ScreenList *list = SCREEN_LIST (data);
-    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(widget), &model, &iter))
+    if (gtk_tree_selection_get_selected (GTK_TREE_SELECTION (widget), &model, &iter))
     {
 
         gtk_tree_model_get (model,
@@ -190,15 +192,15 @@ screen_list_dialog_fill (ScreenList *list)
     dialog = GTK_DIALOG (list);
     dialog_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
     list->priv->store = gtk_list_store_new (1, WNCK_TYPE_WINDOW);
-    list->priv->tree_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(list->priv->store));
+    list->priv->tree_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (list->priv->store));
     create_tree_view_column (list->priv->tree_view);
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (list->priv->tree_view));
     gtk_tree_selection_set_mode (selection,GTK_SELECTION_SINGLE);
-    s_id = g_signal_connect(selection,
-                           "changed",
-                            G_CALLBACK(select_window_list_cb),
-                            list);
+    s_id = g_signal_connect (selection,
+                            "changed",
+                             G_CALLBACK(select_window_list_cb),
+                             list);
 
     list->priv->selection = selection;
     list->priv->s_id = s_id;
@@ -339,6 +341,7 @@ screen_list_class_init (ScreenListClass *klass)
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
 }
+
 static void
 screen_list_init (ScreenList *list)
 {

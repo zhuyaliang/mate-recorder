@@ -34,6 +34,7 @@ enum
     CANCELED,
     LAST_SIGNAL
 };
+
 struct _ScreenAreaPrivate
 {
     int startx;
@@ -60,7 +61,8 @@ struct _ScreenAreaPrivate
 static guint signals[LAST_SIGNAL] = { 0 };
 G_DEFINE_TYPE_WITH_PRIVATE (ScreenArea, screen_area, GTK_TYPE_WINDOW)
 
-const int HANDLE_CURSORS[]= {
+const int HANDLE_CURSORS[]=
+{
     GDK_TOP_LEFT_CORNER,
     GDK_TOP_SIDE,
     GDK_TOP_RIGHT_CORNER,
@@ -71,6 +73,7 @@ const int HANDLE_CURSORS[]= {
     GDK_BOTTOM_SIDE,
     GDK_BOTTOM_RIGHT_CORNER
 };
+
 typedef enum
 {
     HANDLE_TL = 0,
@@ -188,13 +191,13 @@ cb_keypress_event (GtkWidget *widget,
 
     return TRUE;
 }
+
 static void outline_text(cairo_t *cr, int w, int h, double size, const char *text, gboolean cmp)
 {
     cairo_text_extents_t extents;
     double cx, cy;
 
     cairo_set_font_size (cr, size);
-/*???????????????????????*/
     cairo_select_font_face (cr, "Ubuntu", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
     cairo_text_extents (cr, text, &extents);
     cairo_set_line_width (cr, 2.0);
@@ -242,7 +245,7 @@ cb_draw (GtkWidget    *widget,
     gtk_window_get_size (GTK_WINDOW (area), &w, &h);
     if (area->priv->compositing)
     {
-        cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 0.45);
+        cairo_set_source_rgba (cairo, 0.0, 0.0, 0.0, 0.45);
     }
     else
     {
@@ -260,7 +263,7 @@ cb_draw (GtkWidget    *widget,
     cairo_stroke (cairo);
     if (area->priv->compositing)
     {
-        cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 0.0);
+        cairo_set_source_rgba (cairo, 0.0, 0.0, 0.0, 0.0);
     }
     else
     {
@@ -278,17 +281,17 @@ cb_draw (GtkWidget    *widget,
     {
         if (i == HANDLE_MOVE)
             continue;
-        x = floor(i % 3) / 2;
-        y = floor(i / 3) / 2;
+        x = floor (i % 3) / 2;
+        y = floor (i / 3) / 2;
 
         centerx = area->priv->startx + area->priv->width * x;
         centery = area->priv->starty + area->priv->height * y;
-        grad = cairo_pattern_create_radial(centerx,
-                                           centery,
-                                           0,
-                                           centerx,
-                                           centery + 2,
-                                           10);
+        grad = cairo_pattern_create_radial (centerx,
+                                            centery,
+                                            0,
+                                            centerx,
+                                            centery + 2,
+                                            10);
         cairo_pattern_add_color_stop_rgba (grad, 0.6, 0.0, 0.0, 0.0, 0.6);
         cairo_pattern_add_color_stop_rgba (grad, 0.75, 0.0, 0.0, 0.0, 0.25);
         cairo_pattern_add_color_stop_rgba (grad, 1.0, 0.0, 0.0, 0.0, 0.0);
@@ -309,14 +312,15 @@ cb_draw (GtkWidget    *widget,
 
         cairo_pattern_destroy (grad);
     }
-    size = g_strdup_printf ("%d X %d",ABS(area->priv->width + 1), ABS(area->priv->height + 1));
-    outline_text(cairo, w, h, 30, _("Select an area by clicking and dragging."), area->priv->compositing);
-    outline_text(cairo, w, h + 50, 26, _("Press ENTER to confirm or ESC to cancel"), area->priv->compositing);
-    outline_text(cairo, w, h + 100, 20, size, area->priv->compositing);
+    size = g_strdup_printf ("%d X %d", ABS(area->priv->width + 1), ABS(area->priv->height + 1));
+    outline_text (cairo, w, h, 30, _("Select an area by clicking and dragging."), area->priv->compositing);
+    outline_text (cairo, w, h + 50, 26, _("Press ENTER to confirm or ESC to cancel"), area->priv->compositing);
+    outline_text (cairo, w, h + 100, 20, size, area->priv->compositing);
     cairo_set_operator (cairo, CAIRO_OPERATOR_SOURCE);
 
     return TRUE;
 }
+
 static gboolean
 cb_draw_motion_notify_event (GtkWidget       *widget,
                              GdkEventMotion  *event,
@@ -348,8 +352,8 @@ cb_draw_motion_notify_event (GtkWidget       *widget,
 
     for (i = 0; i < 9; i++)
     {
-        x = floor(i % 3) / 2;
-        y = floor(i / 3) / 2;
+        x = floor (i % 3) / 2;
+        y = floor (i / 3) / 2;
         offsetx = area->priv->width * x;
         offsety = area->priv->height * y;
 
@@ -358,26 +362,26 @@ cb_draw_motion_notify_event (GtkWidget       *widget,
         if (area->priv->g_starty > area->priv->g_endy)
            offsety *= -1;
 
-        if (in_circle(MIN(area->priv->g_startx, area->priv->g_endx) + offsetx,
-                      MIN(area->priv->g_starty, area->priv->g_endy) + offsety,
-                      8, sx + ex, sy + ey))
+        if (in_circle (MIN (area->priv->g_startx, area->priv->g_endx) + offsetx,
+                       MIN (area->priv->g_starty, area->priv->g_endy) + offsety,
+                       8, sx + ex, sy + ey))
         {
             cursor_changed = TRUE;
             cursor = gdk_cursor_new_for_display (ds, HANDLE_CURSORS[i]);
-            gdk_window_set_cursor(area->priv->root_window, cursor);
+            gdk_window_set_cursor (area->priv->root_window, cursor);
             break;
         }
         cursor = gdk_cursor_new_for_display (ds, GDK_CROSSHAIR);
-        gdk_window_set_cursor(area->priv->root_window, cursor);
+        gdk_window_set_cursor (area->priv->root_window, cursor);
     }
     if (!cursor_changed && \
-         MIN(area->priv->startx, area->priv->endx) < ex  &&\
+         MIN (area->priv->startx, area->priv->endx) < ex  &&\
          ex < MAX(area->priv->startx, area->priv->endx) &&\
-         MIN(area->priv->starty, area->priv->endy) < ey &&\
+         MIN (area->priv->starty, area->priv->endy) < ey &&\
          ey < MAX(area->priv->starty, area->priv->endy))
     {
         cursor = gdk_cursor_new_for_display (ds, HANDLE_CURSORS[HANDLE_MOVE]);
-        gdk_window_set_cursor(area->priv->root_window, cursor);
+        gdk_window_set_cursor (area->priv->root_window, cursor);
 
     }
 
@@ -390,7 +394,7 @@ cb_draw_motion_notify_event (GtkWidget       *widget,
             area->priv->g_startx = sx + ex;
             area->priv->g_starty = sy + ey;
         }
-        else if(area->priv->resize_handle == HANDLE_TC)
+        else if (area->priv->resize_handle == HANDLE_TC)
         {
             area->priv->starty = ey;
             area->priv->g_starty = sy + ey;
@@ -500,8 +504,8 @@ cb_draw_button_press_event (GtkWidget       *widget,
 
     for(i = 0; i < 9; i++)
     {
-        x = floor(i % 3) / 2;
-        y = floor(i / 3) / 2;
+        x = floor (i % 3) / 2;
+        y = floor (i / 3) / 2;
         offsetx = area->priv->width * x;
         offsety = area->priv->height * y;
 
@@ -513,14 +517,14 @@ cb_draw_button_press_event (GtkWidget       *widget,
             return TRUE;
         }
     }
-    if (MIN(area->priv->startx, area->priv->endx) < ex &&
-        ex < MAX(area->priv->startx, area->priv->endx) &&\
-        MIN(area->priv->starty, area->priv->endy) < ey &&
-        ey < MAX(area->priv->starty, area->priv->endy))
+    if (MIN (area->priv->startx, area->priv->endx) < ex &&
+        ex < MAX (area->priv->startx, area->priv->endx) &&\
+        MIN (area->priv->starty, area->priv->endy) < ey &&
+        ey < MAX (area->priv->starty, area->priv->endy))
     {
         if (event->type == GDK_2BUTTON_PRESS)
         {
-            accept_area(area);
+            accept_area (area);
             g_signal_emit (area, signals[SELECTED], 0);
         }
 
@@ -554,6 +558,7 @@ cb_draw_button_release_event (GtkWidget       *widget,
 
     return TRUE;
 }
+
 static gboolean
 cb_leave_notify_event (GtkWidget       *widget,
                        GdkEvent        *event,
@@ -566,7 +571,7 @@ cb_leave_notify_event (GtkWidget       *widget,
     ScreenArea *area = SCREEN_AREA (user_data);
     gdk_device_get_position (area->priv->device, &screen, &x, &y);
     rect = get_rectangle_data (area->priv->device);
-    if( x > 0 || y > 0)
+    if ( x > 0 || y > 0)
     {
         gtk_window_unfullscreen (GTK_WINDOW (user_data));
         gtk_window_move (GTK_WINDOW (user_data), rect.x, rect.y);
@@ -575,6 +580,7 @@ cb_leave_notify_event (GtkWidget       *widget,
 
     return TRUE;
 }
+
 static void screen_area_init_signal (ScreenArea *area, GtkWidget *drawing)
 {
 
@@ -623,12 +629,13 @@ screen_area_fill (ScreenArea *area)
     drawing = gtk_drawing_area_new ();
     gtk_box_pack_start (GTK_BOX (vbox), drawing, TRUE, TRUE, 0);
     gtk_widget_set_size_request (drawing, 100, 100);
-    gtk_widget_add_events(drawing, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-                          GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
-                          GDK_LEAVE_NOTIFY_MASK);
+    gtk_widget_add_events (drawing, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
+                           GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
+                           GDK_LEAVE_NOTIFY_MASK);
     screen_area_init_signal (area, drawing);
     gtk_window_fullscreen (GTK_WINDOW (window));
 }
+
 static GObject *
 screen_area_constructor (GType                  type,
                          guint                  n_construct_properties,
@@ -683,6 +690,7 @@ screen_area_class_init (ScreenAreaClass *klass)
                        g_cclosure_marshal_VOID__VOID,
                        G_TYPE_NONE, 0);
 }
+
 static void
 screen_area_init (ScreenArea *area)
 {

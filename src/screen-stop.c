@@ -27,12 +27,14 @@ struct _ScreenStopPrivate
     stop_type  stop_mode;
     guint      time_id;
 };
+
 enum
 {
     PROP_0,
     PROP_STOP_TIME,
     PROP_STOP_SIZE,
 };
+
 enum
 {
     STOPED,
@@ -41,7 +43,8 @@ enum
 
 static guint signals[LAST_SIGNAL] = { 0 };
 G_DEFINE_TYPE_WITH_PRIVATE (ScreenStop, screen_stop, GTK_TYPE_FRAME)
-static void
+
+    static void
 stop_by_time_cb (GtkRadioButton *button,
                  gpointer        user_data)
 {
@@ -50,6 +53,7 @@ stop_by_time_cb (GtkRadioButton *button,
     stop->priv = screen_stop_get_instance_private (stop);
     stop->priv->stop_mode = STOP_BY_TIME;
 }
+
 static void
 stop_by_size_cb (GtkRadioButton *button,
                  gpointer        user_data)
@@ -59,6 +63,7 @@ stop_by_size_cb (GtkRadioButton *button,
     stop->priv = screen_stop_get_instance_private (stop);
     stop->priv->stop_mode = STOP_BY_SIZE;
 }
+
 static void
 stop_by_unlimited_cb (GtkRadioButton *button,
                       gpointer        user_data)
@@ -68,6 +73,7 @@ stop_by_unlimited_cb (GtkRadioButton *button,
     stop->priv = screen_stop_get_instance_private (stop);
     stop->priv->stop_mode = STOP_BY_UNLIMITED;
 }
+
 static void
 screen_stop_dispose (GObject *object)
 {
@@ -136,26 +142,26 @@ screen_stop_init (ScreenStop *stop)
 
     stop->priv = screen_stop_get_instance_private (stop);
 
-    table = gtk_grid_new();
+    table = gtk_grid_new ();
     gtk_container_add (GTK_CONTAINER (stop), table);
-    gtk_grid_set_row_spacing(GTK_GRID(table), 10);
-    gtk_grid_set_column_spacing(GTK_GRID(table), 10);
-    gtk_grid_set_column_homogeneous(GTK_GRID(table), TRUE);
+    gtk_grid_set_row_spacing (GTK_GRID (table), 10);
+    gtk_grid_set_column_spacing (GTK_GRID (table), 10);
+    gtk_grid_set_column_homogeneous (GTK_GRID (table), TRUE);
 
     radio1 = gtk_radio_button_new_with_label (NULL, _("stop by time (S)"));
     g_signal_connect (radio1,
                      "toggled",
                       G_CALLBACK (stop_by_time_cb),
                       stop);
-    gtk_grid_attach(GTK_GRID(table), radio1, 0, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), radio1, 0, 0, 1, 1);
 
     spin = gtk_spin_button_new_with_range (2, 86400, 1);
     g_object_bind_property (spin, "value", stop, "stop_time", 0);
     g_object_bind_property (radio1, "active", spin, "sensitive", 0);
-    gtk_grid_attach(GTK_GRID(table), spin, 1, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), spin, 1, 0, 1, 1);
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (spin), (double)length);
 
-    radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(radio1));
+    radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON(radio1));
     radio2 = gtk_radio_button_new_with_label (radio_group, _("stop by size (MB)"));
     g_signal_connect (radio2,
                      "toggled",
@@ -168,14 +174,14 @@ screen_stop_init (ScreenStop *stop)
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (spin), 2);
 //    gtk_grid_attach(GTK_GRID(table), spin, 1, 1, 1, 1);
 
-    radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(radio1));
+    radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radio1));
     radio3 = gtk_radio_button_new_with_label (radio_group, _("unlimited"));
     g_signal_connect (radio3,
                      "toggled",
                       G_CALLBACK (stop_by_unlimited_cb),
                       stop);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio3), TRUE);
-    gtk_grid_attach(GTK_GRID(table), radio3, 0, 2, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), radio3, 0, 2, 1, 1);
 }
 
 static void
@@ -187,7 +193,7 @@ screen_stop_class_init (ScreenStopClass *stop_class)
     gobject_class->set_property = screen_stop_set_property;
     gobject_class->get_property = screen_stop_get_property;
 
-    gobject_class->dispose      = screen_stop_dispose;
+    gobject_class->dispose = screen_stop_dispose;
     g_object_class_install_property (
             gobject_class,
             PROP_STOP_TIME,
@@ -227,7 +233,7 @@ screen_stop_new (const char *title)
 
     stop = g_object_new (SCREEN_TYPE_STOP, NULL);
     gtk_frame_set_label (GTK_FRAME (stop), "");
-    text =  g_markup_printf_escaped("<span color = \'grey\' size=\"%s\" weight='bold'>%s</span>","large",title);
+    text =  g_markup_printf_escaped ("<span color = \'grey\' size=\"%s\" weight='bold'>%s</span>","large",title);
     label = gtk_frame_get_label_widget (GTK_FRAME (stop));
     gtk_label_set_markup (GTK_LABEL (label), text);
 
@@ -235,6 +241,7 @@ screen_stop_new (const char *title)
 
     return GTK_WIDGET (stop);
 }
+
 int screen_stop_get_stop_time (ScreenStop *stop)
 {
     return stop->priv->stop_time;
@@ -264,6 +271,7 @@ static gboolean monitor_file_cb (gpointer data)
     second++;
     return TRUE;
 }
+
 guint start_screen_stop_monitor (ScreenStop *stop)
 {
     if (stop->priv->stop_mode == STOP_BY_UNLIMITED)

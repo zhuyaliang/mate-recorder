@@ -45,6 +45,7 @@ enum
 
 static guint signals[LAST_SIGNAL] = { 0 };
 G_DEFINE_TYPE_WITH_PRIVATE (ScreenSave, screen_save, GTK_TYPE_FRAME)
+
 static void screen_save_set_folder_name (ScreenSave *save,const char *folder_name)
 {
     save->priv->folder_name = g_strdup (folder_name);
@@ -57,7 +58,7 @@ static void save_folder_changed_cb (GtkFileChooser *chooser,
     gchar *folder_name;
 
     folder_name = gtk_file_chooser_get_uri (chooser);
-    screen_save_set_folder_name (save,g_filename_from_uri (folder_name,NULL,NULL));
+    screen_save_set_folder_name (save, g_filename_from_uri (folder_name, NULL, NULL));
 }
 
 static void
@@ -154,7 +155,7 @@ static char *get_screen_save_file_name (char *suffix)
     date_time = g_date_time_new_now_local ();
     time1 = g_date_time_format (date_time, ("%x"));
     time2 = g_date_time_format (date_time, ("%X"));
-    time3 = g_strdup_printf ("%s%s%s.%s",time1,text,time2,suffix);
+    time3 = g_strdup_printf ("%s%s%s.%s", time1, text, time2, suffix);
 
     while (time3[i] != '\0')
     {
@@ -188,7 +189,7 @@ create_video_format_combox (void)
     gboolean    sensitive = TRUE;
     int         i = 0;
 
-    if (access(H264_PLUG, F_OK) !=0)
+    if (access (H264_PLUG, F_OK) !=0)
     {
         sensitive = FALSE;
     }
@@ -227,11 +228,11 @@ screen_save_init (ScreenSave *save)
 
     save->priv->hash_table = create_hash_table ();
 
-    table = gtk_grid_new();
+    table = gtk_grid_new ();
     gtk_container_add (GTK_CONTAINER (save), table);
-    gtk_grid_set_row_spacing(GTK_GRID(table), 10);
-    gtk_grid_set_column_spacing(GTK_GRID(table), 10);
-    gtk_grid_set_column_homogeneous(GTK_GRID(table), TRUE);
+    gtk_grid_set_row_spacing (GTK_GRID (table), 10);
+    gtk_grid_set_column_spacing (GTK_GRID (table), 10);
+    gtk_grid_set_column_homogeneous (GTK_GRID (table), TRUE);
 
     label = gtk_label_new (_("Video Foramt"));
     gtk_widget_set_halign (label, GTK_ALIGN_START);
@@ -288,7 +289,7 @@ screen_save_class_init (ScreenSaveClass *save_class)
     gobject_class->set_property = screen_save_set_property;
     gobject_class->get_property = screen_save_get_property;
 
-    gobject_class->dispose      = screen_save_dispose;
+    gobject_class->dispose = screen_save_dispose;
 
     g_object_class_install_property (
             gobject_class,
@@ -333,8 +334,8 @@ screen_save_new (const char *title)
                      "format-changed",
                       G_CALLBACK (record_format_changed),
                       NULL);
-    gtk_frame_set_label (GTK_FRAME (save),"");
-    text =  g_markup_printf_escaped("<span color = \'grey\' size=\"%s\" weight='bold'>%s</span>","large",title);
+    gtk_frame_set_label (GTK_FRAME (save), "");
+    text =  g_markup_printf_escaped ("<span color = \'grey\' size=\"%s\" weight='bold'>%s</span>","large",title);
     label = gtk_frame_get_label_widget (GTK_FRAME (save));
     gtk_label_set_markup (GTK_LABEL (label),text);
 

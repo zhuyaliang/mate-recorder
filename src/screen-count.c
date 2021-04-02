@@ -25,6 +25,7 @@ enum
     FINISHED,
     LAST_SIGNAL
 };
+
 struct _ScreenCountPrivate
 {
     int         count_down;
@@ -32,6 +33,7 @@ struct _ScreenCountPrivate
     GtkWidget  *spin_button;
     GtkWidget  *window;
 };
+
 static guint signals[LAST_SIGNAL] = { 0 };
 G_DEFINE_TYPE_WITH_PRIVATE (ScreenCount, screen_count, GTK_TYPE_FRAME)
 
@@ -49,23 +51,23 @@ static gboolean on_darw (GtkWidget *widget, cairo_t *cr1, gpointer data)
     int              i;
 
     i = count->priv->count_down;
-    file = g_strdup_printf ("%s/%s","/usr/share/mate-recorder/counter",count_images[i]);
+    file = g_strdup_printf ("%s/%s","/usr/share/mate-recorder/counter", count_images[i]);
     window = gtk_widget_get_window (widget);
-    image = cairo_image_surface_create_from_png(file);
+    image = cairo_image_surface_create_from_png (file);
 
-    region = gdk_cairo_region_create_from_surface(image);
-    ctx = gdk_window_begin_draw_frame (window,region);
+    region = gdk_cairo_region_create_from_surface (image);
+    ctx = gdk_window_begin_draw_frame (window, region);
     cr = gdk_drawing_context_get_cairo_context (ctx);
 
-    cairo_set_source_rgba(cr,0.0, 0.0, 0.0, 0.45);
-    cairo_set_operator (cr,CAIRO_OPERATOR_SOURCE);
+    cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.45);
+    cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
     cairo_paint (cr);
-    cairo_set_source_surface (cr,image,0,0);
+    cairo_set_source_surface (cr, image, 0, 0);
     cairo_paint (cr);
 
     gdk_window_end_draw_frame (window, ctx);
-    cairo_region_destroy(region);
-    cairo_surface_destroy(image);
+    cairo_region_destroy (region);
+    cairo_surface_destroy (image);
 
     g_free (file);
     return FALSE;
@@ -78,6 +80,7 @@ static gboolean send_finished_signal (gpointer data)
 
     return FALSE;
 }
+
 static gboolean screen_countdown (gpointer data)
 {
     ScreenCount *count = SCREEN_COUNT (data);
@@ -100,6 +103,7 @@ static gboolean screen_countdown (gpointer data)
 
     return TRUE;
 }
+
 static void count_down_changed_cb (GtkSpinButton *spin_button,
                                    gpointer       user_data)
 {
@@ -118,26 +122,27 @@ static GtkWidget *create_count_down_window (ScreenCount *count)
     GtkWidget *toplevel;
     GdkScreen *screen;
 
-    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     darea = gtk_drawing_area_new ();
     gtk_container_add (GTK_CONTAINER (window), darea);
 
-    g_signal_connect(darea, "draw", G_CALLBACK (on_darw), count);
+    g_signal_connect (darea, "draw", G_CALLBACK (on_darw), count);
     gtk_widget_show (darea);
     toplevel = gtk_widget_get_toplevel (window);
-    screen = gtk_widget_get_screen(GTK_WIDGET(toplevel));
-    visual = gdk_screen_get_rgba_visual(screen);
-    gtk_widget_set_visual(GTK_WIDGET(toplevel), visual);
+    screen = gtk_widget_get_screen (GTK_WIDGET (toplevel));
+    visual = gdk_screen_get_rgba_visual (screen);
+    gtk_widget_set_visual (GTK_WIDGET (toplevel), visual);
 
-    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+    gtk_window_set_position (GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_type_hint (GTK_WINDOW(window), GDK_WINDOW_TYPE_HINT_MENU);
-    gtk_window_set_default_size(GTK_WINDOW(window), 380, 380);
-    gtk_widget_set_app_paintable(window, TRUE);
+    gtk_window_set_default_size (GTK_WINDOW(window), 380, 380);
+    gtk_widget_set_app_paintable (window, TRUE);
     gtk_window_set_resizable (GTK_WINDOW(window), TRUE);
     gtk_window_set_decorated (GTK_WINDOW(window), FALSE);
 
     return window;
 }
+
 static void
 screen_count_dispose (GObject *object)
 {
@@ -161,7 +166,7 @@ screen_count_init (ScreenCount *count)
     gtk_widget_set_valign (hbox, GTK_ALIGN_CENTER);
     gtk_widget_set_halign (hbox, GTK_ALIGN_CENTER);
     gtk_container_add (GTK_CONTAINER (count), hbox);
-    label = gtk_label_new(_("count down"));
+    label = gtk_label_new (_("count down"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 12);
     spin = gtk_spin_button_new_with_range (0, 10, 1);
     gtk_widget_set_valign (spin, GTK_ALIGN_CENTER);
@@ -183,7 +188,7 @@ screen_count_class_init (ScreenCountClass *count_class)
     GObjectClass *gobject_class;
 
     gobject_class = G_OBJECT_CLASS (count_class);
-    gobject_class->dispose      = screen_count_dispose;
+    gobject_class->dispose = screen_count_dispose;
 
     signals [FINISHED] =
          g_signal_new ("finished",
@@ -204,10 +209,10 @@ screen_count_new (const char *title)
     char        *text;
 
     count = g_object_new (SCREEN_TYPE_COUNT, NULL);
-    gtk_frame_set_label (GTK_FRAME (count),"");
-    text =  g_markup_printf_escaped("<span color = \'grey\' size=\"%s\" weight='bold'>%s</span>","large",title);
+    gtk_frame_set_label (GTK_FRAME (count), "");
+    text =  g_markup_printf_escaped ("<span color = \'grey\' size=\"%s\" weight='bold'>%s</span>","large",title);
     label = gtk_frame_get_label_widget (GTK_FRAME (count));
-    gtk_label_set_markup (GTK_LABEL (label),text);
+    gtk_label_set_markup (GTK_LABEL (label), text);
 
     g_free (text);
 

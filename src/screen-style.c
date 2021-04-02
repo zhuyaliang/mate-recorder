@@ -96,19 +96,19 @@ screen_style_init (ScreenStyle *style)
 
     style->priv = screen_style_get_instance_private (style);
     style->priv->framerate = 15;
-    table = gtk_grid_new();
+    table = gtk_grid_new ();
     gtk_container_add (GTK_CONTAINER (style), table);
-    gtk_grid_set_row_spacing(GTK_GRID(table), 10);
-    gtk_grid_set_column_spacing(GTK_GRID(table), 10);
-    gtk_grid_set_column_homogeneous(GTK_GRID(table), TRUE);
+    gtk_grid_set_row_spacing (GTK_GRID (table), 10);
+    gtk_grid_set_column_spacing (GTK_GRID (table), 10);
+    gtk_grid_set_column_homogeneous (GTK_GRID (table), TRUE);
 
-    label = gtk_label_new(_("show cursor when screencast"));
+    label = gtk_label_new (_("show cursor when screencast"));
     gtk_widget_set_halign (label, GTK_ALIGN_START);
     gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-    gtk_grid_attach(GTK_GRID(table), label, 0, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
 
     check_button = gtk_check_button_new_with_mnemonic (_("Show cursor"));
-    gtk_grid_attach(GTK_GRID(table), check_button, 1, 0, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), check_button, 1, 0, 1, 1);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_button), TRUE);
     style->priv->show_cursor = TRUE;
     g_object_bind_property (check_button, "active", style, "show_cursor", 0);
@@ -116,12 +116,12 @@ screen_style_init (ScreenStyle *style)
     label = gtk_label_new (_("framerate"));
     gtk_widget_set_halign (label, GTK_ALIGN_START);
     gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-    gtk_grid_attach(GTK_GRID(table), label, 0, 1, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
 
     spin = gtk_spin_button_new_with_range (15, 60, 1);
     g_object_bind_property (spin, "value", style, "framerate", 0);
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (spin), 15);
-    gtk_grid_attach(GTK_GRID(table), spin, 1, 1, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), spin, 1, 1, 1, 1);
 }
 
 static void
@@ -133,7 +133,8 @@ screen_style_class_init (ScreenStyleClass *style_class)
     gobject_class->set_property = screen_style_set_property;
     gobject_class->get_property = screen_style_get_property;
 
-    gobject_class->dispose      = screen_style_dispose;
+    gobject_class->dispose = screen_style_dispose;
+
     g_object_class_install_property (
             gobject_class,
             PROP_SHOW_CURSOR,
@@ -164,7 +165,7 @@ screen_style_new (const char *title)
 
     style = g_object_new (SCREEN_TYPE_STYLE, NULL);
     gtk_frame_set_label (GTK_FRAME (style),"");
-    text =  g_markup_printf_escaped("<span color = \'grey\' size=\"%s\" weight='bold'>%s</span>","large",title);
+    text =  g_markup_printf_escaped ("<span color = \'grey\' size=\"%s\" weight='bold'>%s</span>","large",title);
     label = gtk_frame_get_label_widget (GTK_FRAME (style));
     gtk_label_set_markup (GTK_LABEL (label),text);
 

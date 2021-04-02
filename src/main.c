@@ -37,29 +37,29 @@
 
 static void remove_lock_dir (void)
 {
-    DIR  *dir;
-    struct dirent *ptr;
-    char *file_path;
+    DIR    *dir;
+    struct  dirent *ptr;
+    char   *file_path;
 
-    dir = opendir(LOCKDIR);
-    while ((ptr = readdir(dir)) != NULL)
+    dir = opendir (LOCKDIR);
+    while ((ptr = readdir (dir)) != NULL)
     {
-        if(strcmp(ptr->d_name,".")==0 || strcmp(ptr->d_name,"..")==0)
+        if (strcmp (ptr->d_name, ".") == 0 || strcmp (ptr->d_name, "..") == 0)
             continue;
-        if(ptr->d_type == 8)
+        if (ptr->d_type == 8)
         {
             file_path = g_build_filename (LOCKDIR, ptr->d_name, NULL);
             remove (file_path);
             g_free (file_path);
         }
     }
-    closedir(dir);
+    closedir (dir);
     remove (LOCKDIR);
 }
-static void app_quit(GtkWidget *object,
-                     gpointer   user_data)
+static void app_quit (GtkWidget *object,
+                      gpointer   user_data)
 {
-    if (access(LOCKDIR,F_OK) == 0)
+    if (access (LOCKDIR, F_OK) == 0)
     {
         remove_lock_dir ();
     }
@@ -73,7 +73,7 @@ static void create_pid_file (void)
     int   fd;
     char *lock_file;
 
-    pid = getpid();
+    pid = getpid ();
     lock_file = g_strdup_printf ("%s/%d", LOCKDIR, pid);
     fd = creat (lock_file, 0777);
     g_free (lock_file);
@@ -85,9 +85,9 @@ static gboolean check_process_already_running (void)
     pid_t pid;
     struct dirent *ptr;
 
-    umask(0);
+    umask (0);
 
-    if (access(LOCKDIR,F_OK) !=0)
+    if (access (LOCKDIR, F_OK) != 0)
     {
         mkdir (LOCKDIR, S_IRWXU|S_IRWXO|S_IRWXG);
         create_pid_file ();
@@ -95,21 +95,21 @@ static gboolean check_process_already_running (void)
     }
     else
     {
-        dir = opendir(LOCKDIR);
+        dir = opendir (LOCKDIR);
         while ((ptr = readdir(dir)) != NULL)
         {
-            if(strcmp(ptr->d_name,".")==0 || strcmp(ptr->d_name,"..")==0)
+            if (strcmp (ptr->d_name, ".") == 0 || strcmp (ptr->d_name, "..") == 0)
                 continue;
-            if(ptr->d_type == 8)
+            if (ptr->d_type == 8)
             {
                 pid = atoi (ptr->d_name);
-                if(kill(pid, 0) == 0)
+                if (kill (pid, 0) == 0)
                 {
                     return TRUE;
                 }
             }
         }
-        closedir(dir);
+        closedir (dir);
     }
     create_pid_file ();
     return FALSE;
@@ -124,7 +124,7 @@ static void acquired_call_back (GDBusConnection *Connection,
     GdkPixbuf    *pixbuf = NULL;
     GError       *error = NULL;
 
-    if (access(H264_PLUG, F_OK) !=0)
+    if (access (H264_PLUG, F_OK) !=0)
     {
         screen_message_dialog (_("Check Run Env"), INFOR, _("Please install H264 plug-in (GST plugins ugly), otherwise some recording formats cannot be used"));
     }
@@ -136,7 +136,7 @@ static void acquired_call_back (GDBusConnection *Connection,
         exit (0);
     }
     
-    if(register_screen_server (ss, &error) < 0)
+    if (register_screen_server (ss, &error) < 0)
     {
         screen_message_dialog (_("register server"), ERROR, "register video source interface failed %s", error->message);
         exit (0);
@@ -151,7 +151,7 @@ static void acquired_call_back (GDBusConnection *Connection,
                       G_CALLBACK (app_quit),
                       NULL);
     pixbuf = gdk_pixbuf_new_from_file(ICONPATH, NULL);
-    gtk_window_set_icon(GTK_WINDOW(window), pixbuf);
+    gtk_window_set_icon (GTK_WINDOW (window), pixbuf);
 
     gtk_widget_show_all (window);
 }

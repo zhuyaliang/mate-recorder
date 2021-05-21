@@ -90,11 +90,20 @@ typedef enum
 static int get_window_scaling (void)
 {
     GdkDisplay   *ds;
+    int           num;
     GdkMonitor   *monitor;
     gint          scale;
 
     ds = gdk_display_get_default ();
-    monitor = gdk_display_get_primary_monitor (ds);
+    num = gdk_display_get_n_monitors (ds);
+    if (num > 1)
+    {
+        monitor = gdk_display_get_primary_monitor (ds);
+    }
+    else
+    {
+        monitor = gdk_display_get_monitor (ds, num - 1);
+    }
     scale = gdk_monitor_get_scale_factor (monitor);
 
     return scale;
@@ -103,11 +112,20 @@ static int get_window_scaling (void)
 static GdkRectangle get_rectangle_data (GdkDevice *device)
 {
     GdkDisplay   *ds;
+    int           num;
     GdkMonitor   *monitor;
     GdkRectangle  rect;
 
     ds = gdk_device_get_display (device);
-    monitor = gdk_display_get_primary_monitor (ds);
+    num = gdk_display_get_n_monitors (ds);
+    if (num > 1)
+    {
+        monitor = gdk_display_get_primary_monitor (ds);
+    }
+    else
+    {
+        monitor = gdk_display_get_monitor (ds, num - 1);
+    }
     gdk_monitor_get_geometry (monitor, &rect);
 
     return rect;

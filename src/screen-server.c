@@ -163,14 +163,18 @@ static void get_full_screen_info (ScreenServer *ss)
 
     display = gdk_display_get_default ();
     num = gdk_display_get_n_monitors (display);
-    monitor = gdk_display_get_primary_monitor (display);
-    scale = gdk_monitor_get_scale_factor (monitor);
     if (num > 1)
     {
         screen_message_dialog (_("Detection screen monitor"),
                                INFOR,
                                _("It is detected that the system has multiple screen monitors. At present, it only supports recording the primary monitor desktop"));
+        monitor = gdk_display_get_primary_monitor (display);
     }
+    else
+    {
+        monitor = gdk_display_get_monitor (display, num - 1);
+    }
+    scale = gdk_monitor_get_scale_factor (monitor);
     gdk_monitor_get_geometry (monitor, &rect);
     g_hash_table_insert (ss->priv->win_hash, "x", GINT_TO_POINTER(rect.x));
     g_hash_table_insert (ss->priv->win_hash, "y", GINT_TO_POINTER(rect.y));

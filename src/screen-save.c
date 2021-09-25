@@ -19,7 +19,9 @@
  ************************************************************************/
 
 #include "screen-save.h"
+
 #define  H264_PLUG                "/usr/share/gstreamer-1.0/presets/GstX264Enc.prs"
+#define  TMP_MOVIES               "/tmp"
 
 struct _ScreenSavePrivate
 {
@@ -262,8 +264,16 @@ screen_save_init (ScreenSave *save)
                       save);
 
     video = g_get_user_special_dir (G_USER_DIRECTORY_VIDEOS);
-    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (picker), video);
-    screen_save_set_folder_name (save,video);
+    if (video == NULL)
+    {
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (picker), TMP_MOVIES);
+        screen_save_set_folder_name (save, TMP_MOVIES);
+    }
+    else
+    {
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (picker), video);
+        screen_save_set_folder_name (save, video);
+    }
     gtk_grid_attach (GTK_GRID (table), picker, 1, 1, 1, 1);
 
     label = gtk_label_new (_("FileName"));
